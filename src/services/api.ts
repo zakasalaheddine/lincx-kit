@@ -1,4 +1,4 @@
-import { AuthResponseSchema, TemplateSchema } from '../types/api.ts';
+import { AuthResponseSchema, TemplateSchema, CreativeAssetGroupSchema } from '../types/api.ts';
 import { IDENTITY_SERVER_URL, API_SERVER_URL } from '../utils/constants.ts';
 import { AuthError, ApiError } from '../utils/errors.ts';
 import { loadProjectConfig } from './config.ts';
@@ -110,5 +110,27 @@ export async function getTemplate(templateId: string) {
   if (parsedB.success) return parsedB.data.data;
 
   throw new ApiError('Malformed template response');
+}
+
+const SingleCreativeAssetGroupResponseA = z.object({ data: z.object({ creativeAssetGroup: CreativeAssetGroupSchema }) });
+const SingleCreativeAssetGroupResponseB = z.object({ data: CreativeAssetGroupSchema });
+
+export async function getCreativeAssetGroup(creativeAssetGroupId: string) {
+  const token = await loadAuthToken();
+  if (!token) {
+    throw new AuthError('Not logged in. Run "bun run src/cli.ts login" first.');
+  }
+
+  const raw = await fetchWithAuth(`/creative-asset-groups/${creativeAssetGroupId}`, {
+    method: 'GET',
+    token: token.token,
+    baseUrl: API_SERVER_URL,
+  });
+
+  const parsedA = SingleCreativeAssetGroupResponseA.safeParse(raw);
+  if (parsedA.success) return parsedA.data.data.creativeAssetGroup;
+  const parsedB = SingleCreativeAssetGroupResponseB.safeParse(raw);
+  if (parsedB.success) return parsedB.data.data;
+  throw new ApiError('Malformed creative asset group response');
 }
 

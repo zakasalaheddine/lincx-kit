@@ -30,6 +30,17 @@ export const TemplateConfigSchema = z.object({
   publisherId: z.string().min(1),
   creativeAssetGroupId: z.string().min(1),
   name: z.string().min(1),
+  notes: z.record(z.string(), z.any()).optional().default({}),
+  creativeAssetGroup: z
+    .object({
+      id: z.string().min(1),
+      name: z.string().min(1),
+      fields: z.object({
+        properties: z.record(z.string(), z.any()),
+        required: z.array(z.string()).optional().default([]),
+      }),
+    })
+    .optional(),
   mockData: MockDataConfigSchema.optional(),
 });
 export type TemplateConfig = z.infer<typeof TemplateConfigSchema>;

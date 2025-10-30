@@ -1,0 +1,429 @@
+<div class="offers__container" data-main-zone-id="{{zoneId}}">
+  {{#ads}}
+  <div class="offer__card" id="{{adId}}" data-group="{{ groupOffer }}">
+    <h2 class="offer__title">{{{ headline }}}</h2>
+    <h3 class="offer__subtitle">{{{ sub_headline }}}</h3>
+    <div class="offer__list">
+      <p class="offer__list-title" data-content="{{#cta_list}}{{.}}{{/cta_list}}">Related Searches</p>
+      <a
+        href="{{href}}"
+        target="_blank"
+        data-lincx-cta
+        data-lincx-cta-name="image"
+        data-lincx-cta-position="image"
+        data-content="{{ src }}{{ imageURL }}{{ videoSrc }}"
+        class="img-link"
+      >
+        <div data-src="{{ src }}" data-image-src="{{ imageURL }}" data-video-src="{{ videoSrc }}"></div>
+      </a>
+      <div class="cta__list" data-content="{{#cta_list}}{{.}}{{/cta_list}}">
+        {{#cta_list}}
+        <a
+          href="{{href}}"
+          target="_blank"
+          data-lincx-cta
+          data-lincx-cta-name="cta position {{ _index }}"
+          data-lincx-cta-position="cta_list"
+          style="background-color: {{ font_color_cta_list }};"
+          data-element="{{{.}}}"
+        >
+          <span class="icon">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="lucide lucide-search-icon lucide-search"
+            >
+              <circle cx="11" cy="11" r="8" />
+              <path d="m21 21-4.3-4.3" />
+            </svg>
+          </span>
+          <span class="cta__text">{{{.}}}</span>
+          <span class="icon">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="lucide lucide-chevron-right-icon lucide-chevron-right"
+            >
+              <path d="m9 18 6-6-6-6" />
+            </svg>
+          </span>
+        </a>
+        {{/cta_list}}
+      </div>
+    </div>
+    <div class="offer__card-footer">
+      <div class="decline__cta">{{ decline_cta_text }}</div>
+    </div>
+  </div>
+  {{/ads}}
+  <script>
+    function reorderAndLimitOfferCards(groupsWithLimits) {
+      var allCards = Array.from(document.querySelectorAll('.offer__card'))
+      var container = allCards[0]?.parentElement
+      if (!container) return
+
+      var ungroupedCards = []
+      var groupedCards = []
+      var firstGroupedCardIndex = -1
+
+      allCards.forEach(function (card, index) {
+        var group = card.getAttribute('data-group')
+        if (!group || group === '') {
+          ungroupedCards.push({ card: card, originalIndex: index })
+        } else {
+          if (firstGroupedCardIndex === -1) {
+            firstGroupedCardIndex = index
+          }
+          groupedCards.push(card)
+        }
+      })
+
+      var ungroupedCardsBeforeGroups = ungroupedCards.filter(function (item) {
+        return firstGroupedCardIndex === -1 || item.originalIndex < firstGroupedCardIndex
+      })
+
+      var ungroupedCardsAfterGroups = ungroupedCards.filter(function (item) {
+        return firstGroupedCardIndex !== -1 && item.originalIndex > firstGroupedCardIndex
+      })
+
+      var cardsByGroup = {}
+      groupedCards.forEach(function (card) {
+        var group = card.getAttribute('data-group')
+        if (!cardsByGroup[group]) {
+          cardsByGroup[group] = []
+        }
+        cardsByGroup[group].push(card)
+      })
+
+      allCards.forEach(function (card) {
+        card.remove()
+      })
+
+      ungroupedCardsBeforeGroups.forEach(function (item) {
+        container.appendChild(item.card)
+      })
+
+      groupsWithLimits.forEach(function (groupConfig) {
+        var groupKey = groupConfig.groupKey
+        var limit = groupConfig.limit
+        var cardsInGroup = cardsByGroup[groupKey] || []
+
+        var cardsToShow = limit != null ? cardsInGroup.slice(0, limit) : cardsInGroup
+
+        cardsToShow.forEach(function (card) {
+          container.appendChild(card)
+        })
+      })
+
+      ungroupedCardsAfterGroups.forEach(function (item) {
+        container.appendChild(item.card)
+      })
+    }
+
+    function initializeThumbnails() {
+      // Find all placeholder divs
+      const placeholderDivs = document.querySelectorAll('div[data-src], div[data-video-src]')
+
+      placeholderDivs.forEach((div) => {
+        const videoSrc = div.getAttribute('data-video-src')
+        const imgSrc = div.getAttribute('data-src')
+        const imageSrc = div.getAttribute('data-image-src')
+        // Get all data attributes
+        const dataAttributes = Array.from(div.attributes).filter((attr) => attr.name.startsWith('data-'))
+
+        if (videoSrc) {
+          const isGif = videoSrc.toLowerCase().endsWith('.gif')
+
+          if (isGif) {
+            // Create image for GIF
+            const img = document.createElement('img')
+            img.src = videoSrc
+            img.alt = 'listicle image'
+            img.onload = function () {
+              sendHeightMessage()
+            }
+            img.onerror = function () {
+              this.onerror = null
+              this.remove()
+            }
+            // Copy data attributes
+            dataAttributes.forEach((attr) => {
+              img.setAttribute(attr.name, attr.value)
+            })
+            div.replaceWith(img)
+          } else {
+            // Create video element
+            const video = document.createElement('video')
+            video.className = 'video-thumbnail'
+            video.autoplay = true
+            video.muted = true
+            video.loop = true
+            video.playsInline = true
+            video.preload = 'auto'
+            video.onloadeddata = function () {
+              sendHeightMessage()
+            }
+
+            const source = document.createElement('source')
+            source.src = videoSrc
+            video.appendChild(source)
+
+            const fallbackText = document.createTextNode('Your browser does not support the video tag.')
+            video.appendChild(fallbackText)
+
+            // Copy data attributes
+            dataAttributes.forEach((attr) => {
+              video.setAttribute(attr.name, attr.value)
+            })
+            div.replaceWith(video)
+          }
+        } else if (imgSrc) {
+          // Create image element
+          const img = document.createElement('img')
+          img.src = imgSrc
+          img.alt = 'listicle image'
+          img.onload = function () {
+            sendHeightMessage()
+          }
+          img.onerror = function () {
+            this.onerror = null
+            this.remove()
+          }
+          dataAttributes.forEach((attr) => {
+            img.setAttribute(attr.name, attr.value)
+          })
+          div.replaceWith(img)
+        } else if (imageSrc) {
+          const img = document.createElement('img')
+          img.src = imageSrc
+          img.alt = 'listicle image'
+          img.onload = function () {
+            sendHeightMessage()
+          }
+          img.onerror = function () {
+            this.onerror = null
+            this.remove()
+          }
+          dataAttributes.forEach((attr) => {
+            img.setAttribute(attr.name, attr.value)
+          })
+          div.replaceWith(img)
+        }
+      })
+    }
+    function initVideoPlayback() {
+      const videos = document.querySelectorAll('.video-thumbnail')
+
+      videos.forEach((video) => {
+        function ensurePlaying() {
+          if (video.paused) {
+            video.play().catch((error) => {
+              console.log('Autoplay prevented. Retrying...')
+              setTimeout(ensurePlaying, 1000) // Retry after 1 second
+            })
+          }
+        }
+        ensurePlaying()
+        video.addEventListener('pause', ensurePlaying)
+        video.addEventListener('ended', () => {
+          video.currentTime = 0
+          ensurePlaying()
+        })
+        setInterval(ensurePlaying, 5000)
+      })
+    }
+    function initCarouselFlow() {
+      const offerCards = document.querySelectorAll('.offer__card')
+      if (!offerCards.length) return
+
+      // Hide all cards except the first one
+      offerCards.forEach((card, index) => {
+        if (index !== 0) {
+          card.style.display = 'none'
+        } else {
+          const title = card.querySelector('.offer__title')
+          const subtitle = card.querySelector('.offer__subtitle')
+
+          if (title) {
+            title.textContent = 'Sorry, we’re only looking for home sellers — but great offers await!'
+          }
+          if (subtitle) {
+            subtitle.textContent = 'Exclusive deals made just for you — click below to learn more.'
+          }
+        }
+      })
+
+      // Function to handle moving to the next card
+      const moveToNextCard = (currentCard, currentIndex) => {
+        // Hide current card
+        currentCard.style.display = 'none'
+
+        // Show next card
+        offerCards[currentIndex + 1].style.display = ''
+
+        // Scroll to the top of the next card if needed
+        offerCards[currentIndex + 1].scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        })
+        sendHeightMessage()
+      }
+
+      // Add event listeners to existing skip buttons and CTA links
+      offerCards.forEach((card, index) => {
+        if (index < offerCards.length - 1) {
+          // Add event listener to skip button
+          const skipButton = card.querySelector('.decline__cta')
+          if (skipButton) {
+            skipButton.addEventListener('click', function (e) {
+              e.preventDefault()
+              moveToNextCard(card, index)
+            })
+          }
+
+          // Add event listener to CTA links
+          const ctaLinks = card.querySelectorAll('.offer__card a[data-lincx-cta]')
+          ctaLinks.forEach((ctaLink) => {
+            ctaLink.addEventListener('click', function (e) {
+              // Don't prevent default here to allow the link to work normally
+              // Just add the card transition functionality
+              setTimeout(() => {
+                moveToNextCard(card, index)
+              }, 100) // Small delay to allow the link's default action to process
+            })
+          })
+        }
+      })
+    }
+    function injectGhostZone(zoneId, templateId) {
+      const mainZoneId = document.querySelector('div[data-main-zone-id]').getAttribute('data-main-zone-id')
+      if (!mainZoneId) return
+      const offerCards = document.querySelectorAll('.offer__card')
+      if (!offerCards.length) return
+
+      // Get the last card
+      const lastCard = offerCards[offerCards.length - 1]
+      if (!lastCard) return
+
+      // Find the decline CTA button in the last card
+      const declineButton = lastCard.querySelector('.decline__cta')
+      if (!declineButton) return
+
+      // Find the original script to copy attributes from
+      const originalScript = document.querySelector(`script[data-zone-id="${mainZoneId}"]`)
+      if (!originalScript) return
+
+      // Create a new script element
+      const newScript = document.createElement('script')
+      newScript.src = 'https://api.lincx.com/load'
+
+      // Copy all other data attributes from the original script
+      Array.from(originalScript.attributes).forEach((attr) => {
+        if (attr.name.startsWith('data-') && attr.name !== 'data-zone-id') {
+          newScript.setAttribute(attr.name, attr.value)
+        }
+      })
+      newScript.setAttribute('data-zone-id', zoneId)
+      newScript.setAttribute('data-template-id', templateId)
+
+      // Replace the decline button with the new script
+      const footerDiv = declineButton.parentElement
+      if (footerDiv) {
+        footerDiv.innerHTML = ''
+        footerDiv.appendChild(newScript)
+      }
+    }
+    function sendHeightMessage() {
+      const quizzesIds = [
+        'UQDGLZtoFEOrF7BPua4OxcaqGeqxsbqsejcMiQZE',
+        'HqwSJHwZmYR3JL1k9stkOGQl8Jx48ONehfOvUA3D',
+        '43r6nnfh0mSVRyUhIKtdaMQev2wefFmaRUqXDcb6',
+        '29AOxLdysJTbw5HQUJJkr8A30Nff9UFuyl5Y91T7',
+        'F2ZMtVDUvsdonxR5uzpCZs3cyHR8sz683AH3bgJi',
+        '3hH8bmekTkwBso8Cb1dOMC3j018mKJpa1lefA9OU',
+        'c4Sltk7xoHdDvUc3aSDTRW9KUVK1MoAVd1gQGeIl',
+        'p0qT7DcCVnhpwhrXH7D7viujo9IjbbfIDUVOA7ne',
+        'j7FxP1newMLUUL2PIVnaJqUGX1iRPk1zRzQE1w83',
+        'OuYkrvZS8fRRywKco6akH1DK9ewzDn1ZglOThoih',
+        'nRVtyg7DRqyNaCPhFUJYap6IGBXjIxdaqCBGghT2',
+        'mW54C8QTV6VcUurzdKO5YiPo7f7kFtyh9tpwOC76',
+        'j7FxP1newMLUUL2PIVnaJqUGX1iRPk1zRzQE1w83',
+        'Xg4SvBXJEoIA16xDJUnKsguose7NNgwL1Np91urs',
+        'axtCgVJj8zSm9RhzbnEbWhuTiGGWi5l6OrfZIdAJ',
+        'Zw5tECgVtwSzQzeTsE9DrCqEOSLz0uIEqEjxsIvt',
+        'nRVtyg7DRqyNaCPhFUJYap6IGBXjIxdaqCBGghT2',
+        'juxgiAHW0hxe9ohntfVqoyUu1UHjY6cmKApIjpMz',
+        'uZTdDvsyTKGAkj51mCmbuOvHV9VfrHjGDTF8LvXc',
+        'UrsrEZMubl3gZKfTkKXo7oOBe7Jo3f47i12Yg757',
+        '3hvc4SdNMzHbtFZqXu6Cv4kG3JfAeQGOpExZhhUn'
+      ]
+      try {
+        const contentHeight = document.querySelector('.offers__container').offsetHeight
+        const rlinkField = window.lead.fields.find((f) => f.name === 'rlink')
+        const rlinkUrl = rlinkField.value
+        const match1 = rlinkUrl.match(/\/s\/([A-Za-z0-9]+)/)
+        const code1 = match1 ? match1[1] : null
+        console.log({ contentHeight })
+        setTimeout(() => {
+          window.parent.postMessage(`${code1}:${contentHeight}:0`, '*')
+          window.parent.postMessage(`${dt.token}:${contentHeight}:0`, '*')
+          quizzesIds.forEach((id) => {
+            window.parent.postMessage(`${id}:${contentHeight}:0`, '*')
+          })
+        }, 100)
+      } catch (error) {
+        console.error(error)
+      }
+    }
+    function handleCtaListSplits() {
+      const ctaList = document.querySelectorAll('.cta__list a')
+      ctaList.forEach((cta) => {
+        const content = cta.dataset.element
+        const ctaSplit = content.split('|')
+        cta.href = ctaSplit[1]
+        cta.querySelector('.cta__text').textContent = ctaSplit[0]
+      })
+
+      const offerCards = document.querySelectorAll('.offer__card')
+      offerCards.forEach((card) => {
+        const ctaList = card.querySelectorAll('.cta__list a')
+        ctaList.forEach((cta, index) => {
+          cta.dataset.lincxCtaName = `cta position ${index + 1}`
+        })
+      })
+    }
+
+    ;(() => {
+      reorderAndLimitOfferCards([
+        { groupKey: 'high', limit: 100 },
+        { groupKey: 'medium-high', limit: 100 },
+        { groupKey: 'medium', limit: 100 },
+        { groupKey: 'medium-low' }
+      ])
+      initializeThumbnails()
+      initVideoPlayback()
+      initCarouselFlow()
+
+      sendHeightMessage()
+      handleCtaListSplits()
+
+      // Inject the ghost zone for the last card
+      // First Param is ZoneId and second is TemplateId
+      injectGhostZone('joc8dj', 'f94vlg')
+    })()
+  </script>
+</div>

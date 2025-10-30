@@ -4,6 +4,94 @@
   "publisherId": "h971su",
   "creativeAssetGroupId": "7b5jn3",
   "name": "Buyologyiq - Bathroom Remodel - Advertorial_ 10/15/25",
+  "notes": {
+    "objectives": "This is using the newest Template Feature based on Insuraroo Template",
+    "general": "Created 3/6/25"
+  },
+  "creativeAssetGroup": {
+    "id": "7b5jn3",
+    "name": "Advertorial",
+    "fields": {
+      "properties": {
+        "offer_headline": {
+          "type": "string"
+        },
+        "offer_headline_mobile": {
+          "type": "string"
+        },
+        "offer_subheadline": {
+          "type": "string"
+        },
+        "offer_subheadline_mobile": {
+          "type": "string"
+        },
+        "src": {
+          "type": "image"
+        },
+        "ad_copy_1": {
+          "type": "string"
+        },
+        "ad_copy_1_mobile": {
+          "type": "string"
+        },
+        "cta_headline": {
+          "type": "string"
+        },
+        "cta_headline_mobile": {
+          "type": "string"
+        },
+        "cta_text": {
+          "type": "string"
+        },
+        "cta_text_mobile": {
+          "type": "string"
+        },
+        "cta_list": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "ad_copy_2": {
+          "type": "string",
+          "notes": "Ad Copy Below CTA button"
+        },
+        "ad_copy_2_mobile": {
+          "type": "string"
+        },
+        "ad_copy_headline": {
+          "type": "string"
+        },
+        "ad_copy_headline_mobile": {
+          "type": "string"
+        },
+        "zip_field": {
+          "type": "string",
+          "notes": "If applying zip_field, then Template is coded such that zip submit will act as CTA, when Creative field uses \"yes\""
+        },
+        "src_mobile": {
+          "type": "image",
+          "notes": "This is Creative image that will differentiate between Desktop Header Image and Mobile Header Image"
+        },
+        "src_author": {
+          "type": "image",
+          "notes": "Display Author Image as part of Publication Elements"
+        },
+        "ad_copy_BlockQuote": {
+          "type": "string",
+          "notes": "Display Block Quote Below ad_copy_1"
+        },
+        "ad_copy_BlockQuote_mobile": {
+          "type": "string",
+          "notes": "Display Block Quote for Mobile"
+        },
+        "cta_text_Floating_Header": {
+          "type": "string"
+        }
+      },
+      "required": []
+    }
+  },
   "mockData": {
     "adsCount": 3
   }

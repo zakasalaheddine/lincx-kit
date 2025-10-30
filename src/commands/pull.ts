@@ -1,5 +1,5 @@
 import { intro, outro, spinner } from '@clack/prompts';
-import { getTemplate } from '../services/api.ts';
+import { getTemplate, getCreativeAssetGroup } from '../services/api.ts';
 import { ensureDirectory, writeTemplateHtml, writeStylesCss, writeTemplateConfig } from '../services/storage.ts';
 import { loadProjectConfig, saveProjectConfig } from '../services/config.ts';
 
@@ -31,12 +31,23 @@ export async function pullCommand(args: PullArgs) {
     await writeStylesCss(`${templateDir}/styles.css`, template.css ?? '');
 
     // 5. Write local config
+    const creativeAssetGroup = await getCreativeAssetGroup(template.creativeAssetGroupId);
+
     await writeTemplateConfig(`${templateDir}/config.json`, {
       templateId: template.id,
       networkId: template.networkId,
       publisherId: template.publisherId,
       creativeAssetGroupId: template.creativeAssetGroupId,
       name: template.name,
+      notes: (template as any).notes ?? {},
+      creativeAssetGroup: {
+        id: creativeAssetGroup.id,
+        name: creativeAssetGroup.name,
+        fields: {
+          properties: creativeAssetGroup.fields.properties,
+          required: creativeAssetGroup.fields.required ?? [],
+        },
+      },
       mockData: { adsCount: 3 },
     });
     s.stop('✓ Files saved');

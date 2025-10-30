@@ -56,7 +56,7 @@ export type Zone = z.infer<typeof ZoneSchema>;
 
 // CreativeAssetGroup (subset aligned with docs)
 export const CreativeAssetGroupSchema = z.object({
-  id: z.string().optional(),
+  id: z.string(),
   networkId: z.string().regex(idPattern),
   name: z.string().min(1),
   fields: z.object({

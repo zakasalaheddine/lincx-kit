@@ -1,0 +1,65 @@
+{
+  "templateId": "330b7g",
+  "networkId": "fvddkg",
+  "publisherId": "v57z57",
+  "creativeAssetGroupId": "q7btxt",
+  "name": "Liz Buy Houses - MidPath_TYP_Grouped Offers",
+  "notes": {
+    "keyFeatures": "Headline and Sub-Headline\nArray of CTA or clickable image\nChange button color for array of CTA\nDecline CTA 'SKIP'\nClicks redirects to Advertiser's page (new tab) and in Card tab progresses to next card\nGhost Zone for Endpoint URL\nSpecific Headline and Sub-Headline for 1st Ad Position\nQuizIds for iframe to render properly\nCTA Array with multi-targetURL functionality\nCTA Array with varying font style per CTA button functionality\nCTA Array with vary button color per CTA button functionality",
+    "creativeAssetGroupFields": "headline\nsub_headline\nsrc\nimageURL- to pull external URL to display image\nvideoSrc- to pull exernal URL to display videos/gif\ncta_list to display array of ctas\nfont_color_cta_list to change array of cta buttons\ncta_text: N/A\ndecline_cta_text to skip to next card",
+    "html": "Tying Ghost zoneId and templateId. Changing templateId is tied to running Segments\nThere are quizIds that are tied to live site to allow for iframe to render properly\n",
+    "general": "5/1/25: Template Complete and Ready for Use.\n5/19/25: Updated to have specific Headline and Sub-Headline for 1st Ad Position\n5/24: Addressed for Clicks to not count upon skip (decline CTA)",
+    "objectives": "This Template is tied to the TYP path. This includes the latest functionality of multi-target URL functionality and and varying the styles of each CTA button like font type and button color"
+  },
+  "creativeAssetGroup": {
+    "id": "q7btxt",
+    "name": "MidPath",
+    "fields": {
+      "properties": {
+        "headline": {
+          "type": "string"
+        },
+        "sub_headline": {
+          "type": "string"
+        },
+        "src": {
+          "type": "image"
+        },
+        "imageURL": {
+          "type": "string"
+        },
+        "videoSrc": {
+          "type": "string"
+        },
+        "cta_list": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "font_color_cta_list": {
+          "type": "string"
+        },
+        "cta_text": {
+          "type": "string"
+        },
+        "decline_cta_text": {
+          "type": "string"
+        },
+        "offer_disclaimer": {
+          "type": "string"
+        },
+        "isPosting": {
+          "type": "boolean"
+        },
+        "groupOffer": {
+          "type": "string"
+        }
+      },
+      "required": []
+    }
+  },
+  "mockData": {
+    "adsCount": 3
+  }
+}
