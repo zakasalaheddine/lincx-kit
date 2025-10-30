@@ -1,0 +1,252 @@
+<div data-template-id="{{templateId}}" data-zone="{{zoneId}}">
+  <header class="navbar">
+    <a class="logo" href="javascript:;">
+      <img
+        src="https://github.com/hai-interlincx/Image/blob/main/USA%20Consumer%20Logo.png?raw=true"
+        alt="USA Consumer logo"
+      />
+    </a>
+    <div class="navbar__right"></div>
+  </header>
+  <div class="listicle__wrapper">
+    <p class="meta">
+      <span class="disclaimer">Advertorial</span>
+      •
+      <span class="category">Bathroom Remodel</span>
+    </p>
+    <div class="listicle__container">
+      {{#ads}}
+      <div class="listicle" id="{{adId}}" data-zip="{{ zip_field }}">
+        <div class="listicle__header">
+          <h1 class="header__title">
+            <span class="desktop">{{{ offer_headline }}}</span>
+            <span class="mobile">{{{ offer_headline_mobile }}}</span>
+          </h1>
+          <h2 class="header__subtitle">
+            <span class="desktop">{{{ offer_subheadline }}}</span>
+            <span class="mobile">{{{ offer_subheadline_mobile }}}</span>
+          </h2>
+        </div>
+        <div class="listicle__info">
+          <img src="{{ src_author }}" alt="{{ offer_headline }}" class="author__image" />
+          <div class="info__author">
+            <span class="author__name">By USA Consumer</span>
+            <span class="line"></span>
+            <span class="published__date">July 23, 2025</span>
+          </div>
+        </div>
+        <div class="listicle__body">
+          <div class="listicle__content">
+            <a href="{{href}}" data-lincx-cta class="content__image" data-content="{{ src }}">
+              <img src="{{ src }}" alt="{{ offer_headline }}" class="image__article desktop" />
+              <img src="{{ src_mobile }}" alt="{{ offer_headline }}" class="image__article mobile" />
+            </a>
+            <div class="heading__container" data-content="{{ ad_copy_headline }}">
+              <h4 class="heading__title">
+                <span class="desktop">{{{ ad_copy_headline }}}</span>
+                <span class="mobile">{{{ ad_copy_headline_mobile }}}</span>
+              </h4>
+            </div>
+            <div class="content__text">
+              <div class="desktop">{{{ ad_copy_1 }}}</div>
+              <div class="mobile">{{{ ad_copy_1_mobile }}}</div>
+            </div>
+            <div class="blockquote__content" data-content="{{ ad_copy_BlockQuote }}">
+              <blockquote class="dekstop">{{{ ad_copy_BlockQuote }}}</blockquote>
+              <blockquote class="mobile">{{{ ad_copy_BlockQuote_mobile }}}</blockquote>
+            </div>
+            <h5 class="cta__headline" data-content="{{{ cta_headline }}}">
+              <span class="desktop">{{{ cta_headline }}}</span>
+              <span class="mobile">{{{ cta_headline_mobile }}}</span>
+            </h5>
+            <div class="cta__list--container" data-content="{{#cta_list}}{{.}}{{/cta_list}}">
+              {{#cta_list}}
+              <a href="{{href}}" data-lincx-cta>{{{.}}}</a>
+              {{/cta_list}}
+            </div>
+            <div class="zip__submit--box">
+              <h4 class="zip__headline">
+                <span class="desktop">{{ cta_headline }}</span>
+                <span class="mobile">{{ cta_headline_mobile }}</span>
+              </h4>
+              <div class="form">
+                <div class="form-control">
+                  <label for="zip">Enter Your Zip Code</label>
+                  <input
+                    type="text"
+                    name="zip"
+                    id="zip"
+                    placeholder="5-Digit Zip Code"
+                    class="zip__input"
+                    maxlength="5"
+                  />
+                </div>
+                <button
+                  class="zip__submit desktop"
+                  data-href="{{href}}"
+                  data-zone-id="{{zoneId}}"
+                  data-template-id="{{templateId}}"
+                  data-creative-id="{{id}}"
+                  data-ad-id="{{adId}}"
+                  data-adverse-click-id="{{clickId}}"
+                  data-rank="{{_index}}"
+                >
+                  <span class="desktop">{{ cta_text }}</span>
+                  <span class="mobile">{{ cta_text_mobile }}</span>
+                </button>
+              </div>
+            </div>
+            <div class="cta__container" data-content="{{ cta_text }}">
+              <a href="{{href}}" class="desktop" data-lincx-cta>{{{ cta_text }}}</a>
+              <a href="{{href}}" class="mobile" data-lincx-cta>{{{ cta_text_mobile }}}</a>
+            </div>
+            <div class="content__text">
+              <div class="desktop">{{{ ad_copy_2 }}}</div>
+              <div class="mobile">{{{ ad_copy_2_mobile }}}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      {{/ads}}
+      <footer>
+        <ul class="footer__list">
+          <li><strong>USA-Consumer</strong></li>
+          <li><a href="/terms.php" target="_blank">Terms of Use</a></li>
+          <li><a href="/privacy.php" target="_blank">Privacy Policy</a></li>
+          <li></li>
+          <li class="privacyCalifornia">
+            <a href="/california.php" target="_blank">Privacy Notice for California Residents</a>
+          </li>
+          <li class="piiOptOut">
+            <a href="/personalinfo.php" target="_blank">Do Not Sell My Personal Information</a>
+          </li>
+        </ul>
+        This website contains advertisements and may be compensated for featured products and services. Results may
+        vary. Please verify all information with official sources. This website is an advertisement and not a news
+        publication. Any photographs of persons used on this site are of models. Trademarks featured on our website are
+        the property of their respective owners, and no suggestion of an endorsement of our site or services is made.
+        Our experienced editors and thorough research provide feedback on products and services. We are an independent
+        entity, and the opinions expressed here are solely our own. Our ratings are based on our personal assessment and
+        a methodology that takes into account factors such as brand reputation, product offerings, customer
+        satisfaction, conversion rates, compensation received from brands, and overall consumer interest. Please note
+        that our site accepts compensation from the brands featured, which may affect the numerical rankings, star
+        ratings, or the positioning of companies and/or their products. This site does not cover every available site or
+        offer. Except as explicitly stated in our Terms of Use, we disclaim all representations and warranties regarding
+        the information provided on this page. The content on this site is subject to change at any time. All Rights
+        Reserved.
+      </footer>
+    </div>
+  </div>
+  <script>
+    const submitButton = document.querySelector('button.zip__submit')
+    const zipInput = document.querySelector('input#zip')
+    const zoneScript = document.querySelector(`script[data-zone-id="${submitButton.dataset.zoneId}"]`)
+    function validateZipCode(zipCode) {
+      const zipCodeRegex = /^[0-9]{5}$/
+      return zipCodeRegex.test(zipCode)
+    }
+
+    // Mock function for tracking clicks
+    async function trackClick() {
+      const geo = await getGeo()
+      const zoneData = Object.assign({}, zoneScript.dataset)
+      const { href, mobile, value, ...buttonData } = Object.assign({}, submitButton.dataset)
+      const url = new URL(`https://api.lincx.com/api/track`)
+      url.search = new URLSearchParams({
+        ...geo,
+        ...zoneData,
+        ...buttonData,
+        windowLocation: window.location,
+        type: 'click'
+      })
+      fetch(url.href, { method: 'POST' })
+    }
+    async function getGeo() {
+      const geoAPIUrl = 'https://geometer.lincx.la/api/lookup'
+      const data = await fetch(geoAPIUrl)
+      const response = await data.json()
+      return {
+        geoIP: response.ip,
+        geoCity: response.city || '',
+        geoCountry: response.country || '',
+        geoLoc: response.latitude + ', ' + response.longitude || '',
+        geoRegion: response.region || '',
+        geoPostal: response.postal || '',
+        geoRegionName: response.regionName || '',
+        geoCountryName: response.countryName || ''
+      }
+    }
+
+    zipInput.addEventListener('input', (event) => {
+      const input = event.target
+      const inputValue = input.value
+      const digitsOnly = inputValue.replace(/\D/g, '') // Remove non-digit characters
+
+      if (digitsOnly.length > 5) {
+        input.value = digitsOnly.slice(0, 5) // Limit to 5 digits
+      } else {
+        input.value = digitsOnly // Update the input value with digits only
+      }
+    })
+
+    submitButton.addEventListener('click', (event) => {
+      event.preventDefault()
+
+      const zipCode = zipInput.value.trim()
+
+      if (validateZipCode(zipCode)) {
+        const baseUrl = submitButton.dataset.href
+        const redirectUrl = `${baseUrl}&zip=${zipCode}`
+        trackClick()
+        window.open(redirectUrl, '_self')
+      } else {
+        alert('Please enter a valid 5-digit ZIP code.')
+      }
+    })
+  </script>
+  <script>
+    function waitForElement(selector, callback, checkFrequencyInMs = 100) {
+      const intervalId = setInterval(() => {
+        const element = document.querySelector(selector)
+        if (element) {
+          clearInterval(intervalId)
+          callback()
+        }
+      }, checkFrequencyInMs)
+    }
+    function hideListicleInfos() {
+      const listicleInfos = document.querySelectorAll('.listicle__info')
+      listicleInfos.forEach((info, index) => {
+        if (index > 0) {
+          info.style.display = 'none'
+        }
+      })
+    }
+    function setPublishedDate() {
+      const publishedDate = document.querySelector('.published__date')
+      publishedDate.textContent = new Date().toLocaleDateString('en-US', {
+        month: 'long',
+        day: 'numeric',
+        year: 'numeric'
+      })
+    }
+    function injectHeaderCta(zoneId, templateId) {
+      const qs = new URLSearchParams(window.location.search)
+      const navbarRight = document.querySelector('.navbar__right')
+      if (navbarRight) {
+        const newScript = document.createElement('script')
+        for (let [key, value] of qs.entries()) {
+          newScript.setAttribute(`data-${key}`, value)
+        }
+        newScript.setAttribute('src', 'https://api.lincx.com/load')
+        newScript.setAttribute('data-zone-id', zoneId)
+        newScript.setAttribute('data-template-id', templateId)
+        newScript.setAttribute('data-newid', qs.get('id'))
+
+        navbarRight.appendChild(newScript)
+      }
+    }
+    hideListicleInfos()
+    injectHeaderCta('hvcbhm', 'cy8mye')
+  </script>
+</div>

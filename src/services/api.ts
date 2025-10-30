@@ -1,7 +1,9 @@
-import { AuthResponseSchema } from '../types/api.ts';
+import { AuthResponseSchema, TemplateSchema } from '../types/api.ts';
 import { IDENTITY_SERVER_URL, API_SERVER_URL } from '../utils/constants.ts';
 import { AuthError, ApiError } from '../utils/errors.ts';
 import { loadProjectConfig } from './config.ts';
+import { loadAuthToken } from './config.ts';
+import { z } from 'zod';
 
 function getBaseUrlString(url: unknown): string {
   if (typeof url === 'string') return url;
@@ -83,5 +85,30 @@ export async function login(email: string, password: string): Promise<string> {
     throw new ApiError('Malformed auth response');
   }
   return parsed.data.data.authToken;
+}
+
+// Accepts either { data: { template: Template } } or { data: Template }
+const SingleTemplateResponseA = z.object({ data: z.object({ template: TemplateSchema }) });
+const SingleTemplateResponseB = z.object({ data: TemplateSchema });
+
+export async function getTemplate(templateId: string) {
+  const token = await loadAuthToken();
+  if (!token) {
+    throw new AuthError('Not logged in. Run "bun run src/cli.ts login" first.');
+  }
+
+  const raw = await fetchWithAuth(`/templates/${templateId}`, {
+    method: 'GET',
+    token: token.token,
+    baseUrl: API_SERVER_URL,
+  });
+
+  const parsedA = SingleTemplateResponseA.safeParse(raw);
+  if (parsedA.success) return parsedA.data.data.template;
+
+  const parsedB = SingleTemplateResponseB.safeParse(raw);
+  if (parsedB.success) return parsedB.data.data;
+
+  throw new ApiError('Malformed template response');
 }
 

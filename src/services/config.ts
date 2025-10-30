@@ -1,6 +1,7 @@
 import { ProjectConfigSchema, type ProjectConfig, TemplateConfigSchema, type TemplateConfig, AuthTokenSchema, type AuthToken } from '../types/config.ts';
 import { FileError, ValidationError } from '../utils/errors.ts';
 
+
 const PROJECT_CONFIG_PATH = 'config.json';
 const AUTH_PATH = '.auth.json';
 
@@ -38,8 +39,7 @@ export async function loadProjectConfig(cwd: string = process.cwd()): Promise<Pr
   } catch (err: unknown) {
     if (err instanceof FileError) {
       // return a minimal default if file is missing
-      const fallbackUrl = new URL('http://localhost:3000');
-      return ProjectConfigSchema.parse({ apiBaseUrl: fallbackUrl, networks: {} } as unknown);
+      return ProjectConfigSchema.parse({ networks: {} } as unknown);
     }
     throw err;
   }

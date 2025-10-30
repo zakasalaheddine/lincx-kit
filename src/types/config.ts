@@ -1,14 +1,18 @@
 import { z } from 'zod';
 
 // Project-level config (root config.json)
+export const NetworkTemplateEntrySchema = z.object({
+  id: z.string().min(1),
+  name: z.string().min(1),
+});
+
 export const NetworkConfigSchema = z.object({
   id: z.string().min(1).optional(),
   name: z.string().min(1).optional(),
-  templates: z.record(z.string(), z.any()).optional(),
+  templates: z.array(NetworkTemplateEntrySchema).default([]),
 });
 
 export const ProjectConfigSchema = z.object({
-  apiBaseUrl: z.url(),
   networks: z.record(z.string(), NetworkConfigSchema).default({}),
 });
 export type ProjectConfig = z.infer<typeof ProjectConfigSchema>;
