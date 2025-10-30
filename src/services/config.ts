@@ -38,7 +38,8 @@ export async function loadProjectConfig(cwd: string = process.cwd()): Promise<Pr
   } catch (err: unknown) {
     if (err instanceof FileError) {
       // return a minimal default if file is missing
-      return ProjectConfigSchema.parse({ apiBaseUrl: 'http://localhost:3000', networks: {} });
+      const fallbackUrl = new URL('http://localhost:3000');
+      return ProjectConfigSchema.parse({ apiBaseUrl: fallbackUrl, networks: {} } as unknown);
     }
     throw err;
   }

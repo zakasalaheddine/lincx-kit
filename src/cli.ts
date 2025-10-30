@@ -1,5 +1,6 @@
 #!/usr/bin/env bun
 import { Command } from 'commander';
+import { loginCommand } from './commands/login.ts';
 
 const program = new Command();
 
@@ -12,7 +13,7 @@ program
   .command('login')
   .description('Login to API')
   .action(async () => {
-    console.log('Login command - coming soon!');
+    await loginCommand();
   });
 
 // Placeholder for more commands coming in later phases
