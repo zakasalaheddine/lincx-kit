@@ -2,6 +2,7 @@
 import { Command } from 'commander';
 import { loginCommand } from './commands/login.ts';
 import { pullCommand } from './commands/pull.ts';
+import { pushCommand } from './commands/push.ts';
 
 const program = new Command();
 
@@ -26,7 +27,14 @@ program
     await pullCommand(args);
   });
 
-// Placeholder for more commands coming in later phases
+program
+  .command('push')
+  .description('Upload template to API')
+  .requiredOption('-t, --template <id>', 'Template ID')
+  .requiredOption('-n, --network <name>', 'Network folder name')
+  .action(async (args) => {
+    await pushCommand(args);
+  });
 
 program.parse(process.argv);
 

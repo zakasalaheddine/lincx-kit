@@ -1,0 +1,34 @@
+<div className="ads-feed">
+  MAIN ZONE
+  <br />
+  <br />
+  <br />
+  <br />
+  <br />
+  updated coming from the CLI
+  {{#ads}}
+  <div className="ad-item" id="{{ adId }}">
+    <span>{{ name }}</span>
+    <a href="{{href}}">{{{ctaText}}}</a>
+    <a href="{{href}}">{{{ctaText2}}}</a>
+
+    {{{ offer_text }}}
+  </div>
+  {{/ads}}
+
+  <script>
+  (function (s, e, n, d, er) {
+    s['Sender'] = er;
+    s[er] = s[er] || function () {
+      (s[er].q = s[er].q || []).push(arguments)
+    }, s[er].l = 1 * new Date();
+    var a = e.createElement(n),
+        m = e.getElementsByTagName(n)[0];
+    a.async = 1;
+    a.src = d;
+    m.parentNode.insertBefore(a, m)
+  })(window, document, 'script', 'https://cdn.sender.net/accounts_resources/universal.js', 'sender');
+  sender('a586bca0786501')
+</script>
+
+</div>

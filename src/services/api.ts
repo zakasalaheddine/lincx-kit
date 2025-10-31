@@ -1,4 +1,4 @@
-import { AuthResponseSchema, TemplateSchema, CreativeAssetGroupSchema } from '../types/api.ts';
+import { AuthResponseSchema, TemplateSchema, CreativeAssetGroupSchema, type Template } from '../types/api.ts';
 import { IDENTITY_SERVER_URL, API_SERVER_URL } from '../utils/constants.ts';
 import { AuthError, ApiError } from '../utils/errors.ts';
 import { loadProjectConfig } from './config.ts';
@@ -91,7 +91,17 @@ export async function login(email: string, password: string): Promise<string> {
 const SingleTemplateResponseA = z.object({ data: z.object({ template: TemplateSchema }) });
 const SingleTemplateResponseB = z.object({ data: TemplateSchema });
 
-export async function getTemplate(templateId: string) {
+function parseTemplateResponse(raw: unknown): Template {
+  const parsedA = SingleTemplateResponseA.safeParse(raw);
+  if (parsedA.success) return parsedA.data.data.template;
+
+  const parsedB = SingleTemplateResponseB.safeParse(raw);
+  if (parsedB.success) return parsedB.data.data;
+
+  throw new ApiError('Malformed template response');
+}
+
+export async function getTemplate(templateId: string): Promise<Template> {
   const token = await loadAuthToken();
   if (!token) {
     throw new AuthError('Not logged in. Run "bun run src/cli.ts login" first.');
@@ -103,13 +113,7 @@ export async function getTemplate(templateId: string) {
     baseUrl: API_SERVER_URL,
   });
 
-  const parsedA = SingleTemplateResponseA.safeParse(raw);
-  if (parsedA.success) return parsedA.data.data.template;
-
-  const parsedB = SingleTemplateResponseB.safeParse(raw);
-  if (parsedB.success) return parsedB.data.data;
-
-  throw new ApiError('Malformed template response');
+  return parseTemplateResponse(raw);
 }
 
 const SingleCreativeAssetGroupResponseA = z.object({ data: z.object({ creativeAssetGroup: CreativeAssetGroupSchema }) });
@@ -132,5 +136,36 @@ export async function getCreativeAssetGroup(creativeAssetGroupId: string) {
   const parsedB = SingleCreativeAssetGroupResponseB.safeParse(raw);
   if (parsedB.success) return parsedB.data.data;
   throw new ApiError('Malformed creative asset group response');
+}
+
+export type TemplateUpdateInput = Pick<Template, 'html' | 'css'>;
+
+export async function updateTemplate(templateId: string, updates: TemplateUpdateInput): Promise<Template> {
+  const token = await loadAuthToken();
+  if (!token) {
+    throw new AuthError('Not logged in. Run "bun run src/cli.ts login" first.');
+  }
+
+  const latestRaw = await fetchWithAuth(`/templates/${templateId}`, {
+    method: 'GET',
+    token: token.token,
+    baseUrl: API_SERVER_URL,
+  });
+  const latestTemplate = parseTemplateResponse(latestRaw);
+
+  const payload: Template = {
+    ...latestTemplate,
+    html: updates.html,
+    css: updates.css ?? latestTemplate.css ?? '',
+  };
+
+  const updatedRaw = await fetchWithAuth(`/templates/${templateId}`, {
+    method: 'PUT',
+    token: token.token,
+    baseUrl: API_SERVER_URL,
+    body: JSON.stringify(payload),
+  });
+
+  return parseTemplateResponse(updatedRaw);
 }
 

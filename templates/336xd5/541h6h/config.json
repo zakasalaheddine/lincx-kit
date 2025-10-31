@@ -1,0 +1,71 @@
+{
+  "templateId": "541h6h",
+  "networkId": "336xd5",
+  "publisherId": "2j822f",
+  "creativeAssetGroupId": "rx5ur7",
+  "name": "Listicle Testing",
+  "notes": {},
+  "creativeAssetGroup": {
+    "id": "rx5ur7",
+    "name": "Listicle",
+    "fields": {
+      "properties": {
+        "listical_headline": {
+          "type": "string"
+        },
+        "src_author": {
+          "type": "image"
+        },
+        "author_name": {
+          "type": "string"
+        },
+        "src": {
+          "type": "image"
+        },
+        "offer_headline": {
+          "type": "string"
+        },
+        "offer_text": {
+          "type": "string"
+        },
+        "cta_text": {
+          "type": "string"
+        },
+        "logoUrl": {
+          "type": "image"
+        },
+        "videoSrc": {
+          "type": "string"
+        },
+        "listicle_subheadline": {
+          "type": "string"
+        },
+        "cta_list": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "staticControl": {
+          "type": "boolean"
+        },
+        "modalControl": {
+          "type": "boolean"
+        },
+        "control_version": {
+          "type": "string"
+        },
+        "control_question_placement": {
+          "type": "string"
+        },
+        "groupOffer": {
+          "type": "string"
+        }
+      },
+      "required": []
+    }
+  },
+  "mockData": {
+    "adsCount": 3
+  }
+}
