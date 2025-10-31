@@ -1,4 +1,4 @@
-import { AuthResponseSchema, TemplateSchema, CreativeAssetGroupSchema, type Template } from '../types/api.ts';
+import { AuthResponseSchema, TemplateSchema, CreativeAssetGroupSchema, ZoneSchema, type Template, type Zone } from '../types/api.ts';
 import { IDENTITY_SERVER_URL, API_SERVER_URL } from '../utils/constants.ts';
 import { AuthError, ApiError } from '../utils/errors.ts';
 import { loadProjectConfig } from './config.ts';
@@ -119,6 +119,14 @@ export async function getTemplate(templateId: string): Promise<Template> {
 const SingleCreativeAssetGroupResponseA = z.object({ data: z.object({ creativeAssetGroup: CreativeAssetGroupSchema }) });
 const SingleCreativeAssetGroupResponseB = z.object({ data: CreativeAssetGroupSchema });
 
+function parseCreativeAssetGroupResponse(raw: unknown) {
+  const parsedA = SingleCreativeAssetGroupResponseA.safeParse(raw);
+  if (parsedA.success) return parsedA.data.data.creativeAssetGroup;
+  const parsedB = SingleCreativeAssetGroupResponseB.safeParse(raw);
+  if (parsedB.success) return parsedB.data.data;
+  throw new ApiError('Malformed creative asset group response');
+}
+
 export async function getCreativeAssetGroup(creativeAssetGroupId: string) {
   const token = await loadAuthToken();
   if (!token) {
@@ -131,11 +139,33 @@ export async function getCreativeAssetGroup(creativeAssetGroupId: string) {
     baseUrl: API_SERVER_URL,
   });
 
-  const parsedA = SingleCreativeAssetGroupResponseA.safeParse(raw);
-  if (parsedA.success) return parsedA.data.data.creativeAssetGroup;
-  const parsedB = SingleCreativeAssetGroupResponseB.safeParse(raw);
+  return parseCreativeAssetGroupResponse(raw);
+}
+
+const SingleZoneResponseA = z.object({ data: z.object({ zone: ZoneSchema }) });
+const SingleZoneResponseB = z.object({ data: ZoneSchema });
+
+function parseZoneResponse(raw: unknown): Zone {
+  const parsedA = SingleZoneResponseA.safeParse(raw);
+  if (parsedA.success) return parsedA.data.data.zone;
+  const parsedB = SingleZoneResponseB.safeParse(raw);
   if (parsedB.success) return parsedB.data.data;
-  throw new ApiError('Malformed creative asset group response');
+  throw new ApiError('Malformed zone response');
+}
+
+export async function getZone(zoneId: string): Promise<Zone> {
+  const token = await loadAuthToken();
+  if (!token) {
+    throw new AuthError('Not logged in. Run "bun run src/cli.ts login" first.');
+  }
+
+  const raw = await fetchWithAuth(`/zones/${zoneId}`, {
+    method: 'GET',
+    token: token.token,
+    baseUrl: API_SERVER_URL,
+  });
+
+  return parseZoneResponse(raw);
 }
 
 export type TemplateUpdateInput = Pick<Template, 'html' | 'css'>;

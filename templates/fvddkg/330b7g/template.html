@@ -309,6 +309,7 @@
         }
       })
     }
+
     function injectGhostZone(zoneId, templateId) {
       const mainZoneId = document.querySelector('div[data-main-zone-id]').getAttribute('data-main-zone-id')
       if (!mainZoneId) return
@@ -347,7 +348,10 @@
         footerDiv.appendChild(newScript)
       }
     }
+    
     function sendHeightMessage() {
+      if(!window.lead) return
+      if(!window.lead.fields) return
       const quizzesIds = [
         'UQDGLZtoFEOrF7BPua4OxcaqGeqxsbqsejcMiQZE',
         'HqwSJHwZmYR3JL1k9stkOGQl8Jx48ONehfOvUA3D',
@@ -389,6 +393,7 @@
         console.error(error)
       }
     }
+    
     function handleCtaListSplits() {
       const ctaList = document.querySelectorAll('.cta__list a')
       ctaList.forEach((cta) => {

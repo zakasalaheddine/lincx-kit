@@ -66,6 +66,7 @@
     }
   },
   "mockData": {
-    "adsCount": 3
+    "adsCount": 3,
+    "groupOffer": ["high", "medium-high", "medium", "medium-low", ""]
   }
 }
