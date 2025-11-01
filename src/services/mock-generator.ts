@@ -5,6 +5,7 @@ export interface MockDataConfig {
   ctaListCount?: number;
   useSplitLogic?: boolean;
   declineText?: string;
+  fieldsOptions?: Record<string, unknown[]>;
   [key: string]: unknown;
 }
 
@@ -17,6 +18,49 @@ function randomInt(min: number, max: number): number {
 
 function randomChoice<T>(items: T[]): T {
   return items[randomInt(0, items.length - 1)] as T;
+}
+
+function resolveFieldOption(
+  fieldName: string,
+  type: string | undefined,
+  config: MockDataConfig
+): { hasValue: boolean; value: unknown } {
+  const optionsMap = config.fieldsOptions;
+  if (!optionsMap) {
+    return { hasValue: false, value: undefined };
+  }
+
+  const candidates = new Set<string>([fieldName]);
+  const withoutIndex = fieldName.replace(/_\d+$/, '');
+  if (withoutIndex !== fieldName) {
+    candidates.add(withoutIndex);
+  }
+
+  for (const candidate of candidates) {
+    const options = optionsMap[candidate];
+    if (options === undefined) {
+      continue;
+    }
+
+    if (!Array.isArray(options)) {
+      return { hasValue: true, value: options };
+    }
+
+    if (options.length === 0) {
+      return { hasValue: true, value: options };
+    }
+
+    if (type === 'array') {
+      if (options.every((item) => Array.isArray(item))) {
+        return { hasValue: true, value: randomChoice(options) };
+      }
+      return { hasValue: true, value: options };
+    }
+
+    return { hasValue: true, value: randomChoice(options) };
+  }
+
+  return { hasValue: false, value: undefined };
 }
 
 function generateSentence(): string {
@@ -148,6 +192,11 @@ function inferFieldValue(fieldName: string, schema: any, config: MockDataConfig,
   if (!schema) return null;
 
   const type = Array.isArray(schema.type) ? schema.type[0] : schema.type;
+
+  const optionResult = resolveFieldOption(fieldName, type, config);
+  if (optionResult.hasValue) {
+    return optionResult.value;
+  }
 
   switch (type) {
     case 'image': {

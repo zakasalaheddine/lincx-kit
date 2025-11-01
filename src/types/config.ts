@@ -22,6 +22,7 @@ export const MockDataConfigSchema = z.object({
   enabled: z.boolean().optional(),
   adsCount: z.number().int().optional().default(3),
   values: z.record(z.string(), z.any()).optional(),
+  fieldsOptions: z.record(z.string(), z.array(z.any())).optional(),
 });
 
 export const TemplateConfigSchema = z.object({

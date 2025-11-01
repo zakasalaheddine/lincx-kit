@@ -60,6 +60,11 @@
     }
   },
   "mockData": {
-    "adsCount": 3
+    "adsCount": 3,
+    "fieldsOptions": {
+      "groupOffer": ["high", "medium-high", "medium", "medium-low", ""],
+      "decline_cta_text": ["SKIP"],
+      "font_color_cta_list": ["#34495e", "#2980b9", "#e67e22", "#c0392b", "#16a085"]
+    }
   }
 }
