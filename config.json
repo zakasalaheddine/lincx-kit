@@ -26,6 +26,15 @@
           "name": "Listicle Testing"
         }
       ]
+    },
+    "udbcld": {
+      "name": "udbcld",
+      "templates": [
+        {
+          "id": "tfdygi",
+          "name": "Senior for Life Listicle - Dynamic HL & Email Widget"
+        }
+      ]
     }
   }
 }

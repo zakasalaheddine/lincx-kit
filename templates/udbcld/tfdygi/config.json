@@ -1,0 +1,54 @@
+{
+  "templateId": "tfdygi",
+  "networkId": "udbcld",
+  "publisherId": "o63kow",
+  "creativeAssetGroupId": "4337ch",
+  "name": "Senior for Life Listicle - Dynamic HL & Email Widget",
+  "notes": {
+    "general": "This is first Template for powering initial listicle."
+  },
+  "creativeAssetGroup": {
+    "id": "4337ch",
+    "name": "Listicle",
+    "fields": {
+      "properties": {
+        "listical_headline": {
+          "type": "string"
+        },
+        "src": {
+          "type": "image"
+        },
+        "offer_text": {
+          "type": "string"
+        },
+        "offer_headline": {
+          "type": "string"
+        },
+        "cta_text": {
+          "type": "string"
+        },
+        "cta_text_2nd": {
+          "type": "string"
+        },
+        "cta_list": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "dynamic_header_map": {
+          "type": "string",
+          "notes": "JSON for dynamic Headline and Images"
+        },
+        "groupOffer": {
+          "type": "string",
+          "notes": "Tied to Group Offer functionality"
+        }
+      },
+      "required": []
+    }
+  },
+  "mockData": {
+    "adsCount": 3
+  }
+}

@@ -1,0 +1,288 @@
+<div class="lincx__container">
+  <div class="listicle__content">
+    {{#ads}}
+    <div class="listicle__item" id="{{adId}}" data-dynamic="{{ dynamic_header_map }}">
+      <h1 class="listicle__title" data-content="{{ listical_headline }}" data-field="headline">
+        {{{ listical_headline }}}
+      </h1>
+
+      <div class="listicle__date">May 25, 2025</div>
+
+      <a
+        href="{{href}}"
+        target="_blank"
+        class="listicle__headline-link"
+        data-lincx-cta
+        data-lincx-cta-name="headline"
+        data-lincx-cta-position="headline"
+      >
+        <h2 class="listicle__headline" data-content="{{ offer_headline }}">{{{ offer_headline }}}</h2>
+      </a>
+
+      <div class="listicle__image">
+        <a
+          href="{{href}}"
+          target="_blank"
+          data-lincx-cta
+          data-content="{{ cta_text }}"
+          data-lincx-cta-name="image"
+          data-lincx-cta-position="image"
+        >
+          <img
+            src="{{ src }}"
+            alt="{{ listical_headline }}{{ offer_headline }}"
+            data-content="{{ src }}"
+            data-field="image"
+          />
+        </a>
+        <img
+          src="{{ src }}"
+          alt="{{ listical_headline }}{{ offer_headline }}"
+          data-show="{{ cta_text }}"
+          data-content="{{ src }}"
+          data-field="image"
+        />
+      </div>
+
+      <div class="listicle__body">{{{ offer_text }}}</div>
+
+      <div class="listicle__ctas">
+        <div class="cta__list--items" data-content="{{#cta_list}}{{.}}{{/cta_list}}">
+          {{#cta_list}}
+          <a
+            href="{{href}}"
+            target="_blank"
+            data-lincx-cta
+            data-lincx-cta-name="cta_list"
+            data-lincx-cta-position="cta position{{ _index }}"
+            data-element="{{.}}"
+            class="listicle__cta"
+          >
+            {{{.}}}
+          </a>
+          {{/cta_list}}
+        </div>
+
+        <a
+          href="{{href}}"
+          target="_blank"
+          data-lincx-cta
+          class="main__cta listicle__cta"
+          data-lincx-cta-name="cta_link"
+          data-lincx-cta-position="main"
+          data-content="{{ cta_text }}"
+        >
+          {{{ cta_text }}}
+        </a>
+        <a
+          href="{{href}}"
+          target="_blank"
+          data-lincx-cta
+          class="second__cta listicle__cta"
+          data-content="{{ cta_text_2nd }}"
+          data-lincx-cta-name="cta_link"
+          data-lincx-cta-position="second"
+        >
+          {{{ cta_text_2nd }}}
+        </a>
+      </div>
+    </div>
+    {{/ads}}
+    <div class="sender-form-field" data-sender-form-id="bo29Qj"></div>
+  </div>
+
+  <footer>
+    <div class="footer__content">
+      <div class="footer__links">
+        <a href="https://seniorforlife.com/terms-of-use/">Terms of Use</a>
+        <a href="https://seniorforlife.com/privacy-policy/">Privacy Policy</a>
+      </div>
+
+      <div class="footer__text">
+        <p>
+          Trademarks utilized on our website belong to their respective owners and no implied or expressed endorsement
+          of our website or services is intended. Through in-depth research and experienced editors we provide feedback
+          about products and services. We are independently owned, and opinions expressed here are our own. Ratings are
+          determined by our subjective opinion and based on a methodology that considers our analysis of brand
+          reputation, product offerings, customer success and conversion rates, compensation paid to us and general
+          consumer interest. Please be advised that this site accepts compensation from brands that appear on the site,
+          and such compensation impacts the numerical rankings, star ratings and or higher positions in which the
+          companies (and/or their products) are listed. This site cannot and does not present information about every
+          site or offer available. Except as expressly set forth in our Terms of Use, all representations and warranties
+          regarding the information presented on this page are disclaimed. The information which appears on this site is
+          subject to change at any time.
+        </p>
+        <p>©2025 SeniorForLife.com. All Rights Reserved.</p>
+      </div>
+
+      <script>
+        ;(function (s, e, n, d, er) {
+          s['Sender'] = er
+          ;(s[er] =
+            s[er] ||
+            function () {
+              ;(s[er].q = s[er].q || []).push(arguments)
+            }),
+            (s[er].l = 1 * new Date())
+          var a = e.createElement(n),
+            m = e.getElementsByTagName(n)[0]
+          a.async = 1
+          a.src = d
+          m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', 'https://cdn.sender.net/accounts_resources/universal.js', 'sender')
+        sender('a586bca0786501')
+      </script>
+
+      <script>
+        // Safely parse JSON that may be HTML-escaped by the template engine
+        function safeParseDynamicJSON(str) {
+          try {
+            return JSON.parse(str)
+          } catch (e) {
+            try {
+              const unescaped = str
+                .replace(/&quot;/g, '"')
+                .replace(/&#34;/g, '"')
+                .replace(/&amp;/g, '&')
+                .replace(/&#39;/g, "'")
+              return JSON.parse(unescaped)
+            } catch (e2) {
+              console.error('Invalid JSON in data-dynamic:', e2, str)
+              return null
+            }
+          }
+        }
+
+        function replaceDynamicTags(str, tagMap = {}) {
+          if (typeof str !== 'string') return str
+          let result = str
+
+          // Count tags
+          Object.entries(tagMap).forEach(([tag, selector]) => {
+            if (!result.includes(tag)) return
+            if (tag === '[LISTICLE-COUNT]') {
+              const count = document.querySelectorAll(selector).length
+              result = result.replaceAll(tag, String(count))
+            }
+          })
+
+          // Month
+          if (result.includes('[MONTH]')) {
+            const now = new Date()
+            const month = now.toLocaleString('en-US', { month: 'long' })
+            result = result.replaceAll('[MONTH]', month)
+          }
+
+          // GEO via window.lincxGeo — support both [TOKENS] and {{mustache}} forms
+          if (typeof window !== 'undefined' && window.lincxGeo) {
+            const geo = window.lincxGeo
+
+            const replaceIf = (placeholders, value) => {
+              if (!value) return
+              placeholders.forEach((ph) => {
+                if (result.includes(ph)) result = result.replaceAll(ph, value)
+              })
+            }
+
+            replaceIf(['[GEO_REGION_NAME]', '{{geoRegionName}}'], geo.geoRegionName)
+            replaceIf(['[GEO_STATE]', '{{geoRegion}}'], geo.geoRegion)
+            replaceIf(['[GEO_CITY]', '{{geoCity}}'], geo.geoCity)
+          }
+
+          return result
+        }
+
+        function handleDynamicContainers() {
+          const params = new URLSearchParams(window.location.search)
+          const containers = document.querySelectorAll('.listicle__item[data-dynamic]')
+
+          containers.forEach((container) => {
+            const configStr = container.getAttribute('data-dynamic')
+            if (!configStr) return
+
+            const config = safeParseDynamicJSON(configStr)
+            if (!config || !config.queryKey || !config.map) return
+
+            const key = params.get(config.queryKey)
+            if (!key || !config.map[key]) return
+
+            Object.entries(config.map[key]).forEach(([field, value]) => {
+              const elements = container.querySelectorAll(`[data-field="${field}"]`)
+              if (!elements.length) return
+
+              const replacedValue = replaceDynamicTags(value, {
+                // This selector exists in the provided markup:
+                '[LISTICLE-COUNT]': '.listicle__headline[data-content]:not([data-content=""])'
+              })
+
+              elements.forEach((el) => {
+                if (el.tagName === 'IMG') {
+                  el.src = replacedValue
+                } else {
+                  el.textContent = replacedValue
+                }
+              })
+            })
+          })
+        }
+        handleDynamicContainers()
+      </script>
+
+      <script>
+        function setDate(numberOfDaysAgo = 5) {
+          const daysAgo = new Date()
+          daysAgo.setDate(daysAgo.getDate() - numberOfDaysAgo)
+          const formattedDate = daysAgo.toLocaleDateString('en-US', {
+            month: 'long',
+            day: 'numeric',
+            year: 'numeric'
+          })
+          document.querySelector('.listicle__date').textContent = formattedDate
+          document.querySelectorAll('.listicle__date').forEach((date, index) => {
+            if (index > 0) date.style.display = 'none'
+          })
+        }
+
+        function addNumberToHeadlines() {
+          const headlines = document.querySelectorAll('.listicle__headline[data-content]:not([data-content=""])')
+          headlines.forEach((headline, index) => {
+            headline.innerHTML = `<span class="number">${index + 1}.</span> ${headline.textContent}`
+          })
+        }
+
+        function setListicleCount() {
+          const count = document.querySelectorAll('.listicle__headline[data-content]:not([data-content=""])').length
+          document.querySelectorAll('.listicle__count').forEach((el) => {
+            el.textContent = count
+          })
+        }
+
+        function handleCtaListSplits() {
+          const ctaList = document.querySelectorAll('.cta__list--items a')
+          ctaList.forEach((cta) => {
+            const content = cta.dataset.element
+            const ctaSplit = content.split('|')
+            cta.href = ctaSplit[1]
+            cta.innerHTML = ctaSplit[0]
+            if (ctaSplit[2]) {
+              cta.style.backgroundColor = ctaSplit[2]
+            }
+          })
+
+          const offerCards = document.querySelectorAll('.listicle__item')
+          offerCards.forEach((card) => {
+            const ctaList = card.querySelectorAll('.cta__list--items a')
+            ctaList.forEach((cta, index) => {
+              cta.dataset.lincxCtaPosition = `cta position ${index + 1}`
+            })
+          })
+        }
+
+        addNumberToHeadlines()
+        setDate()
+        setListicleCount()
+        handleCtaListSplits()
+      </script>
+    </div>
+  </footer>
+</div>
