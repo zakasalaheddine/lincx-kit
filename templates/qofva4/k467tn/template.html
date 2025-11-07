@@ -1,0 +1,644 @@
+<div class="lincx__container">
+  <link
+    rel="stylesheet"
+    id="mvp-fonts-css"
+    href="//fonts-api.wp.com/css?family=Roboto%3A300%2C400%2C700%2C900%7COswald%3A400%2C700%7CAdvent+Pro%3A700%7COpen+Sans%3A700%7CAnton%3A400belarius-sans%3A100%2C200%2C300%2C400%2C500%2C600%2C700%2C800%2C900%7Cbelarius-sans%3A100%2C200%2C300%2C400%2C500%2C600%2C700%2C800%2C900%7Cbelarius-sans%3A100%2C200%2C300%2C400%2C500%2C600%2C700%2C800%2C900%7Cbelarius-sans%3A100%2C200%2C300%2C400%2C500%2C600%2C700%2C800%2C900%7CVollkorn%3A100%2C200%2C300%2C400%2C500%2C600%2C700%2C800%2C900%7CRubik%2C+sans-serif%3B%3A100%2C200%2C300%2C400%2C500%2C600%2C700%2C800%2C900%26subset%3Dlatin%2Clatin-ext%2Ccyrillic%2Ccyrillic-ext%2Cgreek-ext%2Cgreek%2Cvietnamese%26display%3Dswap"
+    media="all"
+  />
+  <div class="listicle__container">
+    {{#ads}}
+    <div class="listicle__item" id="{{adId}}">
+      <div class="listicle__header" data-content="{{ listicle_headline }}">
+        <h1 data-content="{{ listicle_headline }}">{{{ listicle_headline }}}</h1>
+        <div class="author__content">
+          <img
+            alt="author avatar"
+            src="https://secure.gravatar.com/avatar/03a84fbf413b703fe322cc3c2f319e10f2f21773f4a9e58d8ea0f3c1f1cd7336?s=46&amp;d=identicon&amp;r=g"
+            srcset="
+              https://secure.gravatar.com/avatar/03a84fbf413b703fe322cc3c2f319e10f2f21773f4a9e58d8ea0f3c1f1cd7336?s=92&amp;d=identicon&amp;r=g 2x
+            "
+            class="avatar-img"
+          />
+          <div class="author__info">
+            <div class="author__publish-date">
+              <p>Published</p>
+              <span class="from-now-date">1 month ago</span>
+              <p>on</p>
+              <span class="date-content">
+                <time class="dynamic-date" datetime="2025-09-09">September 9, 2025</time>
+              </span>
+            </div>
+            <div class="author__name">
+              <p>By</p>
+              <span class="author-name">
+                <a href="https://dollarperks.net/author/mggmi/" target="_blank" title="Posts by DollarPerks" rel="author">
+                  DollarPerks
+                </a>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="listicle__title" data-content="{{ offer_headline }}">
+        <a
+          href="{{href}}"
+          data-lincx-cta
+          target="_blank"
+          data-lincx-cta-name="headline"
+          data-lincx-cta-position="headline"
+        >
+          <h2>
+            <span class="offer__number"></span>
+            {{{ offer_headline }}}
+          </h2>
+        </a>
+      </div>
+      <div class="listicle__content">
+        <div class="listicle__thumbnail" data-content="{{ src }}{{ imageURL }}{{videoSrc}}">
+          <a
+            href="{{href}}"
+            target="_blank"
+            data-lincx-cta
+            data-content="{{ cta_text }}"
+            data-lincx-cta-name="image"
+            data-lincx-cta-position="image"
+          >
+            <div data-src="{{src}}" data-image-src="{{ imageURL }}" data-video-src="{{videoSrc}}"></div>
+          </a>
+          <div
+            data-src="{{src}}"
+            data-image-src="{{ imageURL }}"
+            data-video-src="{{videoSrc}}"
+            data-show="{{ cta_text }}"
+          ></div>
+        </div>
+
+        <abbr
+          class="advertiser-disclosure"
+          id="advertiser-disclosure"
+          data-content="{{ listicle_headline }}"
+          data-text="We are compensated by the companies listed on this page. This compensation may influence the selection, appearance, and order of appearance of the offers listed below, which allows us to provide free articles like this one. The offers shown below do not include all financial services companies or all of their available product and service offerings. DollarPerks has partnered with CardRatings for our coverage of credit card products. DollarPerks and CardRatings may receive a commission from card issuers"
+        >
+          Advertiser Disclosure
+        </abbr>
+
+        <div class="listicle__text" data-content="{{ offer_text }}">{{{ offer_text }}}</div>
+        <div class="listicle__list__cta" data-content="{{#cta_list}}{{.}}{{/cta_list}}">
+          {{#cta_list}}
+          <a
+            href="{{href}}"
+            class="cta__link"
+            target="_blank"
+            data-lincx-cta
+            data-lincx-cta-name="cta_list"
+            data-lincx-cta-position="cta position {{ _index }}"
+            data-element="{{.}}"
+          >
+            {{.}}
+          </a>
+          {{/cta_list}}
+        </div>
+        <div class="listicle__cta" data-content="{{ cta_text }}">
+          <a
+            href="{{href}}"
+            data-lincx-cta
+            target="_blank"
+            data-lincx-cta-name="cta_link"
+            data-lincx-cta-position="main"
+          >
+            {{{ cta_text }}}
+          </a>
+        </div>
+        <div class="listicle__disclaimer" data-content="{{ offer_disclaimer }}">{{{ offer_disclaimer }}}</div>
+      </div>
+    </div>
+    {{/ads}}
+
+    <div class="second__disclaimer">
+      <abbr
+        class="advertiser-disclosure"
+        id="second-advertiser-disclosure"
+        data-text="We are compensated by the companies listed on this page. This compensation may influence the selection, appearance, and order of appearance of the offers listed below, which allows us to provide free articles like this one. The offers shown below do not include all financial services companies or all of their available product and service offerings. DollarPerks has partnered with CardRatings for our coverage of credit card products. DollarPerks and CardRatings may receive a commission from card issuers"
+      >
+        Advertiser Disclosure
+      </abbr>
+
+      <p>
+        <em>
+          Companies mentioned in this article have not been reviewed, approved or endorsed by included advertisers.
+          Opinions are ours alone.
+        </em>
+      </p>
+      <p>&nbsp;</p>
+    </div>
+
+    <hr class="disclaimer__separator" />
+    
+    <div class="references__container"></div>
+
+    <div class="listicle__disclaimer">
+      <p>
+        <strong>Important Disclosures:&nbsp;</strong>
+        This website does not constitute an offer or solicitation to lend. The operator of this website is NOT A LENDER,
+        does not make loan or credit decisions, and does not broker loans. The operator of this website is not an agent
+        or representative of any lender. We are a lead generator. This website’s aim is to provide lenders with
+        information about prospective consumer borrowers. We are compensated by lenders for this service.
+      </p>
+      <p>
+        Information about loans: Not all lenders can provide loan amounts up to the maximum amount that is advertised.
+        The maximum amount you may borrow from any lender is determined by the lender based on its own policies, which
+        can vary, and on your creditworthiness. The time to receive loan proceeds varies among lenders, and in some
+        circumstances faxing of loan request form materials and other documents may be required. Submitting your
+        information online does not guarantee that you will be approved for a loan.
+      </p>
+      <p>
+        Every lender has its own terms and conditions and renewal policy, which may differ from lender to lender. You
+        should review your lender’s terms and renewal policy before signing the loan agreement. Late payments of loans
+        may result in additional fees or collection activities, or both
+      </p>
+      <p>
+        By using this website or services, you represent and warrant that you are at least 18 years old, that you are a
+        resident of the United States, and that you are not a resident of any state where the loan you are applying for
+        is illegal.
+      </p>
+      <div class="author__box">
+        <img
+          alt=""
+          src="https://secure.gravatar.com/avatar/03a84fbf413b703fe322cc3c2f319e10f2f21773f4a9e58d8ea0f3c1f1cd7336?s=60&amp;d=identicon&amp;r=g"
+          srcset="
+            https://secure.gravatar.com/avatar/03a84fbf413b703fe322cc3c2f319e10f2f21773f4a9e58d8ea0f3c1f1cd7336?s=120&amp;d=identicon&amp;r=g 2x
+          "
+          class="avatar avatar-60 photo wp-hovercard-attachment grav-hashed grav-hijack"
+          height="60"
+          width="60"
+          decoding="async"
+        />
+        <a href="https://dollarperks.net/author/mggmi/" title="Posts by DollarPerks" rel="author">DollarPerks</a>
+      </div>
+    </div>
+
+  </div>
+
+  <footer class="listicle__footer">
+    <div class="listicle__footer-top">
+      <div class="listicle__footer-content">
+        <a href="https://dollarperks.net/" class="listicle__footer-logo">
+          <img
+            src="https://dollarperks.net/wp-content/uploads/2025/02/DP4-WHITE-TRANSPARENT-e1739900249267.png"
+            alt="Dollarperks™️ – Perks That Stretch Your Dollars Further."
+          />
+        </a>
+
+        <nav class="listicle__footer-nav">
+          <ul class="listicle__footer-menu">
+            <li><a href="https://dollarperks.net/">Home</a></li>
+            <li>
+              <a href="https://dollarperks.net/about-us/">About Us</a>
+            </li>
+            <li>
+              <a href="https://dollarperks.net/privacy-policy/">Privacy Policy</a>
+            </li>
+            <li>
+              <a href="https://dollarperks.net/862-2/">Terms of Service</a>
+            </li>
+            <li>
+              <a href="mailto:Hello@dollarperks.net">Hello@dollarperks.net</a>
+            </li>
+            <li>
+              <a href="https://dollarperks.net/disclaimer/">Disclaimer</a>
+            </li>
+            <li>
+              <a href="https://dollarperks.net/cookie-policy/">Cookie Policy</a>
+            </li>
+            <li>
+              <a href="https://dollarperks.net/do-not-sell-or-share-my-personal-information/">
+                Do Not Sell or Share My Personal Information
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+
+    <div class="listicle__footer-bottom">
+      <p class="listicle__footer-copy">Copyright © 2025 DollarPerks</p>
+    </div>
+  </footer>
+  <div class="fly__top" id="flyToTopBtn" style="display: none">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="32"
+      height="32"
+      viewBox="0 0 32 32"
+      aria-hidden="true"
+      focusable="false"
+      style="display: inline-block; vertical-align: middle"
+    >
+      <path
+        d="M16 10.828l8.485 8.485a2 2 0 1 1-2.828 2.828L16 16.485l-5.657 5.656a2 2 0 0 1-2.828-2.828L16 10.828z"
+        fill="currentColor"
+      />
+    </svg>
+  </div>
+
+  <script>
+    ;(() => {
+      function initializeThumbnails() {
+        // Find all placeholder divs
+        const placeholderDivs = document.querySelectorAll('div[data-src], div[data-video-src]')
+
+        placeholderDivs.forEach((div) => {
+          const videoSrc = div.getAttribute('data-video-src')
+          const imgSrc = div.getAttribute('data-src')
+          const imageSrc = div.getAttribute('data-image-src')
+          // Get all data attributes
+          const dataAttributes = Array.from(div.attributes).filter((attr) => attr.name.startsWith('data-'))
+
+          if (videoSrc) {
+            const isGif = videoSrc.toLowerCase().endsWith('.gif')
+
+            if (isGif) {
+              // Create image for GIF
+              const img = document.createElement('img')
+              img.src = videoSrc
+              img.alt = 'listicle image'
+              img.style.width = '100%'
+              img.onerror = function () {
+                this.onerror = null
+                this.remove()
+              }
+              // Copy data attributes
+              dataAttributes.forEach((attr) => {
+                img.setAttribute(attr.name, attr.value)
+              })
+              div.replaceWith(img)
+            } else {
+              // Create video element
+              const video = document.createElement('video')
+              video.className = 'video-thumbnail'
+              video.autoplay = true
+              video.muted = true
+              video.loop = true
+              video.playsInline = true
+              video.preload = 'auto'
+              video.style.width = '100%'
+
+              const source = document.createElement('source')
+              source.src = videoSrc
+              video.appendChild(source)
+
+              const fallbackText = document.createTextNode('Your browser does not support the video tag.')
+              video.appendChild(fallbackText)
+
+              // Copy data attributes
+              dataAttributes.forEach((attr) => {
+                video.setAttribute(attr.name, attr.value)
+              })
+              div.replaceWith(video)
+            }
+          } else if (imgSrc) {
+            // Create image element
+            const img = document.createElement('img')
+            img.src = imgSrc
+            img.alt = 'listicle image'
+            img.style.width = '100%'
+            img.onerror = function () {
+              this.onerror = null
+              this.remove()
+            }
+            dataAttributes.forEach((attr) => {
+              img.setAttribute(attr.name, attr.value)
+            })
+            div.replaceWith(img)
+          } else if (imageSrc) {
+            const img = document.createElement('img')
+            img.src = imageSrc
+            img.alt = 'listicle image'
+            img.style.width = '100%'
+            img.onerror = function () {
+              this.onerror = null
+              this.remove()
+            }
+            dataAttributes.forEach((attr) => {
+              img.setAttribute(attr.name, attr.value)
+            })
+            div.replaceWith(img)
+          }
+        })
+      }
+
+      function initVideoPlayback() {
+        const videos = document.querySelectorAll('.video-thumbnail')
+
+        videos.forEach((video) => {
+          function ensurePlaying() {
+            if (video.paused) {
+              video.play().catch((error) => {
+                console.log('Autoplay prevented. Retrying...')
+                setTimeout(ensurePlaying, 1000) // Retry after 1 second
+              })
+            }
+          }
+          ensurePlaying()
+          video.addEventListener('pause', ensurePlaying)
+          video.addEventListener('ended', () => {
+            video.currentTime = 0
+            ensurePlaying()
+          })
+          setInterval(ensurePlaying, 5000)
+        })
+      }
+
+      function setCurrentDate() {
+        const currentDate = new Date().toLocaleDateString('en-US', {
+          month: 'long',
+          day: 'numeric',
+          year: 'numeric'
+        })
+        const authorDate = document.querySelector('.author__date')
+        authorDate.textContent = currentDate
+      }
+
+      function setDynamicMonth() {
+        const currentDate = new Date().toLocaleDateString('en-US', {
+          month: 'long'
+        })
+        const dynamicMonths = document.querySelectorAll('.dynamic_month')
+        dynamicMonths.forEach((month) => {
+          month.innerHTML = currentDate
+        })
+      }
+
+      function attachNumbersToTitles() {
+        const headerItems = document.querySelectorAll('.listicle__header')
+        headerItems.forEach((item, index) => {
+          if (index > 0) {
+            item.style.display = 'none'
+          }
+        })
+
+        const titleItems = document.querySelectorAll('.listicle__title:not([data-content=""])')
+        titleItems.forEach((item, index) => {
+          const offerNumber = item.querySelector('.offer__number')
+          offerNumber.textContent = `${index + 1}.`
+        })
+        document.querySelector('.headline__counter').innerHTML = titleItems.length
+      }
+
+      function handleCtaListSplits() {
+        const ctaList = document.querySelectorAll('.listicle__list__cta a')
+        ctaList.forEach((cta, index) => {
+          const content = cta.dataset.element
+          if (!content || content === '' || !content.includes('|')) return
+          const ctaSplit = content.split('|')
+          cta.href = ctaSplit[1]
+          cta.textContent = ctaSplit[0]
+          // If a third item exists, set it as the background of the CTA
+          if (ctaSplit[2]) {
+            cta.style.background = ctaSplit[2]
+          }
+          // Add a new class to the parent .listicle__list__cta if | is present
+          const ctaParent = cta.closest('.listicle__list__cta')
+          if (ctaParent && !ctaParent.classList.contains('stacked')) {
+            ctaParent.classList.add('stacked')
+          }
+        })
+
+        const listicle = document.querySelectorAll('.listicle__item')
+        listicle.forEach((card) => {
+          const ctaList = card.querySelectorAll('.listicle__list__cta a')
+          ctaList.forEach((cta, index) => {
+            cta.dataset.lincxCtaPosition = `cta position ${index + 1}`
+            cta.dataset.lincxCtaName = `cta_list`
+          })
+        })
+      }
+
+      function balanceGrid(
+        containerSelector = '.listicle__list__cta.stacked',
+        itemSelector = '.cta__link',
+        maxCols = 3
+      ) {
+        const containers = document.querySelectorAll(containerSelector)
+        containers.forEach((container) => {
+          const items = container.querySelectorAll(itemSelector)
+          const n = items.length
+          if (!n) {
+            container.style.gridAutoFlow = ''
+            container.style.gridTemplateRows = ''
+            container.style.gridTemplateColumns = ''
+            return
+          }
+
+          // number of rows needed if we cap columns at maxCols
+          const rows = Math.ceil(n / maxCols)
+          // compute columns needed to distribute n items across `rows` rows
+          const cols = Math.ceil(n / rows)
+
+          container.style.gridAutoFlow = 'column'
+          container.style.gridTemplateRows = `repeat(${rows}, auto)`
+          container.style.gridTemplateColumns = `repeat(${cols}, 1fr)`
+        })
+      }
+
+      function initGroupOffer() {
+        const groupKeys = ['high']
+        const listicles = document.querySelectorAll('.listicle__item')
+        const container = document.querySelector('.listicle__container')
+
+        // Get all listicles except the first one
+        const listiclesArray = Array.from(listicles).slice(1)
+
+        // Group listicles by their group value
+
+        const groupedListicles = listiclesArray.reduce((acc, listicle) => {
+          const group = listicle.dataset.group || 'default'
+
+          if (!acc[group]) {
+            acc[group] = []
+          }
+          acc[group].push(listicle)
+          return acc
+        }, {})
+
+        // Reorder listicles based on groupKeys priority
+        const orderedGroups = groupKeys.concat(Object.keys(groupedListicles).filter((key) => !groupKeys.includes(key)))
+
+        // Remove all listicles except first one
+        listiclesArray.forEach((listicle) => listicle.remove())
+
+        // Re-append listicles in new order
+
+        orderedGroups.forEach((group) => {
+          if (groupedListicles[group]) {
+            groupedListicles[group].forEach((listicle) => {
+              container.appendChild(listicle)
+            })
+          }
+        })
+
+        // Attach data-rank to all listicles in the new order
+        let rank = 1
+        orderedGroups.forEach((group) => {
+          if (groupedListicles[group]) {
+            groupedListicles[group].forEach((listicle) => {
+              listicle.setAttribute('data-rank', rank)
+              rank++
+            })
+          }
+        })
+      }
+
+      function addDisclosurePopup() {
+        var abbrs = [
+          document.getElementById('advertiser-disclosure'),
+          document.getElementById('second-advertiser-disclosure'),
+        ].filter(Boolean);
+        var popper = null;
+        var isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+        var activeAbbr = null;
+
+        function showPopup(abbr) {
+          if (popper) return;
+          popper = document.createElement('div');
+          popper.classList.add('advertiser-disclosure-popup');
+          // Try data-content first, fallback to data-text for second abbr
+          popper.textContent = abbr.getAttribute('data-text') || abbr.getAttribute('data-text') || '';
+
+          var rect = abbr.getBoundingClientRect();
+          var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+          var scrollLeft = window.pageXOffset || document.documentElement.scrollLeft;
+
+          document.body.appendChild(popper);
+
+          // Get popup dimensions after it's added to DOM
+          var popupRect = popper.getBoundingClientRect();
+
+          if (isTouchDevice) {
+            // Mobile: center the popup horizontally relative to abbr
+            popper.style.left = rect.left + scrollLeft + rect.width / 2 - popupRect.width / 2 + 'px';
+            popper.style.top = rect.bottom + 8 + scrollTop + 'px';
+          } else {
+            // Desktop: position left edge of popup to right edge of abbr (text)
+            popper.style.left = rect.right + scrollLeft + 'px';
+            popper.style.top = rect.bottom + 8 + scrollTop + 'px';
+          }
+          activeAbbr = abbr;
+        }
+
+        function hidePopup() {
+          if (popper) {
+            popper.remove();
+            popper = null;
+            activeAbbr = null;
+          }
+        }
+
+        abbrs.forEach(function (abbr) {
+          if (isTouchDevice) {
+            // Mobile/touch device behavior
+            abbr.addEventListener('click', function (e) {
+              e.preventDefault();
+              // If this abbr already has popup open, hide
+              if (popper && activeAbbr === abbr) {
+                hidePopup();
+              } else {
+                // If another abbr's popup open, close and open for this one
+                hidePopup();
+                showPopup(abbr);
+              }
+            });
+          } else {
+            // Desktop behavior
+            abbr.addEventListener('mouseenter', function () {
+              if (!popper) {
+                showPopup(abbr);
+              }
+            });
+            abbr.addEventListener('mouseleave', function () {
+              hidePopup();
+            });
+          }
+        });
+
+        if (isTouchDevice) {
+          // Hide popup when clicking outside—works for both abbrs and popup
+          document.addEventListener('click', function (e) {
+            if (
+              popper &&
+              !abbrs.some(abbr => abbr.contains(e.target)) &&
+              !popper.contains(e.target)
+            ) {
+              hidePopup();
+            }
+          });
+        }
+      }
+
+      function addReferences() {
+        const supNodes = Array.from(document.querySelectorAll('sup[data-sup-text]'))
+        const uniqueRefs = []
+        const refToNumber = {}
+        supNodes.forEach((sup) => {
+          const text = sup.getAttribute('data-sup-text')
+          if (!(text in refToNumber)) {
+            uniqueRefs.push(text)
+            refToNumber[text] = uniqueRefs.length
+          }
+        })
+        supNodes.forEach((sup) => {
+          const text = sup.getAttribute('data-sup-text')
+          const num = refToNumber[text]
+          sup.textContent = num
+        })
+        if (uniqueRefs.length > 0) {
+          const refBox = document.createElement('div')
+          refBox.className = 'sup-references'
+
+          const list = document.createElement('ol')
+          uniqueRefs.forEach((ref) => {
+            const li = document.createElement('li')
+            li.textContent = ref
+            list.appendChild(li)
+          })
+          refBox.appendChild(list)
+
+          let parent = document.querySelector('.references__container')
+          if (parent) {
+            parent.appendChild(refBox)
+          } else {
+            document.body.appendChild(refBox)
+          }
+        }
+      }
+
+      function initFlyToTop() {
+        const btn = document.getElementById('flyToTopBtn')
+        function toggleBtn() {
+          const scrolled = window.scrollY || window.pageYOffset
+          const docHeight = document.documentElement.scrollHeight - window.innerHeight
+          if (docHeight > 0 && scrolled / docHeight >= 0.2) {
+            btn.style.display = 'flex'
+          } else {
+            btn.style.display = 'none'
+          }
+        }
+        window.addEventListener('scroll', toggleBtn)
+        btn.addEventListener('click', function () {
+          window.scrollTo({ top: 0, behavior: 'smooth' })
+        })
+      }
+      // initGroupOffer()
+      // setCurrentDate()
+      // setDynamicMonth()
+      // handleCtaListSplits()
+      // balanceGrid()
+      initializeThumbnails()
+      attachNumbersToTitles()
+      initVideoPlayback()
+      addDisclosurePopup()
+      addReferences()
+      initFlyToTop()
+    })()
+  </script>
+</div>

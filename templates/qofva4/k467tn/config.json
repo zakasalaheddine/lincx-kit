@@ -1,0 +1,41 @@
+{
+  "templateId": "k467tn",
+  "networkId": "qofva4",
+  "publisherId": "dpdc8m",
+  "creativeAssetGroupId": "cv394i",
+  "name": "Dollar Perks - Listicle",
+  "notes": {},
+  "creativeAssetGroup": {
+    "id": "cv394i",
+    "name": "Listicle",
+    "fields": {
+      "properties": {
+        "listicle_headline": {
+          "type": "string"
+        },
+        "src": {
+          "type": "image"
+        },
+        "imageURL": {
+          "type": "string"
+        },
+        "videoSrc": {
+          "type": "string"
+        },
+        "offer_headline": {
+          "type": "string"
+        },
+        "offer_text": {
+          "type": "string"
+        },
+        "cta_text": {
+          "type": "string"
+        }
+      },
+      "required": []
+    }
+  },
+  "mockData": {
+    "adsCount": 3
+  }
+}
