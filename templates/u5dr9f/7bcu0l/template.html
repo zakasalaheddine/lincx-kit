@@ -93,28 +93,47 @@
 
   <script>
     function appendFooter() {
-      const footerHTML = `
-      <p class="listicle__footer-disclaimer">
-        Independent recommendations. We may earn a commission when you click links.
-      </p>
-      <footer class="listicle__footer">
-        <div class="listicle__footer-top">
-          <a href="/" class="listicle__footer-logo">
-            <img src="/SeniorsForSavings_Logo.png" alt="SeniorsForSavings logo" />
-          </a>
-          <nav class="listicle__footer-nav">
-            <ul class="listicle__footer-menu">
-              <li><a href="/contact">Contact</a></li>
-              <li><a href="/privacy">Privacy</a></li>
-              <li><a href="/terms">Terms of Use</a></li>
-            </ul>
-          </nav>
+    const footerHTML = `
+      <div class='footer__container'>
+        <div class='footer__content__items'>
+          <p class='listicle__footer-disclaimer'>
+            Independent recommendations. We may earn a commission when you click links.
+          </p>
+          <footer class='listicle__footer'>
+            <div class='listicle__footer-top'>
+              <a href='/' class='listicle__footer-logo'>
+                <img src='/SeniorsForSavings_Logo.png' alt='SeniorsForSavings logo' />
+              </a>
+              <nav class='listicle__footer-nav'>
+                <ul class='listicle__footer-menu'>
+                  <li>
+                    <a href='/contact'>
+                      Contact
+                    </a>
+                  </li>
+                  <li>
+                    <a href='/privacy'>
+                      Privacy
+                    </a>
+                  </li>
+                  <li>
+                    <a href='/terms'>
+                      Terms of Use
+                    </a>
+                  </li>
+                </ul>
+              </nav>
+            </div>
+            <div class='listicle__footer-bottom'>
+              <p class='listicle__footer-copy'>
+                © 2025 SeniorsForSavings. All rights reserved.
+              </p>
+            </div>
+          </footer>
         </div>
-        <div class="listicle__footer-bottom">
-          <p class="listicle__footer-copy">© 2025 SeniorsForSavings. All rights reserved.</p>
-        </div>
-      </footer>
+      </div>
     `
+
 
       document.body.insertAdjacentHTML('beforeend', footerHTML)
     }
