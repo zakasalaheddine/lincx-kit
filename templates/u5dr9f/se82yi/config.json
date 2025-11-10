@@ -1,0 +1,47 @@
+{
+  "templateId": "se82yi",
+  "networkId": "u5dr9f",
+  "publisherId": "gy3dts",
+  "creativeAssetGroupId": "hn67bo",
+  "name": "SeniorsForSavings - Listicle",
+  "notes": {},
+  "creativeAssetGroup": {
+    "id": "hn67bo",
+    "name": "Listicle",
+    "fields": {
+      "properties": {
+        "listicle_headline": {
+          "type": "string"
+        },
+        "author_name": {
+          "type": "string"
+        },
+        "author_image": {
+          "type": "image"
+        },
+        "src": {
+          "type": "image"
+        },
+        "offer_headline": {
+          "type": "string"
+        },
+        "offer_text": {
+          "type": "string"
+        },
+        "cta_list": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "cta_text": {
+          "type": "string"
+        }
+      },
+      "required": []
+    }
+  },
+  "mockData": {
+    "adsCount": 3
+  }
+}
