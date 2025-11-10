@@ -1,0 +1,207 @@
+<div class="lincx-wrapper">
+  <div class="lincx-container">
+    {{#ads}}
+    <div class="listicle" data-heading="{{ listicle_headline }}" id="{{ adId }}">
+      <h2 class="heading" data-content="{{ listicle_headline }}">{{{ listicle_headline }}}</h2>
+      <h3 class="subheading" data-content="{{ offer_headline }}">{{{ offer_headline }}}</h3>
+      <div class="listicle__info" data-content="{{ author_name }}">
+        <img src="{{ author_image }}" alt="{{ author_image }}" class="listicle__author--image" />
+        <span class="listicle__author--name">{{ author_name }}</span>
+        <span class="listicle__published--date"></span>
+        <span class="listicle__category">Trending</span>
+      </div>
+      <div class="share__this--container">
+        <div class="sharethis-inline-share-buttons"></div>
+      </div>
+      <div class="listicle__thumbnail" data-content="{{ src }}">
+        <a href="{{href}}" target="_blank" data-lincx-cta data-content="{{ cta_text }}">
+          <img src="{{src}}" alt="listicle image" onerror="this.onerror=null; this.remove();" />
+        </a>
+        <img src="{{src}}" alt="listicle image" data-show="{{ cta_text }}" />
+      </div>
+      <div class="listicle__thumbnail" data-content="{{ videoSrc }}">
+        <a href="{{href}}" target="_blank" data-lincx-cta data-content="{{ cta_text }}">
+          <video
+            class="video-thumbnail"
+            autoplay=""
+            muted=""
+            loop=""
+            playsinline=""
+            id="vid{{id}}"
+            preload="auto"
+            width="100%"
+            height="100%"
+          >
+            <source src="{{ videoSrc }}" />
+            Your browser does not support the video tag.
+          </video>
+        </a>
+        <video
+          class="video-thumbnail"
+          autoplay=""
+          muted=""
+          loop=""
+          playsinline=""
+          id="vid{{id}}"
+          preload="auto"
+          width="100%"
+          height="100%"
+          data-show="{{ cta_text }}"
+        >
+          <source src="{{ videoSrc }}" />
+          Your browser does not support the video tag.
+        </video>
+      </div>
+      <div class="listicle__content">{{{ offer_text }}}</div>
+      <div class="listicle__cta" data-content="{{ cta_text }}">
+        <a href="{{href}}" class="cta__link" target="_blank" data-lincx-cta>{{ cta_text }}</a>
+      </div>
+    </div>
+    {{/ads}}
+  </div>
+  <div class="disclosure__container">
+    <span class="disclosure__text">Advertiser Disclosure</span>
+  </div>
+  <div class="disclosure__modal">
+    <div class="overlay"></div>
+    <div class="content">
+      <span class="close">x</span>
+      <h2 class="content__heading">Advertiser Disclosure</h2>
+      <p class="content__text">
+        This site is a free online resource designed to provide helpful content and comparison tools for our visitors.
+        We may receive advertising compensation from companies that appear on the site, which can affect how and where
+        products or services are displayed — including their order, placement, or scoring. Our listings do not represent
+        every provider available on the market, and the inclusion of a company or product does not imply endorsement.
+      </p>
+      <p class="content__text">
+        All information presented here, including pricing and product details, is subject to change at any time without
+        notice. Except as expressly stated in our Terms of Use, we make no representations or warranties about the
+        accuracy, completeness, or suitability of any information for your particular circumstances. We are not a
+        financial advisor, investment advisor, loan broker, insurance producer, or insurance broker. We encourage users
+        to seek personalized advice from qualified professionals regarding financial, insurance, or investment
+        decisions.
+      </p>
+      <p class="content__text">
+        We respect your privacy. We work with trusted partners to deliver relevant advertising and improve your
+        experience based on how you use our site and other third-party platforms or applications. This may include
+        sharing anonymized browsing data with select partners such as Google or Meta (Facebook). Any information shared
+        is aggregated or anonymized to protect your identity. For details on how we handle data, please review our
+        Privacy Policy.
+      </p>
+    </div>
+  </div>
+
+  <script>
+    function appendFooter() {
+      const footerHTML = `
+      <p class="listicle__footer-disclaimer">
+        Independent recommendations. We may earn a commission when you click links.
+      </p>
+      <footer class="listicle__footer">
+        <div class="listicle__footer-top">
+          <a href="/" class="listicle__footer-logo">
+            <img src="/SeniorsForSavings_Logo.png" alt="SeniorsForSavings logo" />
+          </a>
+          <nav class="listicle__footer-nav">
+            <ul class="listicle__footer-menu">
+              <li><a href="/contact">Contact</a></li>
+              <li><a href="/privacy">Privacy</a></li>
+              <li><a href="/terms">Terms of Use</a></li>
+            </ul>
+          </nav>
+        </div>
+        <div class="listicle__footer-bottom">
+          <p class="listicle__footer-copy">© 2025 SeniorsForSavings. All rights reserved.</p>
+        </div>
+      </footer>
+    `
+
+      document.body.insertAdjacentHTML('beforeend', footerHTML)
+    }
+    appendFooter()
+    
+    function initDisclosureModal() {
+      const openLink = document.querySelector('.disclosure__text')
+      const modal = document.querySelector('.disclosure__modal')
+      const overlay = modal.querySelector('.overlay')
+      const closeBtn = modal.querySelector('.close')
+      // Show modal function
+      function openModal() {
+        modal.classList.remove('disclosure__modal--closed')
+      }
+      // Hide modal function
+      function closeModal() {
+        modal.classList.add('disclosure__modal--closed')
+      }
+
+      // Clicking the overlay closes modal
+      overlay.addEventListener('click', closeModal)
+
+      // Clicking the close button closes modal
+      closeBtn.addEventListener('click', closeModal)
+
+      // Dismiss modal on ESC key
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+          closeModal()
+        }
+      })
+
+      openLink.addEventListener('click', openModal)
+
+      // Optionally, expose function to open modal externally
+      window.openDisclosureModal = openModal
+
+      // If you want the modal hidden at first load, make sure it has the closed class
+      if (!modal.classList.contains('disclosure__modal--closed')) {
+        modal.classList.add('disclosure__modal--closed')
+      }
+    }
+    initDisclosureModal()
+
+    function initVideoAutoplay() {
+      const videos = document.querySelectorAll('.video-thumbnail')
+
+      function playVideos() {
+        videos.forEach((video) => {
+          video.play().catch((error) => {
+            console.log('Autoplay was prevented. Asking for permission.')
+            if (error.name === 'NotAllowedError') {
+              // Show a play button or message to request user interaction
+              const playButton = document.createElement('button')
+              playButton.textContent = 'Play Video'
+              playButton.style.position = 'absolute'
+              playButton.style.top = '50%'
+              playButton.style.left = '50%'
+              playButton.style.transform = 'translate(-50%, -50%)'
+              video.parentNode.appendChild(playButton)
+              console.log(playButton)
+
+              playButton.addEventListener('click', () => {
+                video.play()
+                playButton.remove()
+              })
+            }
+          })
+        })
+      }
+      playVideos()
+    }
+    ;(() => {
+      function renderCurrentDate(selector) {
+        const date = new Date()
+        const options = { year: 'numeric', month: 'long', day: '2-digit' }
+        const formattedDate = date.toLocaleDateString('en-US', options)
+
+        const element = document.querySelector(selector)
+        if (element) {
+          element.textContent = formattedDate
+        } else {
+          console.error(`Selector "${selector}" not found.`)
+        }
+      }
+      renderCurrentDate('.listicle__published--date')
+      initVideoAutoplay()
+    })()
+  </script>
+</div>
