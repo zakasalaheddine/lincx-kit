@@ -31,7 +31,12 @@
             <div class="author__name">
               <p>By</p>
               <span class="author-name">
-                <a href="https://dollarperks.net/author/mggmi/" target="_blank" title="Posts by DollarPerks" rel="author">
+                <a
+                  href="https://dollarperks.net/author/mggmi/"
+                  target="_blank"
+                  title="Posts by DollarPerks"
+                  rel="author"
+                >
                   DollarPerks
                 </a>
               </span>
@@ -133,7 +138,7 @@
     </div>
 
     <hr class="disclaimer__separator" />
-    
+
     <div class="references__container"></div>
 
     <div class="listicle__disclaimer">
@@ -176,7 +181,6 @@
         <a href="https://dollarperks.net/author/mggmi/" title="Posts by DollarPerks" rel="author">DollarPerks</a>
       </div>
     </div>
-
   </div>
 
   <footer class="listicle__footer">
@@ -492,45 +496,45 @@
       function addDisclosurePopup() {
         var abbrs = [
           document.getElementById('advertiser-disclosure'),
-          document.getElementById('second-advertiser-disclosure'),
-        ].filter(Boolean);
-        var popper = null;
-        var isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-        var activeAbbr = null;
+          document.getElementById('second-advertiser-disclosure')
+        ].filter(Boolean)
+        var popper = null
+        var isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0
+        var activeAbbr = null
 
         function showPopup(abbr) {
-          if (popper) return;
-          popper = document.createElement('div');
-          popper.classList.add('advertiser-disclosure-popup');
+          if (popper) return
+          popper = document.createElement('div')
+          popper.classList.add('advertiser-disclosure-popup')
           // Try data-content first, fallback to data-text for second abbr
-          popper.textContent = abbr.getAttribute('data-text') || abbr.getAttribute('data-text') || '';
+          popper.textContent = abbr.getAttribute('data-text') || abbr.getAttribute('data-text') || ''
 
-          var rect = abbr.getBoundingClientRect();
-          var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-          var scrollLeft = window.pageXOffset || document.documentElement.scrollLeft;
+          var rect = abbr.getBoundingClientRect()
+          var scrollTop = window.pageYOffset || document.documentElement.scrollTop
+          var scrollLeft = window.pageXOffset || document.documentElement.scrollLeft
 
-          document.body.appendChild(popper);
+          document.body.appendChild(popper)
 
           // Get popup dimensions after it's added to DOM
-          var popupRect = popper.getBoundingClientRect();
+          var popupRect = popper.getBoundingClientRect()
 
           if (isTouchDevice) {
             // Mobile: center the popup horizontally relative to abbr
-            popper.style.left = rect.left + scrollLeft + rect.width / 2 - popupRect.width / 2 + 'px';
-            popper.style.top = rect.bottom + 8 + scrollTop + 'px';
+            popper.style.left = rect.left + scrollLeft + rect.width / 2 - popupRect.width / 2 + 'px'
+            popper.style.top = rect.bottom + 8 + scrollTop + 'px'
           } else {
             // Desktop: position left edge of popup to right edge of abbr (text)
-            popper.style.left = rect.right + scrollLeft + 'px';
-            popper.style.top = rect.bottom + 8 + scrollTop + 'px';
+            popper.style.left = rect.right + scrollLeft + 'px'
+            popper.style.top = rect.bottom + 8 + scrollTop + 'px'
           }
-          activeAbbr = abbr;
+          activeAbbr = abbr
         }
 
         function hidePopup() {
           if (popper) {
-            popper.remove();
-            popper = null;
-            activeAbbr = null;
+            popper.remove()
+            popper = null
+            activeAbbr = null
           }
         }
 
@@ -538,40 +542,36 @@
           if (isTouchDevice) {
             // Mobile/touch device behavior
             abbr.addEventListener('click', function (e) {
-              e.preventDefault();
+              e.preventDefault()
               // If this abbr already has popup open, hide
               if (popper && activeAbbr === abbr) {
-                hidePopup();
+                hidePopup()
               } else {
                 // If another abbr's popup open, close and open for this one
-                hidePopup();
-                showPopup(abbr);
+                hidePopup()
+                showPopup(abbr)
               }
-            });
+            })
           } else {
             // Desktop behavior
             abbr.addEventListener('mouseenter', function () {
               if (!popper) {
-                showPopup(abbr);
+                showPopup(abbr)
               }
-            });
+            })
             abbr.addEventListener('mouseleave', function () {
-              hidePopup();
-            });
+              hidePopup()
+            })
           }
-        });
+        })
 
         if (isTouchDevice) {
           // Hide popup when clicking outside—works for both abbrs and popup
           document.addEventListener('click', function (e) {
-            if (
-              popper &&
-              !abbrs.some(abbr => abbr.contains(e.target)) &&
-              !popper.contains(e.target)
-            ) {
-              hidePopup();
+            if (popper && !abbrs.some((abbr) => abbr.contains(e.target)) && !popper.contains(e.target)) {
+              hidePopup()
             }
-          });
+          })
         }
       }
 
@@ -628,6 +628,28 @@
           window.scrollTo({ top: 0, behavior: 'smooth' })
         })
       }
+
+      function removeSiteFooter() {
+        const footer = document.querySelector('footer#mvp-foot-wrap')
+        if (footer) {
+          footer.style.display = 'none'
+        }
+
+        const mainBodyWrap = document.querySelector('div#mvp-main-body-wrap')
+        if (mainBodyWrap) {
+          mainBodyWrap.style.paddingBottom = '0'
+        }
+
+        const elementorPadding = document.querySelector(
+          '.elementor-column-gap-default>.elementor-column>.elementor-element-populated'
+        )
+        if (elementorPadding) {
+          elementorPadding.style.paddingBottom = '0'
+        }
+      }
+
+      removeSiteFooter()
+
       // initGroupOffer()
       // setCurrentDate()
       // setDynamicMonth()
