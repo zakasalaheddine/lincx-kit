@@ -1,0 +1,71 @@
+{
+  "templateId": "x0fx99",
+  "networkId": "8z8znz",
+  "publisherId": "6xe6f9",
+  "creativeAssetGroupId": "pp1f46",
+  "name": "TEST - Daily Briefings Hub New",
+  "notes": {},
+  "creativeAssetGroup": {
+    "id": "pp1f46",
+    "name": "Listicle",
+    "fields": {
+      "properties": {
+        "listicle_headline": {
+          "type": "string",
+          "notes": "Headline for the full listicle (Header section)"
+        },
+        "listicle_subheadline": {
+          "type": "string",
+          "notes": "Subheadline for the main listicle headline"
+        },
+        "src": {
+          "type": "image"
+        },
+        "imageURL": {
+          "type": "string",
+          "notes": "use this field when pulling in an image based on an external storage point using a URL"
+        },
+        "videoSrc": {
+          "type": "string",
+          "notes": "this field is specific for referencing an external video image when the video image file is too large to upload into the image field"
+        },
+        "offer_headline": {
+          "type": "string",
+          "notes": "Individual offer-level headline"
+        },
+        "offer_text": {
+          "type": "string",
+          "notes": "text block for ad unit"
+        },
+        "cta_text": {
+          "type": "string"
+        },
+        "author_name": {
+          "type": "string",
+          "notes": "Field tied to Listicle's Author name"
+        },
+        "author_image": {
+          "type": "image",
+          "notes": "image src tied to Listicle's author image"
+        },
+        "groupOffer": {
+          "type": "string",
+          "notes": "Assign Creatives to Group Offer. Example, \"high\" denotes Top Offer"
+        },
+        "cta_list": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "offer_disclaimer": {
+          "type": "string"
+        }
+      },
+      "required": []
+    }
+  },
+  "mockData": {
+    "adsCount": 3
+  }
+}
