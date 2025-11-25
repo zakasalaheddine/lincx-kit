@@ -66,6 +66,19 @@
           "name": "TEST - Daily Briefings Hub New"
         }
       ]
+    },
+    "9dbswj": {
+      "name": "9dbswj",
+      "templates": [
+        {
+          "id": "zph5uz",
+          "name": "Senior Kickbacks Online -  Listicle - Morgan Original - Algorithm"
+        },
+        {
+          "id": "78e04o",
+          "name": "Homeowner Kickbacks Com -  Internal Listicle"
+        }
+      ]
     }
   }
 }
