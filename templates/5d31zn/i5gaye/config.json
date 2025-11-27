@@ -1,0 +1,62 @@
+{
+  "templateId": "i5gaye",
+  "networkId": "5d31zn",
+  "publisherId": "b374mh",
+  "creativeAssetGroupId": "wtbiwr",
+  "name": "Top 8 GLP-1 Weight Loss Guide - Results - Zone 1",
+  "notes": {},
+  "creativeAssetGroup": {
+    "id": "wtbiwr",
+    "name": "Listing",
+    "fields": {
+      "properties": {
+        "image": {
+          "type": "image"
+        },
+        "promo": {
+          "type": "string"
+        },
+        "offer_headline": {
+          "type": "string"
+        },
+        "bullet_points_text": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "offer_text": {
+          "type": "string"
+        },
+        "rating_score": {
+          "type": "string"
+        },
+        "rating_stars": {
+          "type": "string"
+        },
+        "price": {
+          "type": "string"
+        },
+        "cta_text": {
+          "type": "string"
+        }
+      },
+      "required": []
+    }
+  },
+  "mockData": {
+    "adsCount": 3,
+    "fieldsOptions": {
+      "image": [
+        "https://top8for-weightloss-v1.vercel.app/img/medvi-logo.svg",
+        "https://top8for-weightloss-v1.vercel.app/assets/images/SkinnyRx_dark.svg"
+      ],
+      "rating_score": ["8.8", "3.7", "9.6"],
+      "rating_stars": ["4.5", "4.5", "4.5"],
+      "offer_headline": ["US Board-Certified Clinician Prescribed"],
+      "promo": ["$120 OFF + Free Shipping"],
+      "price": ["$179/month"],
+      "offer_text": ["Join 100,000+ MEDVi patients and lose an average of 18% of your body weight. 93% kept the weight off for good. Find Doctor-Approved GLP-1 Medication with weight loss guaranteed or your money back."]
+    }
+  }
+}
