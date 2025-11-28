@@ -1,15 +1,22 @@
 <div class="product-listing-wrapper">
   {{#ads}}
-  <div class="product-card" id="{{ adId }}">
+  <div class="product-card" id="{{ adId }}" data-is-banner="{{banner}}">
     <!-- Top Choice Banner (hidden by default, shown via JavaScript) -->
     <div class="badge-banner"></div>
 
     <div class="card-header">
       <div class="rank-image">
         <div class="rank-number"></div>
-        <div class="product-image" data-content="{{ image }}">
+        <a
+          href="{{href}}"
+          data-lincx-cta
+          data-lincx-cta-name="image"
+          data-lincx-cta-position="image"
+          class="product-image"
+          data-content="{{ image }}"
+        >
           <img src="{{ image }}" alt="{{ offer_headline }}" />
-        </div>
+        </a>
       </div>
       <div class="stats-section" data-stats-score="{{ rating_score }}" data-content="{{rating_score}}">
         <div class="stats-score">{{ rating_score }}</div>
@@ -20,7 +27,17 @@
 
     <div class="content-wrapper">
       <div class="card-content">
-        <h3 class="offer-headline" data-content="{{ offer_headline }}">{{{ offer_headline }}}</h3>
+        <a
+          href="{{href}}"
+          data-lincx-cta
+          data-lincx-cta-name="heading"
+          data-lincx-cta-position="heading"
+          data-content="{{ offer_headline }}"
+          class="headline-link"
+        >
+          <h3 class="offer-headline" data-content="{{ offer_headline }}">{{{ offer_headline }}}</h3>
+        </a>
+
         <div class="promo-pricing-section">
           <div class="promo-tag" data-content="{{ promo }}">{{ promo }}</div>
           <div class="pricing" data-content="{{ price }}">
@@ -69,6 +86,14 @@
         <span data-default-value="Visit Site">{{{cta_text}}}</span>
       </a>
     </div>
+    <a
+      href="{{ href }}"
+      data-lincx-cta
+      data-lincx-cta-name="banner"
+      data-lincx-cta-position="banner"
+      class="btn-banner"
+      target="_blank"
+    ></a>
   </div>
   {{/ads}}
 
@@ -120,13 +145,50 @@
 
       const products = document.querySelectorAll('.product-card')
 
+      let productNumber = 1
       products.forEach((product, index) => {
+        const productIsBanner = !!product.dataset.isBanner
+
+        if (productIsBanner) {
+          product.classList.add('product-banner')
+          const badgeBanner = product.querySelector('.badge-banner')
+          if (badgeBanner) badgeBanner.remove()
+
+          const productImage = product.querySelector('.product-image')
+          const offerHeadline = product.querySelector('.offer-headline')
+          const offerText = product.querySelector('.card-services p')
+          const bannerLink = product.querySelector('a.btn-banner')
+          if (bannerLink) {
+            bannerLink.remove()
+          }
+          product.innerHTML = ''
+          if (productImage) {
+            product.appendChild(productImage)
+          }
+          if (offerHeadline || offerText) {
+            const contentDiv = document.createElement('div')
+            contentDiv.classList.add('content')
+            if (offerHeadline) {
+              contentDiv.appendChild(offerHeadline)
+            }
+            if (offerText) {
+              offerText.classList.add('offer-text')
+              contentDiv.appendChild(offerText)
+            }
+            product.appendChild(contentDiv)
+          }
+          if (bannerLink) {
+            product.appendChild(bannerLink)
+          }
+
+          return
+        }
         const badgeBanner = product.querySelector('.badge-banner')
         if (badgeBanner) {
-          if (index === 0) {
+          if (productNumber === 1) {
             product.classList.add('featured', 'top-choice')
             badgeBanner.outerHTML = badges[0]
-          } else if (index === 1) {
+          } else if (productNumber === 2) {
             product.classList.add('featured', 'popular-choice')
             badgeBanner.outerHTML = badges[1]
           } else {
@@ -134,9 +196,12 @@
           }
         }
 
-        const rankNumber = product.querySelector('.rank-number')
-        if (rankNumber) {
-          rankNumber.innerHTML = index + 1
+        if (!productIsBanner) {
+          const rankNumber = product.querySelector('.rank-number')
+          if (rankNumber) {
+            rankNumber.innerHTML = productNumber
+            productNumber++
+          }
         }
 
         const statsSection = product.querySelector('.stats-section')
@@ -178,13 +243,11 @@
 
         const refCta = product.querySelector('.btn-read-review span')
         if (refCta && refCta.textContent === '') {
-          console.log('refCta.dataset', refCta.dataset)
           refCta.textContent = refCta.dataset.defaultValue
         }
 
         const mainCta = product.querySelector('.btn-visit-site span')
         if (mainCta && mainCta.textContent === '') {
-          console.log('mainCta.dataset', mainCta.dataset)
           mainCta.textContent = mainCta.dataset.defaultValue
         }
       })

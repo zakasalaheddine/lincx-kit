@@ -201,6 +201,9 @@ body {
     margin: 0;
     line-height: 1.2;
 
+    .headline-link {
+      text-decoration: none;
+    }
     .offer-headline {
       font-size: 1.8em;
       font-weight: bold;
@@ -209,6 +212,7 @@ body {
       display: block;
       margin-bottom: 5px;
       line-height: 1.2;
+      text-decoration: none;
     }
     .promo-pricing-section {
       display: flex;
@@ -447,6 +451,58 @@ body {
   .product-card .card-ctas a {
     padding: 18px 0;
     font-size: 1.1em;
+  }
+}
+
+.product-card.product-banner {
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-top: 0;
+  border: none;
+  display: flex;
+  gap: 4rem;
+  padding: 2.5rem 4rem;
+  align-items: center;
+  background: #1c4842;
+  border-radius: 0px;
+  color: #fff;
+  .product-image {
+    height: auto;
+    width: 220px;
+    img {
+      height: 100%;
+      width: 100%;
+      object-fit: contain;
+    }
+  }
+  .content {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+
+    .offer-headline {
+      color: #fff;
+      font-size: 26px;
+      font-style: normal;
+      font-weight: 700;
+      line-height: 30px;
+      margin: 0;
+    }
+    .offer-text {
+      color: #fff;
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 700;
+      line-height: 17px;
+      margin: 0;
+    }
+  }
+  a.btn-banner {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    top: 0;
   }
 }
 

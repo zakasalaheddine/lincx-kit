@@ -66,7 +66,8 @@
         "Join 100,000+ MEDVi patients and lose an average of 18% of your body weight. 93% kept the weight off for good. Find Doctor-Approved GLP-1 Medication with weight loss guaranteed or your money back."
       ],
       "cta_ref_text": ["Read Review", ""],
-      "cta_text": ["Visit Site", ""]
+      "cta_text": ["Visit Site", ""],
+      "banner": [true, "", ""]
     }
   }
 }
