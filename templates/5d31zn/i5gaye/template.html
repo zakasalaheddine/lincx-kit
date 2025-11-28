@@ -7,11 +7,11 @@
     <div class="card-header">
       <div class="rank-image">
         <div class="rank-number"></div>
-        <div class="product-image">
+        <div class="product-image" data-content="{{ image }}">
           <img src="{{ image }}" alt="{{ offer_headline }}" />
         </div>
       </div>
-      <div class="stats-section" data-stats-score="{{ rating_score }}">
+      <div class="stats-section" data-stats-score="{{ rating_score }}" data-content="{{rating_score}}">
         <div class="stats-score">{{ rating_score }}</div>
         <div class="stats-label">EXCELLENT</div>
         <div class="stats-rating">{{ rating_stars }}</div>
@@ -20,17 +20,17 @@
 
     <div class="content-wrapper">
       <div class="card-content">
-        <h3 class="offer-headline">{{{ offer_headline }}}</h3>
+        <h3 class="offer-headline" data-content="{{ offer_headline }}">{{{ offer_headline }}}</h3>
         <div class="promo-pricing-section">
-          <div class="promo-tag">{{ promo }}</div>
-          <div class="pricing">
+          <div class="promo-tag" data-content="{{ promo }}">{{ promo }}</div>
+          <div class="pricing" data-content="{{ price }}">
             <span class="pricing-label">Pricing starts at</span>
             <span class="pricing-amount">{{ price }}</span>
           </div>
         </div>
       </div>
 
-      <div class="card-services">
+      <div class="card-services" data-content="{{#bullet_points_text}}{{.}}{{/bullet_points_text}}">
         <ul class="features-list">
           {{#bullet_points_text}}
           <li>

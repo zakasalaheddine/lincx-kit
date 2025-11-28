@@ -449,3 +449,7 @@ body {
     font-size: 1.1em;
   }
 }
+
+[data-content=''] {
+  display: none !important;
+}
