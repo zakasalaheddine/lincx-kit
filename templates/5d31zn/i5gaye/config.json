@@ -39,6 +39,12 @@
         },
         "cta_text": {
           "type": "string"
+        },
+        "cta_ref_text": {
+          "type": "string"
+        },
+        "banner": {
+          "type": "boolean"
         }
       },
       "required": []
@@ -56,7 +62,11 @@
       "offer_headline": ["US Board-Certified Clinician Prescribed"],
       "promo": ["$120 OFF + Free Shipping"],
       "price": ["$179/month"],
-      "offer_text": ["Join 100,000+ MEDVi patients and lose an average of 18% of your body weight. 93% kept the weight off for good. Find Doctor-Approved GLP-1 Medication with weight loss guaranteed or your money back."]
+      "offer_text": [
+        "Join 100,000+ MEDVi patients and lose an average of 18% of your body weight. 93% kept the weight off for good. Find Doctor-Approved GLP-1 Medication with weight loss guaranteed or your money back."
+      ],
+      "cta_ref_text": ["Read Review", ""],
+      "cta_text": ["Visit Site", ""]
     }
   }
 }

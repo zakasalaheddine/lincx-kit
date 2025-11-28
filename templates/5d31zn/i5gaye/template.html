@@ -57,7 +57,7 @@
             fill="#2563EB"
           />
         </svg>
-        Read Review
+        <span data-default-value="Read Review">{{{cta_ref_text}}}</span>
       </a>
       <a
         href="{{ href }}"
@@ -65,9 +65,8 @@
         data-lincx-cta
         data-lincx-cta-name="visit-site"
         data-lincx-cta-position="visit-site"
-        data-default-value="Visit Site"
       >
-        Visit Site
+        <span data-default-value="Visit Site">{{{cta_text}}}</span>
       </a>
     </div>
   </div>
@@ -175,6 +174,18 @@
           }
           starsHTML += '</div>'
           statsRating.innerHTML = starsHTML
+        }
+
+        const refCta = product.querySelector('.btn-read-review span')
+        if (refCta && refCta.textContent === '') {
+          console.log('refCta.dataset', refCta.dataset)
+          refCta.textContent = refCta.dataset.defaultValue
+        }
+
+        const mainCta = product.querySelector('.btn-visit-site span')
+        if (mainCta && mainCta.textContent === '') {
+          console.log('mainCta.dataset', mainCta.dataset)
+          mainCta.textContent = mainCta.dataset.defaultValue
         }
       })
     }
