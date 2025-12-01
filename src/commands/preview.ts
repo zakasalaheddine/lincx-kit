@@ -2,7 +2,7 @@ import { intro, outro, spinner } from '@clack/prompts';
 import open from 'open';
 import { watch } from 'node:fs/promises';
 import path from 'node:path';
-import { getCreativeAssetGroup, getZone } from '../services/api.ts';
+import { getCreativeAssetGroup, getZone, getLookupGeo, getAdsForZone } from '../services/api.ts';
 import { generateMockData } from '../services/mock-generator.ts';
 import { readStylesCss, readTemplateConfig, readTemplateHtml } from '../services/storage.ts';
 import { renderTemplate } from '../utils/template-renderer.ts';
@@ -18,6 +18,21 @@ interface PreviewArgs {
 
 const WATCHED_FILES = new Set(['template.html', 'styles.css', 'config.json']);
 
+function localISOString(date: Date): string {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  const hours = String(date.getHours()).padStart(2, '0');
+  const minutes = String(date.getMinutes()).padStart(2, '0');
+  const seconds = String(date.getSeconds()).padStart(2, '0');
+  const ms = String(date.getMilliseconds()).padStart(3, '0');
+  return `${year}-${month}-${day}T${hours}:${minutes}:${seconds}.${ms}`;
+}
+
+function generateZoneLoadEventId(): string {
+  return `evt_${Date.now()}_${Math.random().toString(36).slice(2, 10)}`;
+}
+
 async function loadAndRenderTemplate(
   templateDir: string,
   args: PreviewArgs
@@ -32,9 +47,40 @@ async function loadAndRenderTemplate(
   let zoneScript: string | undefined;
 
   if (args.zone) {
+    // Mimic zone script behavior: get geo location, then get ads
     const zone = await getZone(args.zone);
-    zoneScript = buildZoneScript(zone.id);
-    data = { zone };
+    
+    // Step 1: Call lookup API to get user location
+    const geo = await getLookupGeo();
+    
+    // Step 2: Call ads API with zone and geo parameters
+    const previewUrl = `https://poweredbylincx.com/clients/preview/${args.network}/${args.template}`;
+    const zoneLoadEventId = generateZoneLoadEventId();
+    const timestamp = localISOString(new Date());
+    
+    const adsResponse = await getAdsForZone(zone.id, {
+      href: previewUrl,
+      geoCity: geo.city || '',
+      geoRegion: geo.region || '',
+      geoState: geo.region || '',
+      geoIP: geo.ip || '',
+      geoPostal: geo.postal || '',
+      geoCountry: geo.country || '',
+      geoCountryName: geo.countryName || '',
+      timestamp,
+      zoneLoadEventId,
+      testMode: true,
+    });
+    
+    // Step 3: Use the ads from API response instead of mock ads
+    // Use local template files (html, css) instead of API template
+    data = {
+      ads: adsResponse.ads,
+      zone,
+    };
+    
+    // Don't include zone script since we're mimicking its behavior with direct API calls
+    zoneScript = undefined;
   } else {
     const creativeAssetGroupId = config.creativeAssetGroup?.id ?? config.creativeAssetGroupId;
     if (!creativeAssetGroupId) {

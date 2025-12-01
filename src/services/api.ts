@@ -1,5 +1,5 @@
-import { AuthResponseSchema, TemplateSchema, CreativeAssetGroupSchema, ZoneSchema, type Template, type Zone } from '../types/api.ts';
-import { IDENTITY_SERVER_URL, API_SERVER_URL } from '../utils/constants.ts';
+import { AuthResponseSchema, TemplateSchema, CreativeAssetGroupSchema, ZoneSchema, LookupResponseSchema, AdsResponseSchema, type Template, type Zone, type LookupResponse, type AdsResponse } from '../types/api.ts';
+import { IDENTITY_SERVER_URL, API_SERVER_URL, GEOMETER_API_URL } from '../utils/constants.ts';
 import { AuthError, ApiError } from '../utils/errors.ts';
 import { loadProjectConfig } from './config.ts';
 import { loadAuthToken } from './config.ts';
@@ -197,5 +197,95 @@ export async function updateTemplate(templateId: string, updates: TemplateUpdate
   });
 
   return parseTemplateResponse(updatedRaw);
+}
+
+/**
+ * Fetches user geo location from the lookup API
+ */
+export async function getLookupGeo(): Promise<LookupResponse> {
+  const response = await fetch(`${GEOMETER_API_URL}/lookup`, {
+    method: 'GET',
+    headers: {
+      'accept': 'application/json',
+      'origin': 'https://poweredbylincx.com',
+    },
+  });
+
+  if (!response.ok) {
+    throw new ApiError(`Lookup API error: ${response.status}`, {
+      status: response.status,
+    });
+  }
+
+  const raw = await response.json();
+  const parsed = LookupResponseSchema.safeParse(raw);
+  if (!parsed.success) {
+    throw new ApiError('Malformed lookup response');
+  }
+  return parsed.data;
+}
+
+/**
+ * Fetches ads for a zone with geo parameters
+ */
+export async function getAdsForZone(
+  zoneId: string,
+  options: {
+    href: string;
+    geoCity?: string;
+    geoRegion?: string;
+    geoState?: string;
+    geoIP?: string;
+    geoPostal?: string;
+    geoCountry?: string;
+    geoCountryName?: string;
+    timestamp?: string;
+    zoneLoadEventId?: string;
+    testMode?: boolean;
+  }
+): Promise<AdsResponse> {
+  const params = new URLSearchParams();
+  params.set('zoneId', zoneId);
+  params.set('href', options.href);
+  
+  if (options.geoCity) params.set('geoCity', options.geoCity);
+  if (options.geoRegion) params.set('geoRegion', options.geoRegion);
+  if (options.geoState) params.set('geoState', options.geoState);
+  if (options.geoIP) params.set('geoIP', options.geoIP);
+  if (options.geoPostal) params.set('geoPostal', options.geoPostal);
+  if (options.geoCountry) params.set('geoCountry', options.geoCountry);
+  if (options.geoCountryName) params.set('geoCountryName', options.geoCountryName);
+  if (options.timestamp) params.set('timestamp', options.timestamp);
+  if (options.zoneLoadEventId) params.set('zoneLoadEventId', options.zoneLoadEventId);
+  if (options.testMode !== false) {
+    params.set('test-mode', '');
+  }
+
+  const response = await fetch(`${API_SERVER_URL}/a?${params.toString()}`, {
+    method: 'GET',
+    headers: {
+      'accept': 'application/json',
+      'origin': 'https://poweredbylincx.com',
+    },
+  });
+
+  if (!response.ok) {
+    throw new ApiError(`Ads API error: ${response.status}`, {
+      status: response.status,
+    });
+  }
+
+  const raw = await response.json() as Record<string, unknown>;
+  
+  // Ads will always be available in the response
+  return {
+    ads: (raw.ads as AdsResponse['ads']) || [],
+    template: raw.template as AdsResponse['template'],
+    remoteFeedSetId: raw.remoteFeedSetId as AdsResponse['remoteFeedSetId'],
+    remoteFeedSetName: raw.remoteFeedSetName as AdsResponse['remoteFeedSetName'],
+    segmentId: raw.segmentId as AdsResponse['segmentId'],
+    segmentName: raw.segmentName as AdsResponse['segmentName'],
+    dataAttributesDefault: raw.dataAttributesDefault as AdsResponse['dataAttributesDefault'],
+  };
 }
 

@@ -90,4 +90,34 @@ export type SingleTemplateResponse = z.infer<typeof SingleTemplateResponseSchema
 export const GenericListResponseSchema = <T extends z.ZodTypeAny>(item: T) =>
   z.object({ success: z.literal(true), data: z.array(item) });
 
+// Lookup API response (geo location)
+export const LookupResponseSchema = z.object({
+  ip: z.string().optional(),
+  city: z.string().optional(),
+  country: z.string().optional(),
+  latitude: z.number().optional(),
+  longitude: z.number().optional(),
+  region: z.string().optional(),
+  postal: z.string().optional(),
+  regionName: z.string().optional(),
+  countryName: z.string().optional(),
+});
+export type LookupResponse = z.infer<typeof LookupResponseSchema>;
+
+// Ad type (simplified, based on what templates expect)
+export const AdSchema = z.record(z.string(), z.any());
+export type Ad = z.infer<typeof AdSchema>;
+
+// Ads API response
+export const AdsResponseSchema = z.object({
+  ads: z.array(AdSchema),
+  template: TemplateSchema.optional(),
+  remoteFeedSetId: z.string().optional(),
+  remoteFeedSetName: z.string().optional(),
+  segmentId: z.string().optional(),
+  segmentName: z.string().optional(),
+  dataAttributesDefault: z.record(z.string(), z.any()).optional(),
+});
+export type AdsResponse = z.infer<typeof AdsResponseSchema>;
+
 
