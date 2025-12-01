@@ -10,6 +10,7 @@
         <a
           href="{{href}}"
           data-lincx-cta
+          target="_blank"
           data-lincx-cta-name="image"
           data-lincx-cta-position="image"
           class="product-image"
@@ -30,6 +31,7 @@
         <a
           href="{{href}}"
           data-lincx-cta
+          target="_blank"
           data-lincx-cta-name="heading"
           data-lincx-cta-position="heading"
           data-content="{{ offer_headline }}"
@@ -65,6 +67,7 @@
         href="{{ href }}"
         class="btn-read-review"
         data-lincx-cta
+        target="_blank"
         data-lincx-cta-name="read-review"
         data-lincx-cta-position="read-review"
       >
@@ -80,6 +83,7 @@
         href="{{ href }}"
         class="btn-visit-site"
         data-lincx-cta
+        target="_blank"
         data-lincx-cta-name="visit-site"
         data-lincx-cta-position="visit-site"
       >
@@ -222,7 +226,12 @@
         const statsRating = product.querySelector('.stats-rating')
         if (statsRating) {
           const ratingText = statsRating.textContent.trim()
-          const rating = parseFloat(ratingText) || 0
+          let rating = parseFloat(ratingText) || 0
+          if (rating < 0) {
+            rating = 0
+          }
+          rating = Math.min(rating, 5)
+          
           const fullStars = Math.floor(rating)
           const hasHalfStar = rating % 1 >= 0.5
           const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0)

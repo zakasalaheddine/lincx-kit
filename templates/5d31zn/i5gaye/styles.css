@@ -85,6 +85,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: 3em;
 
     .rank-image {
       display: flex;
@@ -194,7 +195,7 @@ body {
 
   .content-wrapper {
     border-top: 3px solid #ebf4f8;
-    padding: 0 15px 10px 15px;
+    padding: 0 8px 10px 8px;
     clear: both;
   }
   .card-content {
@@ -216,7 +217,6 @@ body {
     }
     .promo-pricing-section {
       display: flex;
-      align-items: center;
       justify-content: space-between;
       flex-direction: column;
 
@@ -229,9 +229,11 @@ body {
         border: 2px solid #31c287;
         padding: 5px 10px;
         border-radius: 1px;
+        text-align: center;
       }
 
       .pricing {
+        text-align: right;
         .pricing-label {
           font-size: 0.8em;
           margin-top: 8px;
@@ -240,7 +242,7 @@ body {
         .pricing-amount {
           color: #353535;
           text-decoration: none;
-          font-size: 1.8em;
+          font-size: 1.5em;
           font-weight: bolder;
         }
       }
@@ -250,7 +252,7 @@ body {
   .card-services {
     display: inline-block;
     background: #eff7fb;
-    padding: 12px 22px;
+    padding: 12px 8px;
     color: #3a3838;
     font-size: 0.8em;
     font-weight: 400;
@@ -299,6 +301,11 @@ body {
         background: linear-gradient(160deg, #00ffdc, #26c3f7, #279dd7, #2685f7, #267bf7, #1c77e4, #2269be, #135cb4);
         color: #fff;
         border: none;
+      }
+      &.btn-visit-site:hover {
+        opacity: 0.9;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
       }
     }
   }
@@ -423,6 +430,7 @@ body {
   .product-card .card-content .promo-pricing-section {
     margin-top: 10px;
     flex-direction: row;
+    align-items: center;
   }
 
   .product-card .card-content .promo-pricing-section .promo-tag {
@@ -459,10 +467,11 @@ body {
   margin-bottom: 0;
   padding-top: 0;
   border: none;
-  display: flex;
   gap: 4rem;
   padding: 2.5rem 4rem;
+  display: flex;
   align-items: center;
+  flex-direction: column;
   background: #1c4842;
   border-radius: 0px;
   color: #fff;
@@ -503,6 +512,12 @@ body {
     left: 0;
     right: 0;
     top: 0;
+  }
+}
+
+@media (min-width: 768px){
+  .product-card.product-banner{
+    flex-direction: row;
   }
 }
 
