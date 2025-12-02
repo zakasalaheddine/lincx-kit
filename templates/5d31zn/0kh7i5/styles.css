@@ -87,6 +87,7 @@ body {
   align-items: center;
   gap: 20px;
   flex-direction: column;
+  padding-top: 20px;
 
   .best-overall-product-image {
     max-width: 220px;
@@ -94,6 +95,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    padding-bottom: 10px;
     img {
       height: auto;
       max-width: 100%;
@@ -164,9 +166,12 @@ ul.best-overall-product-features-list {
   flex-direction: column;
   gap: 12px;
   li {
-    font-size: 15px;
+    font-size: 14px;
     line-height: 1.5;
     color: #333;
+    display: flex;
+    gap: 6px;
+    align-items: flex-start;
   }
 }
 
@@ -180,6 +185,7 @@ ul.best-overall-product-features-list {
   margin: 20px auto;
   gap: 10px;
   justify-self: center;
+  max-width: 70%;
 
   @media (min-width: 1024px) {
     margin: 0px;
@@ -198,6 +204,7 @@ ul.best-overall-product-features-list {
     width: auto;
     box-sizing: border-box;
     color: #fff;
+    font-size: 1.5em;
     font-weight: bold;
     line-height: 1;
     text-align: center;
@@ -215,7 +222,7 @@ ul.best-overall-product-features-list {
     width: auto;
     max-width: 110px;
     box-sizing: border-box;
-    font-size: 0.7em;
+    font-size: 0.6em;
     font-weight: 600;
     text-align: center;
     text-transform: uppercase;
@@ -274,7 +281,7 @@ ul.best-overall-product-features-list {
   }
 }
 
-@media (min-width: 1024px){
+@media (min-width: 1024px) {
   .best-overall-product-ctas-wrapper {
     flex-direction: column;
     padding: 0px;
