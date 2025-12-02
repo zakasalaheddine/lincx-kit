@@ -175,6 +175,10 @@ ul.best-overall-product-features-list {
   }
 }
 
+.stats-section-wrapper {
+  display: flex;
+  flex-direction: column;
+}
 .best-overall-product-stats-section {
   border: 1px solid #ddd;
   border-radius: 8px;
@@ -184,8 +188,6 @@ ul.best-overall-product-features-list {
   align-items: center;
   margin: 20px auto;
   gap: 10px;
-  justify-self: center;
-  max-width: 70%;
 
   @media (min-width: 1024px) {
     margin: 0px;
@@ -230,6 +232,7 @@ ul.best-overall-product-features-list {
       font-size: 0.8em;
     }
   }
+  
   .best-overall-product-star-rating .best-overall-product-star {
     display: inline-block;
     color: #d3d3d3;
@@ -254,6 +257,14 @@ ul.best-overall-product-features-list {
   .best-overall-product-star-rating .best-overall-product-star.best-overall-product-star-empty {
     color: #d3d3d3;
   }
+}
+
+.best-overall-product-star-rating{
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 2px;
+  align-items: center;
+  justify-content: center;
 }
 
 @media (min-width: 768px) {
