@@ -1,0 +1,63 @@
+{
+  "templateId": "7kbcdq",
+  "networkId": "5d31zn",
+  "publisherId": "b374mh",
+  "creativeAssetGroupId": "wtbiwr",
+  "name": "Top 8 GLP-1 Weight Loss Guide - Article Mid - Zone 3 and 4",
+  "notes": {},
+  "creativeAssetGroup": {
+    "id": "wtbiwr",
+    "name": "Listing",
+    "fields": {
+      "properties": {
+        "image": {
+          "type": "image"
+        },
+        "promo": {
+          "type": "string"
+        },
+        "offer_headline": {
+          "type": "string"
+        },
+        "bullet_points_text": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "offer_text": {
+          "type": "string"
+        },
+        "rating_score": {
+          "type": "string"
+        },
+        "rating_stars": {
+          "type": "string"
+        },
+        "price": {
+          "type": "string"
+        },
+        "cta_text": {
+          "type": "string"
+        },
+        "cta_ref_text": {
+          "type": "string"
+        },
+        "banner": {
+          "type": "boolean"
+        }
+      },
+      "required": []
+    }
+  },
+  "mockData": {
+    "adsCount": 1,
+    "fieldsOptions": {
+      "image": ["https://top8for-weightloss-v1.vercel.app/assets/images/ad-1.png?v=3"],
+      "offer_headline": ["NO IN-PERSON VISITS NEEDED"],
+      "offer_text": ["SkinnyRX: FREE Licensed providers in all 50 states"],
+      "cta_text": ["Test"],
+      "cta_ref_text": ["On SkinnyRX's Website"]
+    }
+  }
+}
