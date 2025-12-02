@@ -1,0 +1,64 @@
+{
+  "templateId": "md2vcc",
+  "networkId": "5d31zn",
+  "publisherId": "b374mh",
+  "creativeAssetGroupId": "wtbiwr",
+  "name": "Top 8 GLP-1 Weight Loss Guide - Footer - Zone 5",
+  "notes": {},
+  "creativeAssetGroup": {
+    "id": "wtbiwr",
+    "name": "Listing",
+    "fields": {
+      "properties": {
+        "image": {
+          "type": "image"
+        },
+        "promo": {
+          "type": "string"
+        },
+        "offer_headline": {
+          "type": "string"
+        },
+        "bullet_points_text": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "offer_text": {
+          "type": "string"
+        },
+        "rating_score": {
+          "type": "string"
+        },
+        "rating_stars": {
+          "type": "string"
+        },
+        "price": {
+          "type": "string"
+        },
+        "cta_text": {
+          "type": "string"
+        },
+        "cta_ref_text": {
+          "type": "string"
+        },
+        "banner": {
+          "type": "boolean"
+        }
+      },
+      "required": []
+    }
+  },
+  "mockData": {
+    "adsCount": 1,
+    "fieldsOptions": {
+      "image": ["https://top8for-weightloss-v1.vercel.app/assets/images/SkinnyRx_dark.svg"],
+      "promo": ["Starting at $199/month - No Insurance Required"],
+      "rating_score": ["9.6"],
+      "rating_stars": ["3.5"],
+      "cta_text": ["Free 5-min quiz to qualify"],
+      "cta_ref_text": ["On SkinnyRX's Website"]
+    }
+  }
+}
