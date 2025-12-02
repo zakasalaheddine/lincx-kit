@@ -1,0 +1,142 @@
+<div class="lincx__modal">
+  <div
+    class="modal"
+    id="idleModal"
+    data-custom-event="ce_close_bg"
+    data-zone-id="{{zoneId}}"
+  >
+    <div class="modal-content">
+      <span class="close" data-custom-event="ce_close_x">&times;</span>
+      <div class="offers">
+        <h1 class="heading">Are you still there?</h1>
+        <h2 class="heading">Exclusive Offers for You</h2>
+        <div class="offers__list">
+          {{#ads}}
+          <div class="offer hide" id="{{adId}}">
+            <div class="offer__head">
+              Survey (Question
+              <span class="offer__head--number">{{adId}}</span>)
+            </div>
+            <div class="offer__body">
+              <div class="offer__text">{{{offer_text}}}</div>
+              <div class="offer__buttons">
+                <a
+                  class="cta__button lincx__button"
+                  target="_blank"
+                  data-lincx-cta
+                  href="{{ href }}"
+                  >{{cta_text}}</a
+                >
+                <div class="decline__button lincx__button" for="offer-{{adId}}">
+                  No
+                </div>
+              </div>
+            </div>
+          </div>
+          {{/ads}}
+        </div>
+        <img
+          src="https://creditamerica.azureedge.net/Credit/img/cards-2.png"
+          alt="Flat Dollar"
+          class="modal__image"
+        />
+        <button class="close__button" data-custom-event="ce_close_exit">
+          Exit
+        </button>
+      </div>
+    </div>
+  </div>
+  <script>
+    // Variable to store idle time in seconds
+    let idleTimeSeconds = 90
+
+    // Function to handle modal display
+    function showIdleModal() {
+      document.getElementById('idleModal').style.display = 'block'
+    }
+
+    // Function to close the modal
+    function closeIdleModal() {
+      document.getElementById('idleModal').style.display = 'none'
+    }
+
+    // Initialize idle timer
+    function initIdleTimer() {
+      let idleTimer
+      const resetIdleTimer = function () {
+        clearTimeout(idleTimer)
+        idleTimer = setTimeout(showIdleModal, idleTimeSeconds * 1000)
+      }
+
+      // Events that reset the idle timer
+      ;['mousedown', 'mousemove', 'keypress', 'scroll', 'touchstart'].forEach(
+        (evt) => {
+          document.addEventListener(evt, resetIdleTimer, false)
+        }
+      )
+
+      // Initial setup
+      resetIdleTimer()
+    }
+
+    function connectCustomEvents(element) {
+      const zoneId = document
+        .getElementById('idleModal')
+        .getAttribute('data-zone-id')
+      const customEvent = element.getAttribute('data-custom-event')
+      fetch(
+        `https://api.lincx.com/api/track?type=${customEvent}&zoneId=${zoneId}`
+      )
+    }
+    // Initialize carousel for offers
+    function initiatCarousel() {
+      const carousel = document.querySelector('.offers__list')
+      const headItems = carousel.querySelectorAll('.offer__head--number')
+      headItems.forEach((item, index) => {
+        item.innerHTML = `${index + 1} of ${headItems.length}`
+      })
+
+      const offers = carousel.querySelectorAll('.offer')
+      if (offers.length > 0) offers[0].classList.remove('hide')
+
+      const buttons = document.querySelectorAll('.lincx__button')
+      buttons.forEach((button) => {
+        button.addEventListener('click', () => {
+          const currentOffer = document.querySelector('.offer:not(.hide)')
+          const currentIndex = Array.from(offers).indexOf(currentOffer)
+          if (currentIndex < offers.length - 1) {
+            currentOffer.classList.add('hide')
+            offers[currentIndex + 1].classList.remove('hide')
+          } else {
+            closeIdleModal()
+          }
+        })
+      })
+    }
+
+
+    ;(() => {
+      const closeBtn = document.querySelectorAll('.close, .close__button')
+      closeBtn.forEach((btn) => {
+        if (btn.dataset.customEvent) {
+          btn.addEventListener('click', () => {
+            connectCustomEvents(btn)
+            closeIdleModal()
+          })
+        }
+      })
+      const closeModal = document.getElementById('idleModal')
+      closeModal.addEventListener('click', (e) => {
+        // Only fire if the backdrop itself (not its children) is clicked
+        if (e.target === closeModal) {
+          connectCustomEvents(closeModal)
+          closeIdleModal()
+        }
+      })
+
+      // Initialize the idle timer
+      initIdleTimer()
+      initiatCarousel()
+    })()
+  </script>
+</div>

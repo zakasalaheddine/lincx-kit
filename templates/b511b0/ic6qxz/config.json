@@ -1,0 +1,38 @@
+{
+  "templateId": "ic6qxz",
+  "networkId": "b511b0",
+  "publisherId": "wuhzcj",
+  "creativeAssetGroupId": "6w5zrr",
+  "name": "Credit America - Modal - Idle Consumers - 90 Seconds",
+  "notes": {
+    "objectives": "Power modal cards (outside of midpath) journey",
+    "general": "Cloned from the main MidPath Template"
+  },
+  "creativeAssetGroup": {
+    "id": "6w5zrr",
+    "name": "Journey",
+    "fields": {
+      "properties": {
+        "offer_text": {
+          "type": "string"
+        },
+        "cta_text": {
+          "type": "string"
+        },
+        "endpoint_destination": {
+          "type": "string"
+        },
+        "is_posting_offer": {
+          "type": "boolean"
+        },
+        "click_2_post_group": {
+          "type": "string"
+        }
+      },
+      "required": []
+    }
+  },
+  "mockData": {
+    "adsCount": 3
+  }
+}
