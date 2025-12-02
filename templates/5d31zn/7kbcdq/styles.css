@@ -222,7 +222,7 @@
   gap: 10px;
   align-items: center;
 
-  .ad-button {
+  .cta-btn {
     color: #4a3c66;
     font-size: 15.875px;
     font-weight: 600;
@@ -241,7 +241,7 @@
     position: relative;
   }
 
-  .ad-button::before {
+  .cta-btn::before {
     content: attr(data-default-value);
     position: absolute;
     display: flex;
@@ -250,19 +250,19 @@
     z-index: 0;
   }
 
-  .ad-button-text {
+  .cta-btn-text {
     position: relative;
     z-index: 1;
   }
 
-  .ad-button-text:empty {
+  .cta-btn-text:empty {
     display: none;
   }
 
-  .ad-button:has(.ad-button-text:not(:empty))::before {
+  .cta-btn:has(.cta-btn-text:not(:empty))::before {
     display: none;
   }
-  .ad-button-ref-text {
+  .cta-btn-ref-text {
     color: #333;
     text-align: center;
     font-size: 11.625px;
