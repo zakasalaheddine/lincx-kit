@@ -1,0 +1,64 @@
+{
+  "templateId": "fmgdkl",
+  "networkId": "301ylr",
+  "publisherId": "ee35tv",
+  "creativeAssetGroupId": "t79nfb",
+  "name": "Senior Digest USA - Algorithm",
+  "notes": {},
+  "creativeAssetGroup": {
+    "id": "t79nfb",
+    "name": "Listicle",
+    "fields": {
+      "properties": {
+        "listical_headline": {
+          "type": "string",
+          "description": "",
+          "notes": "Headline for the full listicle"
+        },
+        "listicle_subheadline": {
+          "type": "string",
+          "notes": "Subheadline for the main listicle headline"
+        },
+        "src_author": {
+          "type": "image",
+          "notes": "Image for  listicle author or author tied to a specific ad unit"
+        },
+        "author_name": {
+          "type": "string",
+          "notes": "Author Name"
+        },
+        "src": {
+          "type": "image"
+        },
+        "offer_headline": {
+          "type": "string"
+        },
+        "offer_text": {
+          "type": "string"
+        },
+        "cta_text": {
+          "type": "string"
+        },
+        "logoUrl": {
+          "type": "string"
+        },
+        "videoSrc": {
+          "type": "string"
+        },
+        "cta_list": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "groupOffer": {
+          "type": "string"
+        }
+      },
+      "required": []
+    }
+  },
+  "mockData": {
+    "adsCount": 3
+  }
+}

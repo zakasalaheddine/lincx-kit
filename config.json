@@ -109,6 +109,23 @@
           "name": "Credit America - Modal - Idle Consumers - 90 Seconds"
         }
       ]
+    },
+    "301ylr": {
+      "name": "301ylr",
+      "templates": [
+        {
+          "id": "edh0k4",
+          "name": "Senior Digest USA"
+        },
+        {
+          "id": "fmgdkl",
+          "name": "Senior Digest USA - Algorithm"
+        },
+        {
+          "id": "tt017l",
+          "name": "Senior Digest USA - Group Offer & Multiple targetURL (From Lincx Team)"
+        }
+      ]
     }
   }
 }
