@@ -240,6 +240,7 @@
       })
     }
     ;(() => {
+      
       function renderCurrentDate(selector) {
         const date = new Date()
         date.setDate(date.getDate() - 4)
@@ -253,7 +254,7 @@
           console.error(`Selector "${selector}" not found.`)
         }
       }
-
+      
       function renderDynamicMonth() {
         const month = new Date().toLocaleString('en-US', { month: 'long' })
         document.querySelectorAll('.dynamic_month').forEach((el) => {
@@ -310,6 +311,7 @@
       initGroupOffer()
 
       addNumberToHeadlines()
+      
     })()
   </script>
 
