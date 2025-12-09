@@ -4,7 +4,16 @@
     <div class="listicle" data-heading="{{ listicle_headline }}" id="{{ adId }}">
       <h2 class="heading" data-content="{{ listicle_headline }}">{{{ listicle_headline }}}</h2>
       <h3 class="subheading" data-content="{{offer_headline}}">
-        <a href="{{href}}" target="_blank" style="text-decoration: none; color: #000000">{{{offer_headline}}}</a>
+        <a
+          href="{{href}}"
+          data-lincx-cta-name="subheading"
+          data-lincx-cta-position="subheading"
+          data-lincx-cta
+          target="_blank"
+          style="text-decoration: none; color: #000000"
+        >
+          {{{offer_headline}}}
+        </a>
       </h3>
       <div class="listicle__info" data-content="{{ author_name }}">
         <img loading="lazy" src="{{ src_author }}" alt="{{ src_author }}" class="listicle__author--image" />
