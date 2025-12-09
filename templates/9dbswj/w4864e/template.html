@@ -1,32 +1,35 @@
 <div class="lincx-wrapper">
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap"
-    rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap"
+    rel="stylesheet"
+  />
 
   <div class="lincx-container">
     {{#ads}}
     <div class="listicle" data-heading="{{listicle_headline}}" id="{{ adId }}">
-      <div class="announcement" data-content="{{listicle_announcement}}">
-        {{{listicle_announcement}}}
-      </div>
-      <h2 class="listicle__heading" data-content="{{listicle_headline}}">
-        {{{listicle_headline}}}
-      </h2>
-      <h3 class="offer__headline" data-content="{{offer_headline}}">
-        {{{offer_headline}}}
-      </h3>
+      <div class="announcement" data-content="{{listicle_announcement}}">{{{listicle_announcement}}}</div>
+      <h2 class="listicle__heading" data-content="{{listicle_headline}}">{{{listicle_headline}}}</h2>
+      <h3 class="offer__headline" data-content="{{offer_headline}}">{{{offer_headline}}}</h3>
       <div class="listicle__info" data-content="{{ author_name }}">
         <img src="{{ src_author }}" alt="{{ src_author }}" class="author__image" />
-        <span class="author__name">{{ author_name }}</span>&nbsp;|&nbsp;
+        <span class="author__name">{{ author_name }}</span>
+        &nbsp;|&nbsp;
         <span class="published__date"></span>
       </div>
       <div class="share__this--container">
         <div class="sharethis-inline-share-buttons"></div>
       </div>
       <div class="listicle__thumbnail lazy-load" data-content="{{ src }}{{videoSrc}}">
-        <a href="{{href}}" target="_blank" data-lincx-cta data-content="{{ cta_text }}">
+        <a
+          href="{{href}}"
+          target="_blank"
+          data-lincx-cta-name="image"
+          data-lincx-cta-position="image"
+          data-lincx-cta
+          data-content="{{ cta_text }}"
+        >
           <div data-src="{{src}}" data-video-src="{{videoSrc}}"></div>
         </a>
         <div data-src="{{src}}" data-video-src="{{videoSrc}}" data-show="{{ cta_text }}"></div>
@@ -66,163 +69,178 @@
               </svg>
             </span> -->
           </div>
-          <div class="offer__rating__text" data-content="{{{offer_Rating}}}">
-          </div>
+          <div class="offer__rating__text" data-content="{{{offer_Rating}}}"></div>
           <!-- <br>
           <div class="cta__text" data-content="{{ cta_text }}">{{ cta_text }}</div> -->
         </div>
-
       </div>
       <div class="listicle__content">{{{ offer_text }}}</div>
-      <div class="offer__tip" data-content="{{{offer_Tip}}}">
-        {{{offer_Tip}}}
-      </div>
+      <div class="offer__tip" data-content="{{{offer_Tip}}}">{{{offer_Tip}}}</div>
       <div class="listicle__list__cta" data-content="{{#cta_list}}{{.}}{{/cta_list}}">
         {{#cta_list}}
-        <a href="{{href}}" class="cta__link" target="_blank" data-lincx-cta>{{.}}</a>
+        <a
+          href="{{href}}"
+          class="cta__link"
+          data-lincx-cta-name="cta_list"
+          data-lincx-cta-position="cta position {{ _index }}"
+          data-element="{{.}}"
+          target="_blank"
+          data-lincx-cta
+        >
+          {{.}}
+        </a>
         {{/cta_list}}
       </div>
       <div class="listicle__cta" data-content="{{ cta_text }}">
-        <a href="{{href}}" class="cta__link" target="_blank" data-lincx-cta>{{ cta_text }}</a>
+        <a
+          href="{{href}}"
+          class="cta__link"
+          data-lincx-cta-name="main"
+          data-lincx-cta-position="main"
+          target="_blank"
+          data-lincx-cta
+        >
+          {{ cta_text }}
+        </a>
       </div>
     </div>
     {{/ads}}
   </div>
   <footer class="footer">
     <p>
-      HEALTH DISCLAIMER: This website is not intended to provide medical advice
-      or to take the place of medical advice and treatment from your personal
-      physician. Visitors are advised to consult their own doctors or other
-      qualified health professional regarding the treatment of medical
-      conditions. The author shall not be held liable or responsible for any
-      misunderstanding or misuse of the information contained on this site or
-      for any loss, damage, or injury caused, or alleged to be caused, directly
-      or indirectly by any treatment, action, or application of any food or food
-      source discussed in this website. The U.S. Food and Drug Administration
-      have not evaluated the statements on this website. The information is not
-      intended to diagnose, treat, cure, or prevent any disease.
+      HEALTH DISCLAIMER: This website is not intended to provide medical advice or to take the place of medical advice
+      and treatment from your personal physician. Visitors are advised to consult their own doctors or other qualified
+      health professional regarding the treatment of medical conditions. The author shall not be held liable or
+      responsible for any misunderstanding or misuse of the information contained on this site or for any loss, damage,
+      or injury caused, or alleged to be caused, directly or indirectly by any treatment, action, or application of any
+      food or food source discussed in this website. The U.S. Food and Drug Administration have not evaluated the
+      statements on this website. The information is not intended to diagnose, treat, cure, or prevent any disease.
     </p>
     <br />
 
     <p>
-      MARKETING DISCLOSURE: This website is a market place. As such you should
-      know that the owner has a monetary connection to the product and services
-      advertised on the site. The owner receives payment whenever a qualified
+      MARKETING DISCLOSURE: This website is a market place. As such you should know that the owner has a monetary
+      connection to the product and services advertised on the site. The owner receives payment whenever a qualified
       lead is referred but that is the extent of it.
     </p>
     <br />
 
     <p>
-      ADVERTISING DISCLOSURE: This website and the products & services referred
-      to on the site are advertising marketplaces. This website is an
-      advertisement and not a news publication. Any photographs of persons used
-      on this site are models. The owner of this site and of the products and
-      services referred to on this site only provides a service where consumers
-      can obtain and compare.
+      ADVERTISING DISCLOSURE: This website and the products & services referred to on the site are advertising
+      marketplaces. This website is an advertisement and not a news publication. Any photographs of persons used on this
+      site are models. The owner of this site and of the products and services referred to on this site only provides a
+      service where consumers can obtain and compare.
     </p>
     <br />
 
     <p>
-      <a href="/disclosure.html" style="color: #0000ee">Disclosure</a> |
-      <a href="/privacy.html" style="color: #0000ee">Privacy Policy</a> |
-      <a href="/cookie.html" style="color: #0000ee">Cookie Policy</a> |
-      <a href="/contact.html" style="color: #0000ee">Contact Us</a> |
-      <a href="/terms.html" style="color: #0000ee">Terms of Use</a> |
+      <a href="/disclosure.html" style="color: #0000ee">Disclosure</a>
+      |
+      <a href="/privacy.html" style="color: #0000ee">Privacy Policy</a>
+      |
+      <a href="/cookie.html" style="color: #0000ee">Cookie Policy</a>
+      |
+      <a href="/contact.html" style="color: #0000ee">Contact Us</a>
+      |
+      <a href="/terms.html" style="color: #0000ee">Terms of Use</a>
+      |
     </p>
     <br />
-    <p>© <span id="year"></span> <span id="location"></span></p>
+    <p>
+      ©
+      <span id="year"></span>
+      <span id="location"></span>
+    </p>
 
     <script>
-      init();
-      if (document.readyState === "complete" || document.readyState === "interactive") {
+      init()
+      if (document.readyState === 'complete' || document.readyState === 'interactive') {
         // DOM is ready
-        console.log("DOM is ready!");
-        updateOfferRating();
-        setupLazyLoad();
+        console.log('DOM is ready!')
+        updateOfferRating()
+        setupLazyLoad()
       } else {
         document.addEventListener('DOMContentLoaded', function () {
-          updateOfferRating();
+          updateOfferRating()
 
-          setupLazyLoad();
-        });
+          setupLazyLoad()
+        })
       }
 
       function updateOfferRating() {
         function extractReviewSection(input) {
-          const regex = /\(([\d,]+ reviews)\)/;
-          const match = input.match(regex);
-        
+          const regex = /\(([\d,]+ reviews)\)/
+          const match = input.match(regex)
+
           if (match) {
-            return match[0]; // Returns the entire matched section "(4,225 reviews)"
+            return match[0] // Returns the entire matched section "(4,225 reviews)"
           }
-        
-          return null; // Return null if the input doesn't match the expected format
+
+          return null // Return null if the input doesn't match the expected format
         }
         // Remove the background of first overlaid_offer__rating to transparent
-        const firstRating = document.querySelector('.overlaid_offer__rating');
-        firstRating.style.backgroundColor = 'transparent';
+        const firstRating = document.querySelector('.overlaid_offer__rating')
+        firstRating.style.backgroundColor = 'transparent'
 
-        const offerRatingTexts = document.querySelectorAll('.offer__rating__text');
+        const offerRatingTexts = document.querySelectorAll('.offer__rating__text')
         offerRatingTexts.forEach((text) => {
           // Extract review count from dataset.content
-          const result = extractReviewSection(text.dataset.content);
+          const result = extractReviewSection(text.dataset.content)
           if (result) {
-            text.textContent = result;
+            text.textContent = result
           }
-        });
+        })
       }
 
       function setupLazyLoad() {
-        const lazyElements = document.querySelectorAll('.listicle__thumbnail.lazy-load');
+        const lazyElements = document.querySelectorAll('.listicle__thumbnail.lazy-load')
 
         lazyElements.forEach((element) => {
           const lazyLoad = (entries, observer) => {
             entries.forEach((entry) => {
               if (entry.isIntersecting) {
-                const parentElement = entry.target;
+                const parentElement = entry.target
 
                 // Check if it is video or image thumbnail
-                const isVideo = parentElement.querySelector('video');
-                const mediaElement = isVideo ? parentElement.querySelector('video') : parentElement.querySelectorAll('img');
+                const isVideo = parentElement.querySelector('video')
+                const mediaElement = isVideo
+                  ? parentElement.querySelector('video')
+                  : parentElement.querySelectorAll('img')
                 if (isVideo) {
                   if (!mediaElement.src) {
-                    mediaElement.src = mediaElement.dataset.videoSrc;
+                    mediaElement.src = mediaElement.dataset.videoSrc
                   }
-                  const source = mediaElement.querySelector('source');
+                  const source = mediaElement.querySelector('source')
                   if (!source.src) {
-                    source.src = source.dataset.src;
+                    source.src = source.dataset.src
                   }
                 } else {
                   mediaElement.forEach((img) => {
                     if (!img.src) {
-                      img.src = img.dataset.src;
+                      img.src = img.dataset.src
                     }
-                  });
+                  })
                 }
 
-                observer.unobserve(parentElement);
+                observer.unobserve(parentElement)
               }
-            });
-          };
+            })
+          }
 
-          const observer = new IntersectionObserver(lazyLoad, { threshold: 0.3 });
-          observer.observe(element);
-        });
+          const observer = new IntersectionObserver(lazyLoad, { threshold: 0.3 })
+          observer.observe(element)
+        })
       }
 
       function initializeThumbnails() {
         // Find all placeholder divs
-        const placeholderDivs = document.querySelectorAll(
-          'div[data-src], div[data-video-src]'
-        )
+        const placeholderDivs = document.querySelectorAll('div[data-src], div[data-video-src]')
 
         placeholderDivs.forEach((div) => {
           const videoSrc = div.getAttribute('data-video-src')
           const imgSrc = div.getAttribute('data-src')
           // Get all data attributes
-          const dataAttributes = Array.from(div.attributes).filter((attr) =>
-            attr.name.startsWith('data-')
-          )
+          const dataAttributes = Array.from(div.attributes).filter((attr) => attr.name.startsWith('data-'))
 
           if (videoSrc) {
             const isGif = videoSrc.toLowerCase().endsWith('.gif')
@@ -231,7 +249,7 @@
               // Create image for GIF
               const img = document.createElement('img')
               // img.loading = 'lazy'
-              img.decoding = 'async';
+              img.decoding = 'async'
               img.dataset.src = videoSrc
               img.alt = 'listicle image'
               img.style.width = '100%'
@@ -248,7 +266,7 @@
               // Create video element
               const video = document.createElement('video')
               // video.loading = 'lazy'
-              video.decoding = 'async';
+              video.decoding = 'async'
               video.className = 'video-thumbnail'
               video.autoplay = true
               video.muted = true
@@ -261,9 +279,7 @@
               source.dataset.src = videoSrc
               video.appendChild(source)
 
-              const fallbackText = document.createTextNode(
-                'Your browser does not support the video tag.'
-              )
+              const fallbackText = document.createTextNode('Your browser does not support the video tag.')
               video.appendChild(fallbackText)
 
               // Copy data attributes
@@ -276,7 +292,7 @@
             // Create image element
             const img = document.createElement('img')
             // img.loading = 'lazy'
-            img.decoding = 'async';
+            img.decoding = 'async'
             img.dataset.src = imgSrc
             img.alt = 'listicle image'
             img.style.width = '100%'
@@ -296,7 +312,7 @@
         const videos = document.querySelectorAll('.video-thumbnail')
 
         videos.forEach((video) => {
-          return;
+          return
           // Function to ensure video keeps playing
           function ensurePlaying() {
             if (video.paused) {
@@ -341,17 +357,41 @@
         initializeThumbnails()
         initVideoPlayback()
 
-        document.getElementById('year').textContent = new Date().getFullYear()
-        document.getElementById('location').textContent = window.location.hostname
-        const monthNames = ["January", "February", "March", "April", "May", "June",
-          "July", "August", "September", "October", "November", "December"
-        ];
+        function attachCtaListAttributes() {
+          const ctaList = document.querySelectorAll('.listicle__list__cta')
+          ctaList.forEach((ctaList, index) => {
+            const ctaLinks = ctaList.querySelectorAll('a')
+            ctaLinks.forEach((cta, index) => {
+              cta.dataset.lincxCtaName = 'cta_list'
+              cta.dataset.lincxCtaPosition = `cta position ${index + 1}`
+            })
+          })
+        }
+        attachCtaListAttributes()
+
+        const yearElem = document.getElementById('year')
+        if (yearElem) yearElem.textContent = new Date().getFullYear()
+        const locationElem = document.getElementById('location')
+        if (locationElem) locationElem.textContent = window.location.hostname
+        const monthNames = [
+          'January',
+          'February',
+          'March',
+          'April',
+          'May',
+          'June',
+          'July',
+          'August',
+          'September',
+          'October',
+          'November',
+          'December'
+        ]
         // const today = new Date();
         // const currentMonth = monthNames[today.getMonth()];
         // document.getElementById("currentMonth").innerHTML = currentMonth;
       }
     </script>
     <!-- SmartNews Ads Pixel Code -->
-
   </footer>
 </div>
