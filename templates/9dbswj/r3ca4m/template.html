@@ -5,7 +5,7 @@
       <div class="announcement" data-content="{{listicle_announcement}}">{{{listicle_announcement}}}</div>
       <h2 class="listicle__heading" data-content="{{listicle_headline}}">{{{listicle_headline}}}</h2>
       <h3 class="offer__headline" data-content="{{offer_headline}}">{{{offer_headline}}}</h3>
-      <div class="offer__rating" data-content="{{offer_Rating}}">{{{offer_Rating}}}</div>
+      <!-- <div class="offer__rating" data-content="{{offer_Rating}}">{{{offer_Rating}}}</div> -->
       <div class="listicle__info" data-content="{{ author_name }}">
         <img src="{{ src_author }}" alt="{{ src_author }}" class="author__image" />
         <span class="author__name">{{ author_name }}</span>
@@ -26,6 +26,9 @@
           <div data-src="{{src}}" data-video-src="{{videoSrc}}"></div>
         </a>
         <div data-src="{{src}}" data-video-src="{{videoSrc}}" data-show="{{ cta_text }}"></div>
+        <div class="overlaid_offer__rating">
+          <div class="offer__rating" data-content="{{{offer_Rating}}}">{{{offer_Rating}}}</div>
+        </div>
       </div>
       <div class="listicle__content">{{{ offer_text }}}</div>
       <div class="offer__tip" data-content="{{{offer_Tip}}}">{{{offer_Tip}}}</div>
@@ -34,10 +37,9 @@
         <a
           href="{{href}}"
           class="cta__link"
-          target="_blank"
           data-lincx-cta-name="cta_list"
           data-lincx-cta-position="cta position {{ _index }}"
-          data-element="{{.}}"
+          target="_blank"
           data-lincx-cta
         >
           {{.}}
@@ -49,7 +51,7 @@
           href="{{href}}"
           class="cta__link"
           data-lincx-cta-name="main"
-          data-lincx-cta-position="main"
+          data-lincx-cta-position="cta_link"
           target="_blank"
           data-lincx-cta
         >
@@ -231,9 +233,21 @@
         initializeThumbnails()
         initVideoPlayback()
 
-        var yearElem = document.getElementById('year');
+        function attachCtaListAttributes() {
+          const ctaList = document.querySelectorAll('.listicle__list__cta')
+          ctaList.forEach((ctaList, index) => {
+            const ctaLinks = ctaList.querySelectorAll('a')
+            ctaLinks.forEach((cta, index) => {
+              cta.dataset.lincxCtaName = 'cta_list'
+              cta.dataset.lincxCtaPosition = `cta position ${index + 1}`
+            })
+          })
+        }
+        attachCtaListAttributes()
+
+        const yearElem = document.getElementById('year');
         if (yearElem) yearElem.textContent = new Date().getFullYear();
-        var locationElem = document.getElementById('location');
+        const locationElem = document.getElementById('location');
         if (locationElem) locationElem.textContent = window.location.hostname;
         const monthNames = [
           'January',

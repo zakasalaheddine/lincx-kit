@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Faustina:ital,wght@0,300..800;1,300..800&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 *,
 *::after,
 *::before {
@@ -9,9 +9,8 @@
 
 .lincx-wrapper {
   font-family: 'Roboto', sans-serif;
-  padding-top: 20px;
-  padding-left: 20px;
-  padding-right: 20px;
+  padding-left: 2%;
+  padding-right: 2%;
   margin: 0 auto;
   counter-set: index;
   counter-reset: index;
@@ -24,8 +23,8 @@
 }
 @media (min-width: 720px) {
   .lincx-wrapper {
-    padding-left: calc(40px + 3%);
-    padding-right: calc(40px + 3%);
+    padding-left: calc(40px + 2%);
+    padding-right: calc(40px + 2%);
   }
 }
 @media (min-width: 992px) {
@@ -36,13 +35,23 @@
     padding-right: calc(150px + 2%);
   }
 }
+@media (min-width: 992px) {
+  .lincx-wrapper {
+    max-width: 960px;
+  }
+}
+@media (min-width: 1200px) {
+  .lincx-wrapper {
+    max-width: 1140px;
+  }
+}
 
 .listicle[data-heading=''] {
   counter-increment: index;
 }
 .listicle {
   margin-bottom: 1.75rem;
-  border-bottom: 3px solid #444444;
+  border-bottom: 3px solid #edeef0;
 }
 
 @media screen and (min-width: 768px) {
@@ -61,48 +70,46 @@
   margin-bottom: 15px;
 }
 .heading {
-  font-size: 20px;
-  line-height: 22px;
+  font-size: 26px;
+  line-height: 26px;
   font-weight: 700;
   color: #000;
   padding: 0;
   margin: 0;
-  @media (min-width: 1024px) {
+  @media screen and (min-width: 768px) {
     font-size: 26px;
     line-height: 34px;
   }
 }
 
-
 .subheading {
-  line-height: 22px;
-  font-size: 20px;
+  font-size: 24px;
+  line-height: 30px;
   font-family: Roboto;
   font-weight: 700;
   margin-bottom: 20px;
-  /* display: flex;
+  display: flex;
   align-items: flex-start;
-  gap: 5px; */
+  gap: 5px;
   color: #3d3d3d;
 }
-/* .subheading::before {
+.subheading::before {
   content: counter(index) '.';
-} */
+}
 @media (min-width: 1024px) {
   .subheading {
-    font-size: 24px;
-    line-height: 34px;
+    font-size: 1.7rem;
+    line-height: 1.5;
   }
 }
 .listicle__info {
-  font-family: "Faustina", serif;
   display: flex;
   align-items: center;
   gap: 10px;
   margin: 10px 0 20px;
-  color: #000;
+  color: #333;
   font-weight: 400;
-  font-size: 14px;
+  font-size: 0.75rem;
   line-height: 1rem;
 }
 @media (min-width: 1024px) {
@@ -113,64 +120,38 @@
   }
 }
 .listicle__author--image {
-  width: 45px;
-  height: 45px;
+  width: 25px;
+  height: 25px;
   border-radius: 9999px;
-}
-.listicle__thumbnail {
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 .listicle__thumbnail img,
 .listicle__thumbnail .video-thumbnail {
   width: 100%;
 }
-.listicle__thumbnail .video-thumbnail,
-.listicle__thumbnail img{
+.listicle__thumbnail .video-thumbnail {
+  height: auto;
   object-fit: cover;
-}
-@media (min-width: 992px) {
-  .listicle__thumbnail .video-thumbnail,
-  .listicle__thumbnail img{
-    width: 100%;
-    height: 432px;
-  }
-}
-@media (min-width: 1024px) {
-  .listicle__thumbnail .video-thumbnail,
-  .listicle__thumbnail img{
-    height: 586px;
-  }
-}
-.listicle__content {
-  font-family: Faustina;
-  font-weight: 400;
 }
 .listicle__content ul,
 .listicle__content ol {
   list-style: disc;
-  line-height: 19px;
-  font-size: 18px;
-  margin: 1rem 0px 1.25rem;
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+  margin: 1rem 0px 1.75rem;
   padding-left: 25px;
 }
 .listicle__content ol {
   list-style: decimal;
 }
-.listicle__content ul li{
-  margin: 0rem 0px 1rem;
-}
 .listicle__content p {
   margin-top: 0;
-  line-height: 19px;
-  font-size: 18px;
-  margin: 1rem 0px 1.25rem;
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+  margin: 1rem 0px 1.75rem;
 }
 .listicle__content a {
   color: #3061ff;
-  text-decoration: underline;
-  text-decoration-color: #000;
+  text-decoration: none;
   font-weight: 700;
 }
 .listicle__content a:hover {
@@ -238,9 +219,6 @@
 .listicle[data-heading=''] .share__this--container {
   display: none;
 }
-a.image_link:not([data-content=""]){
-  width: 100%;
-}
 [data-content=''] {
   display: none;
 }
@@ -256,6 +234,6 @@ a.image_link:not([data-content=""]){
   p {
     font-size: 10px;
     color: #b3b3b3;
-  margin-bottom: 30px;
+    margin-bottom: 30px;
   }
 }

@@ -33,11 +33,11 @@
         {{#cta_list}}
         <a
           href="{{href}}"
-          class="cta__link"
-          target="_blank"
           data-lincx-cta-name="cta_list"
           data-lincx-cta-position="cta position {{ _index }}"
           data-element="{{.}}"
+          class="cta__link"
+          target="_blank"
           data-lincx-cta
         >
           {{.}}
@@ -48,9 +48,9 @@
         <a
           href="{{href}}"
           class="cta__link"
+          target="_blank"
           data-lincx-cta-name="main"
           data-lincx-cta-position="main"
-          target="_blank"
           data-lincx-cta
         >
           {{ cta_text }}
@@ -231,9 +231,21 @@
         initializeThumbnails()
         initVideoPlayback()
 
-        var yearElem = document.getElementById('year');
+        unction attachCtaListAttributes() {
+          const ctaList = document.querySelectorAll('.listicle__list__cta')
+          ctaList.forEach((ctaList, index) => {
+            const ctaLinks = ctaList.querySelectorAll('a')
+            ctaLinks.forEach((cta, index) => {
+              cta.dataset.lincxCtaName = 'cta_list'
+              cta.dataset.lincxCtaPosition = `cta position ${index + 1}`
+            })
+          })
+        }
+        attachCtaListAttributes()
+
+        const yearElem = document.getElementById('year');
         if (yearElem) yearElem.textContent = new Date().getFullYear();
-        var locationElem = document.getElementById('location');
+        const locationElem = document.getElementById('location');
         if (locationElem) locationElem.textContent = window.location.hostname;
         const monthNames = [
           'January',

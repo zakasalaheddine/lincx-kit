@@ -1,0 +1,321 @@
+<div class="lincx-wrapper">
+  <div class="lincx-container">
+    {{#ads}}
+    <div class="listicle" data-heading="{{ listicle_headline }}" id="{{ adId }}">
+      <h2 class="heading" data-content="{{ listicle_headline }}">{{{ listicle_headline }}}</h2>
+      <h3 class="subheading" data-content="{{offer_headline}}">
+        <a
+          href="{{href}}"
+          target="_blank"
+          data-lincx-cta
+          data-lincx-cta-name="headline"
+          data-lincx-cta-position="headline"
+          style="text-decoration: none; color: #000000"
+        >
+          {{{offer_headline}}}
+        </a>
+      </h3>
+      <div class="listicle__info" data-content="{{ author_name }}">
+        <img loading="lazy" src="{{ src_author }}" alt="{{ src_author }}" class="listicle__author--image" />
+        <span class="listicle__author--name">{{ author_name }}</span>
+        <span class="listicle__published--date"></span>
+        <span class="listicle__category"><strong>Trending</strong></span>
+      </div>
+
+      <div class="listicle__thumbnail lazy-load" data-content="{{ src }}">
+        <a
+          href="{{href}}"
+          target="_blank"
+          data-lincx-cta
+          data-lincx-cta-name="image"
+          data-lincx-cta-position="image"
+          data-content="{{ cta_text }}"
+        >
+          <img data-src="{{src}}" alt="listicle image" onerror="this.onerror=null; this.remove();" />
+        </a>
+        <img data-src="{{src}}" alt="listicle image" data-show="{{ cta_text }}" />
+      </div>
+      <div class="listicle__thumbnail lazy-load" data-content="{{ videoSrc }}">
+        <a
+          href="{{href}}"
+          target="_blank"
+          data-lincx-cta
+          data-lincx-cta-name="video"
+          data-lincx-cta-position="video"
+          data-content="{{ cta_text }}"
+        >
+          <video
+            class="video-thumbnail"
+            muted
+            playsinline
+            loop
+            preload="metadata"
+            width="100%"
+            height="100%"
+            data-src="{{ videoSrc }}"
+          >
+            <source data-src="{{ videoSrc }}" type="video/mp4" />
+            <source data-src="{{ videoSrc }}" type="video/webm" />
+            Your browser does not support the video tag.
+          </video>
+          <button class="video-play-button" style="display: none">Play Video</button>
+        </a>
+        <video
+          class="video-thumbnail"
+          muted
+          playsinline
+          loop
+          preload="metadata"
+          width="100%"
+          height="100%"
+          data-show="{{ cta_text }}"
+          data-src="{{ videoSrc }}"
+        >
+          <source data-src="{{ videoSrc }}" type="video/mp4" />
+          <source data-src="{{ videoSrc }}" type="video/webm" />
+          Your browser does not support the video tag.
+        </video>
+        <button class="video-play-button" style="display: none">Play Video</button>
+      </div>
+      <div class="listicle__content">{{{ offer_text }}}</div>
+      <br />
+      <div class="listicle__list__cta" data-content="{{#cta_list}}{{.}}{{/cta_list}}">
+        {{#cta_list}}
+        <a
+          href="{{.}}"
+          class="cta__link"
+          target="_blank"
+          data-lincx-cta
+          data-disclaimer="{{ offer_disclaimer }}"
+          data-lincx-cta-name="cta position {{ _index }}"
+          data-lincx-cta-position="cta_list"
+          data-element="{{.}}"
+        >
+          {{.}}
+        </a>
+        {{/cta_list}}
+      </div>
+      <div class="listicle__cta" data-content="{{ cta_text }}">
+        <a
+          href="{{href}}"
+          class="cta__link"
+          target="_blank"
+          data-disclaimer="{{ offer_disclaimer }}"
+          data-lincx-cta-name="main"
+          data-lincx-cta-position="cta_link"
+          data-lincx-cta
+        >
+          {{ cta_text }}
+        </a>
+      </div>
+      <div class="cta__disclaimer" data-content="{{ offer_disclaimer }}">{{{ offer_disclaimer }}}</div>
+    </div>
+    {{/ads}}
+  </div>
+
+  <script>
+    if (document.readyState === 'complete' || document.readyState === 'interactive') {
+      // DOM is ready
+      console.log('DOM is ready!')
+      setupLazyLoad()
+    } else {
+      document.addEventListener('DOMContentLoaded', function () {
+        setupLazyLoad()
+      })
+    }
+
+    function setupLazyLoad() {
+      const lazyElements = document.querySelectorAll('.listicle__thumbnail.lazy-load')
+      lazyElements.forEach((element) => {
+        const lazyLoad = (entries, observer) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              const parentElement = entry.target
+
+              const isVideo = parentElement.querySelector('video')
+              const mediaElement = isVideo
+                ? parentElement.querySelector('video')
+                : parentElement.querySelectorAll('img')
+
+              if (isVideo) {
+                if (!mediaElement.src) {
+                  mediaElement.src = mediaElement.dataset.src
+                  mediaElement.autoplay = true
+                  mediaElement.loop = true
+                  mediaElement.muted = true
+                  mediaElement.play()
+                }
+              } else {
+                mediaElement.forEach((img) => {
+                  if (!img.src) {
+                    img.src = img.dataset.src
+                  }
+                })
+              }
+
+              observer.unobserve(parentElement)
+            }
+          })
+        }
+        const observer = new IntersectionObserver(lazyLoad, { threshold: 0.3 })
+        observer.observe(element)
+      })
+    }
+
+    function initVideoPlayback() {
+      const videos = document.querySelectorAll('.video-thumbnail')
+
+      videos.forEach((video) => {
+        // Function to ensure video keeps playing
+        function ensurePlaying() {
+          if (video.paused) {
+            video.play().catch((error) => {
+              // console.log("Autoplay prevented. Retrying...");
+              // setTimeout(ensurePlaying, 1000); // Retry after 1 second
+            })
+          }
+        }
+
+        // Attempt to start playing immediately
+        ensurePlaying()
+
+        // Ensure video restarts if it ever stops
+        video.addEventListener('pause', ensurePlaying)
+
+        // If video ends (shouldn't happen with loop, but just in case), restart it
+        video.addEventListener('ended', () => {
+          video.currentTime = 0
+          ensurePlaying()
+        })
+
+        // Attempt to restart video periodically (helpful for some mobile browsers)
+        // setInterval(ensurePlaying, 5000);
+      })
+    }
+
+    function handleCtaListSplits() {
+      const ctaList = document.querySelectorAll('.listicle__list__cta a')
+      ctaList.forEach((cta, index) => {
+        const content = cta.dataset.element
+        const ctaSplit = content.split('|')
+        cta.href = ctaSplit[1]
+        cta.textContent = ctaSplit[0]
+      })
+
+      const listicle = document.querySelectorAll('.listicle')
+      listicle.forEach((card) => {
+        const ctaList = card.querySelectorAll('.listicle__list__cta a')
+        ctaList.forEach((cta, index) => {
+          cta.dataset.lincxCtaName = `cta position ${index + 1}`
+        })
+      })
+    }
+
+    function addNumberToHeadlines() {
+      const headlines = document.querySelectorAll('.subheading[data-content]:not([data-content=""])')
+      headlines.forEach((headline, index) => {
+        headline.innerHTML = `<span class="number">${index + 1}.</span> ${headline.innerHTML}`
+      })
+    }
+
+    ;(() => {
+      function renderCurrentDate(selector) {
+        const date = new Date()
+        date.setDate(date.getDate() - 4)
+        const options = { year: 'numeric', month: 'long', day: '2-digit' }
+        const formattedDate = date.toLocaleDateString('en-US', options)
+
+        const element = document.querySelector(selector)
+        if (element) {
+          element.textContent = formattedDate
+        } else {
+          console.error(`Selector "${selector}" not found.`)
+        }
+      }
+
+      function renderDynamicMonth() {
+        const month = new Date().toLocaleString('en-US', { month: 'long' })
+        document.querySelectorAll('.dynamic_month').forEach((el) => {
+          el.textContent = month
+        })
+      }
+      renderCurrentDate('.listicle__published--date')
+      renderDynamicMonth()
+      handleCtaListSplits()
+      initVideoPlayback()
+      addNumberToHeadlines()
+    })()
+  </script>
+
+  <script>
+    function addShareThisScript() {
+      const script = document.createElement('script')
+      script.type = 'text/javascript'
+      script.src =
+        'https://platform-api.sharethis.com/js/sharethis.js#property=675528a93e41a900135ff134&product=inline-share-buttons'
+      script.async = true
+      document.head.appendChild(script)
+    }
+
+    // Usage
+    addShareThisScript()
+    var yearElement = document.getElementById('year')
+    if (yearElement) {
+      yearElement.textContent = new Date().getFullYear()
+    }
+    var locationElement = document.getElementById('location')
+    if (locationElement) {
+      locationElement.textContent = window.location.hostname
+    }
+  </script>
+  <footer class="footer">
+    <p></p>
+    <p>
+      ADVERTISING DISCLOSURE: HomeownerKickbacks.com (“Homeowner Kickbacks”) and the third-party products and services
+      referenced on this website operate as advertising and comparison marketplaces. This website is a paid
+      advertisement and is not a news publication or journalistic outlet. Any photographs of individuals displayed on
+      this site are for illustrative purposes only and feature models, not actual users. Homeowner Kickbacks provides a
+      platform where homeowners can review, compare, and evaluate various offers and services from independent
+      providers.
+      <br />
+      <br />
+
+      HEALTH DISCLAIMER: This website does not provide medical advice and should not be used as a substitute for
+      consultation with a licensed physician or qualified healthcare professional. Visitors are strongly encouraged to
+      speak with their healthcare providers regarding medical concerns. Neither the owner nor the publisher of this
+      website is responsible for any misunderstanding, misuse, or misinterpretation of the information presented herein,
+      nor for any loss, damage, or injury alleged to be caused directly or indirectly by any recommendation, treatment,
+      action, or application of any food, supplement, or product referenced on this site. Statements made on this
+      website have not been evaluated by the U.S. Food and Drug Administration. The content provided is not intended to
+      diagnose, treat, cure, or prevent any disease.
+      <br />
+      <br />
+
+      All trademarks, logos, and service marks appearing on this website are the property of their respective owners. No
+      affiliation or endorsement with or by HomeownerKickbacks.com is expressed or implied. Our editors conduct
+      independent research to provide insights into products and services; however, we may receive compensation from
+      brands or service providers that appear on this site. Such compensation may influence placement, presentation,
+      rankings, and ratings. Ratings and rankings reflect our proprietary methodology, which may consider factors
+      including brand reputation, product features, consumer engagement, conversion rates, compensation received, and
+      general market interest. HomeownerKickbacks.com does not present information about every product, service, or
+      offer available to consumers.
+      <br />
+      <br />
+
+      Except as specifically outlined in our Terms of Use, all warranties—express or implied—regarding the accuracy,
+      completeness, reliability, or suitability of the information provided on this website are expressly disclaimed.
+      All content, offers, and information presented on this website are subject to change at any time without notice.
+      Homeowner Kickbacks is not liable for errors, omissions, or outcomes related to the use of this website.
+      <br />
+      <br />
+
+      For scientific references, official data, or additional documentation, visitors should consult the individual
+      product or service websites linked throughout this page.
+      <br />
+      <br />
+
+      © 2025 HomeownerKickbacks.com | Privacy Policy | Terms of Use | Advertising Disclosure | Contact Us
+    </p>
+    <p>© 2019–2025 Homeowner Kickbacks. All Rights Reserved.</p>
+  </footer>
+</div>
