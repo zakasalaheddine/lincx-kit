@@ -1,0 +1,229 @@
+<div class="lincx-wrapper">
+  <div class="lincx-container">
+    {{#ads}}
+    <div class="listicle" data-heading="{{ listicle_headline }}" id="{{ adId }}">
+      <h2 class="heading" data-content="{{ listicle_headline }}">{{{ listicle_headline }}}</h2>
+      <h3 class="subheading" data-content="{{offer_headline}}">
+        <a href="{{href}}" target="_blank" style="text-decoration: none; color: #000000">{{{offer_headline}}}</a>
+      </h3>
+      <div class="listicle__info" data-content="{{ author_name }}">
+        <img loading="lazy" src="{{ src_author }}" alt="{{ src_author }}" class="listicle__author--image" />
+        <span class="listicle__author--name">{{ author_name }}</span>
+        <span class="listicle__published--date"></span>
+        <span class="listicle__category"><strong>Trending</strong></span>
+      </div>
+
+      <div class="listicle__thumbnail lazy-load" data-content="{{ src }}">
+        <a
+          href="{{href}}"
+          target="_blank"
+          data-lincx-cta
+          data-lincx-cta-name="image"
+          data-lincx-cta-position="image"
+          data-content="{{ cta_text }}"
+        >
+          <img data-src="{{src}}" alt="listicle image" onerror="this.onerror=null; this.remove();" />
+        </a>
+        <img data-src="{{src}}" alt="listicle image" data-show="{{ cta_text }}" />
+      </div>
+      <div class="listicle__thumbnail lazy-load" data-content="{{ videoSrc }}">
+        <a
+          href="{{href}}"
+          target="_blank"
+          data-lincx-cta
+          data-lincx-cta-name="video"
+          data-lincx-cta-position="video"
+          data-content="{{ cta_text }}"
+        >
+          <video
+            class="video-thumbnail"
+            muted
+            playsinline
+            loop
+            preload="metadata"
+            width="100%"
+            height="100%"
+            data-src="{{ videoSrc }}"
+          >
+            <source data-src="{{ videoSrc }}" type="video/mp4" />
+            <source data-src="{{ videoSrc }}" type="video/webm" />
+            Your browser does not support the video tag.
+          </video>
+          <button class="video-play-button" style="display: none">Play Video</button>
+        </a>
+        <video
+          class="video-thumbnail"
+          muted
+          playsinline
+          loop
+          preload="metadata"
+          width="100%"
+          height="100%"
+          data-show="{{ cta_text }}"
+          data-src="{{ videoSrc }}"
+        >
+          <source data-src="{{ videoSrc }}" type="video/mp4" />
+          <source data-src="{{ videoSrc }}" type="video/webm" />
+          Your browser does not support the video tag.
+        </video>
+        <button class="video-play-button" style="display: none">Play Video</button>
+      </div>
+      <div class="listicle__content">{{{ offer_text }}}</div>
+
+      <div class="listicle__list__cta" data-content="{{#cta_list}}{{.}}{{/cta_list}}">
+        {{#cta_list}}
+        <a
+          href="{{href}}"
+          data-lincx-cta-name="cta_list"
+          data-lincx-cta-position="cta position {{ _index }}"
+          data-element="{{.}}"
+          class="cta__link"
+          target="_blank"
+          data-lincx-cta
+        >
+          {{.}}
+        </a>
+        {{/cta_list}}
+      </div>
+      <br />
+      <div class="listicle__cta" data-content="{{ cta_text }}">
+        <a
+          href="{{href}}"
+          class="cta__link"
+          target="_blank"
+          data-lincx-cta-name="main"
+          data-lincx-cta-position="cta_link"
+          data-lincx-cta
+        >
+          {{ cta_text }}
+        </a>
+      </div>
+    </div>
+    {{/ads}}
+  </div>
+
+  <script>
+    if (document.readyState === 'complete' || document.readyState === 'interactive') {
+      // DOM is ready
+      console.log('DOM is ready!')
+      setupLazyLoad()
+    } else {
+      document.addEventListener('DOMContentLoaded', function () {
+        setupLazyLoad()
+      })
+    }
+
+    function setupLazyLoad() {
+      const lazyElements = document.querySelectorAll('.listicle__thumbnail.lazy-load')
+      lazyElements.forEach((element) => {
+        const lazyLoad = (entries, observer) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              const parentElement = entry.target
+
+              const isVideo = parentElement.querySelector('video')
+              const mediaElement = isVideo
+                ? parentElement.querySelector('video')
+                : parentElement.querySelectorAll('img')
+
+              if (isVideo) {
+                if (!mediaElement.src) {
+                  mediaElement.src = mediaElement.dataset.src
+                  mediaElement.autoplay = true
+                  mediaElement.loop = true
+                  mediaElement.muted = true
+                  mediaElement.play()
+                }
+              } else {
+                mediaElement.forEach((img) => {
+                  if (!img.src) {
+                    img.src = img.dataset.src
+                  }
+                })
+              }
+
+              observer.unobserve(parentElement)
+            }
+          })
+        }
+        const observer = new IntersectionObserver(lazyLoad, { threshold: 0.3 })
+        observer.observe(element)
+      })
+    }
+
+    function initVideoPlayback() {
+      const videos = document.querySelectorAll('.video-thumbnail')
+
+      videos.forEach((video) => {
+        // Function to ensure video keeps playing
+        function ensurePlaying() {
+          if (video.paused) {
+            video.play().catch((error) => {
+              // console.log("Autoplay prevented. Retrying...");
+              // setTimeout(ensurePlaying, 1000); // Retry after 1 second
+            })
+          }
+        }
+
+        // Attempt to start playing immediately
+        ensurePlaying()
+
+        // Ensure video restarts if it ever stops
+        video.addEventListener('pause', ensurePlaying)
+
+        // If video ends (shouldn't happen with loop, but just in case), restart it
+        video.addEventListener('ended', () => {
+          video.currentTime = 0
+          ensurePlaying()
+        })
+
+        // Attempt to restart video periodically (helpful for some mobile browsers)
+        // setInterval(ensurePlaying, 5000);
+      })
+    }
+
+    ;(() => {
+      function renderCurrentDate(selector) {
+        const date = new Date()
+        const options = { year: 'numeric', month: 'long', day: '2-digit' }
+        const formattedDate = date.toLocaleDateString('en-US', options)
+
+        const element = document.querySelector(selector)
+        if (element) {
+          element.textContent = formattedDate
+        } else {
+          console.error(`Selector "${selector}" not found.`)
+        }
+      }
+      renderCurrentDate('.listicle__published--date')
+      initVideoPlayback()
+      function attachCtaListAttributes() {
+        const ctaList = document.querySelectorAll('.listicle__list__cta')
+        ctaList.forEach((ctaList, index) => {
+          const ctaLinks = ctaList.querySelectorAll('a')
+          ctaLinks.forEach((cta, index) => {
+            cta.dataset.lincxCtaName = 'cta_list'
+            cta.dataset.lincxCtaPosition = `cta position ${index + 1}`
+          })
+        })
+      }
+      attachCtaListAttributes()
+    })()
+  </script>
+
+  <script>
+    function addShareThisScript() {
+      const script = document.createElement('script')
+      script.type = 'text/javascript'
+      script.src =
+        'https://platform-api.sharethis.com/js/sharethis.js#property=675528a93e41a900135ff134&product=inline-share-buttons'
+      script.async = true
+      document.head.appendChild(script)
+    }
+
+    // Usage
+    addShareThisScript()
+    document.getElementById('year').textContent = new Date().getFullYear()
+    document.getElementById('location').textContent = window.location.hostname
+  </script>
+</div>
