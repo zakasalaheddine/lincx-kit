@@ -1,0 +1,85 @@
+{
+  "templateId": "t930hj",
+  "networkId": "9dbswj",
+  "publisherId": "tpgfif",
+  "creativeAssetGroupId": "e3d1xm",
+  "name": "Senior Kickbacks Online -  Listicle",
+  "notes": {
+    "objectives": "1st Template for initial Seniors Listicle",
+    "general": "v1 of Template based on the listicle site that Affiliate said that they want to replicate for their first listicle.",
+    "keyFeatures": "Has Base Template, but also includes logic that incorporates multiple targetURL via CTA arrays"
+  },
+  "creativeAssetGroup": {
+    "id": "e3d1xm",
+    "name": "Listicle",
+    "fields": {
+      "properties": {
+        "listicle_headline": {
+          "type": "string",
+          "notes": "Headline for the full listicle"
+        },
+        "listicle_subheadline": {
+          "type": "string",
+          "notes": "Subheadline for the main listicle headline"
+        },
+        "src_author": {
+          "type": "image",
+          "notes": "Image for  listicle author or author tied to a specific ad unit"
+        },
+        "author_name": {
+          "type": "string"
+        },
+        "src": {
+          "type": "image",
+          "notes": "image for ad slot - file that's uploaded"
+        },
+        "offer_headline": {
+          "type": "string",
+          "notes": "Individual offer-level headline"
+        },
+        "offer_text": {
+          "type": "string",
+          "description": "",
+          "notes": "text block for ad unit"
+        },
+        "cta_text": {
+          "type": "string"
+        },
+        "logoUrl": {
+          "type": "image",
+          "notes": "use this field when pulling in an image based on an external storage point using a URL"
+        },
+        "videoSrc": {
+          "type": "string",
+          "notes": "this field is specific for referencing an external video image when the video image file is too large to upload into the image field"
+        },
+        "cta_list": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "notes": "this is specific for when we want to display an array of CTA text fields within an ad unit/offer-level"
+        },
+        "offer_disclaimer": {
+          "type": "string"
+        },
+        "groupOffer": {
+          "type": "string"
+        },
+        "offer_Rating": {
+          "type": "string"
+        },
+        "offer_Tip": {
+          "type": "string"
+        },
+        "listicle_announcement": {
+          "type": "string"
+        }
+      },
+      "required": []
+    }
+  },
+  "mockData": {
+    "adsCount": 3
+  }
+}
