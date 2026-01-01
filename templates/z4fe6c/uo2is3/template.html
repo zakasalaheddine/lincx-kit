@@ -1,0 +1,54 @@
+<div class="lincx__wrapper">
+  <div class="headlines__container">
+    <h2 class="headline">Essential Tools to Start Your Website for 2026</h2>
+    <p class="sub__headline">
+      Choosing the right solutions for your website is time consuming.
+      <a href="https://www.business.com" target="_blank">business.com</a>
+      looked at dozens of options to come up with the following recommendations.
+    </p>
+  </div>
+  <div class="lincx-items-wrapper" data-template-id="{{templateId}}" data-zone="{{zoneId}}">
+    {{#ads}}
+    <div class="service__container" id="{{adId}}">
+      <div class="logo__text--container">
+        <a
+          href="{{ href }}"
+          target="_blank"
+          aria-label="Visit {{ brand_name }} site"
+          class="service__image--link"
+          data-lincx-cta
+          data-lincx-cta-name="image"
+          data-lincx-cta-position="image"
+        >
+          <img class="service__image" src="{{ src }}" loading="lazy" />
+        </a>
+        <div class="content__container">
+          <div class="brand__name">{{ brand_name }}</div>
+          <div class="intro__text">{{ ad_copy }}</div>
+        </div>
+      </div>
+      <div class="buttons__container">
+        <a
+          class="main__cta"
+          href="{{ href }}"
+          target="_blank"
+          aria-label="Visit {{ brand_name }} site"
+          data-lincx-cta
+          data-lincx-cta-name="main"
+          data-lincx-cta-position="main"
+        >
+          <span class="main__cta--text">visit site</span>
+        </a>
+        <div class="verified__container">
+          <img
+            src="data:image/svg+xml,%3csvg%20width='12'%20height='11'%20viewBox='0%200%2012%2011'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3e%3cpath%20d='M4.36664%205.61806L5.45553%206.70694L7.63331%204.52917M10.6919%202.34286C10.5805%202.34851%2010.4684%202.35137%2010.3555%202.35137C8.68221%202.35137%207.15581%201.7223%205.99994%200.687744C4.84407%201.72226%203.31771%202.3513%201.64442%202.3513C1.5316%202.3513%201.41944%202.34844%201.30802%202.34279C1.17223%202.86742%201.09998%203.41764%201.09998%203.98472C1.09998%207.02899%203.18211%209.58696%205.99998%2010.3122C8.81785%209.58696%2010.9%207.02899%2010.9%203.98472C10.9%203.41766%2010.8277%202.86747%2010.6919%202.34286Z'%20stroke='%2341C17C'%20stroke-linecap='round'%20stroke-linejoin='round'/%3e%3c/svg%3e"
+            alt="verified icon"
+            loading="lazy"
+          />
+          <span>Links to {{ brand_name }}</span>
+        </div>
+      </div>
+    </div>
+    {{/ads}}
+  </div>
+</div>

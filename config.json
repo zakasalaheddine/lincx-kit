@@ -191,6 +191,15 @@
           "name": "Grouped Offers Test 6/30 (4 Top Offers)"
         }
       ]
+    },
+    "z4fe6c": {
+      "name": "z4fe6c",
+      "templates": [
+        {
+          "id": "uo2is3",
+          "name": "Lookbook Listing"
+        }
+      ]
     }
   }
 }

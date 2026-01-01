@@ -1,0 +1,29 @@
+{
+  "templateId": "uo2is3",
+  "networkId": "z4fe6c",
+  "publisherId": "qy7g6d",
+  "creativeAssetGroupId": "o5da4m",
+  "name": "Lookbook Listing",
+  "notes": {},
+  "creativeAssetGroup": {
+    "id": "o5da4m",
+    "name": "Lookbook Listing",
+    "fields": {
+      "properties": {
+        "src": {
+          "type": "image"
+        },
+        "brand_name": {
+          "type": "string"
+        },
+        "ad_copy": {
+          "type": "string"
+        }
+      },
+      "required": []
+    }
+  },
+  "mockData": {
+    "adsCount": 3
+  }
+}

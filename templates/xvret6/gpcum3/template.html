@@ -37,7 +37,14 @@
         </div>
         <div class="listicle__body">
           <div class="listicle__content">
-            <a href="{{href}}" data-lincx-cta class="content__image" data-content="{{ src }}">
+            <a
+              href="{{href}}"
+              data-lincx-cta
+              data-lincx-cta-name="image"
+              data-lincx-cta-position="image"
+              class="content__image"
+              data-content="{{ src }}"
+            >
               <img src="{{ src }}" alt="{{ offer_headline }}" class="image__article desktop" />
               <img src="{{ src_mobile }}" alt="{{ offer_headline }}" class="image__article mobile" />
             </a>
@@ -61,7 +68,16 @@
             </h5>
             <div class="cta__list--container" data-content="{{#cta_list}}{{.}}{{/cta_list}}">
               {{#cta_list}}
-              <a href="{{href}}" data-lincx-cta>{{{.}}}</a>
+              <a
+                href="{{href}}"
+                data-lincx-cta
+                data-lincx-cta-name="cta_list"
+                data-lincx-cta-position="cta_list {{ _index }}"
+                data-element="{{.}}"
+                data-lincx-cta
+              >
+                {{{.}}}
+              </a>
               {{/cta_list}}
             </div>
             <div class="zip__submit--box">
@@ -97,8 +113,24 @@
               </div>
             </div>
             <div class="cta__container" data-content="{{ cta_text }}">
-              <a href="{{href}}" class="desktop" data-lincx-cta>{{{ cta_text }}}</a>
-              <a href="{{href}}" class="mobile" data-lincx-cta>{{{ cta_text_mobile }}}</a>
+              <a
+                href="{{href}}"
+                class="desktop"
+                data-lincx-cta
+                data-lincx-cta-name="main"
+                data-lincx-cta-position="main_desktop"
+              >
+                {{{ cta_text }}}
+              </a>
+              <a
+                href="{{href}}"
+                class="mobile"
+                data-lincx-cta
+                data-lincx-cta-name="main"
+                data-lincx-cta-position="main_mobile"
+              >
+                {{{ cta_text_mobile }}}
+              </a>
             </div>
             <div class="content__text">
               <div class="desktop">{{{ ad_copy_2 }}}</div>
@@ -248,5 +280,17 @@
     }
     hideListicleInfos()
     injectHeaderCta('hvcbhm', 'cy8mye')
+
+    function attachCtaAttributes() {
+      const ctaList = document.querySelectorAll('.cta__list--container')
+      ctaList.forEach((cta) => {
+        const ctaLinks = cta.querySelectorAll('a')
+        ctaLinks.forEach((cta, index) => {
+          cta.dataset.lincxCtaName = 'cta_list'
+          cta.dataset.lincxCtaPosition = `cta position ${index + 1}`
+        })
+      })
+    }
+    attachCtaAttributes()
   </script>
 </div>
