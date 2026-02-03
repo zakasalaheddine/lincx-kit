@@ -1,0 +1,35 @@
+{
+  "templateId": "aaepmv",
+  "networkId": "h9ue34",
+  "publisherId": "olzazz",
+  "creativeAssetGroupId": "l0cri2",
+  "name": "Legal Leadgen Split Flow",
+  "notes": {},
+  "creativeAssetGroup": {
+    "id": "l0cri2",
+    "name": "Leadgen Split Flow",
+    "fields": {
+      "properties": {
+        "offer_headline": {
+          "type": "string"
+        },
+        "offer_text": {
+          "type": "string"
+        },
+        "cta_list": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "cta_subtext": {
+          "type": "string"
+        }
+      },
+      "required": []
+    }
+  },
+  "mockData": {
+    "adsCount": 3
+  }
+}
