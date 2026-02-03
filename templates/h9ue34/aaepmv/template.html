@@ -32,6 +32,13 @@
         const splittedCTA = cta.dataset.element.split('|');
         cta.href = splittedCTA[1];
         cta.innerHTML = splittedCTA[0];
+        // If the splitted content specifies a color (e.g. "Label|https://example.com|#ff0000")
+        if (splittedCTA.length > 2 && splittedCTA[2]) {
+          cta.style.color = splittedCTA[2].trim();
+        } else {
+          // Set default color via CSS variable if not provided
+          cta.style.color = '';
+        }
       });
     }
 
