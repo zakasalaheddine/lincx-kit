@@ -1,7 +1,9 @@
 export const ZONE_SCRIPT_SRC = 'https://api.lincx.com/load';
 
+export const DEFAULT_PREVIEW_PORT = 5000;
+
 export function parsePort(port?: string | number): number {
-  if (!port) return 3000;
+  if (!port) return DEFAULT_PREVIEW_PORT;
   if (typeof port === 'number') return port;
   const parsed = Number.parseInt(port, 10);
   if (Number.isNaN(parsed)) {

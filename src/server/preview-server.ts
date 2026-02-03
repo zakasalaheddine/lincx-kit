@@ -8,6 +8,7 @@ export interface ServerOptions {
 export interface PreviewServerHandle {
   close: () => void;
   reload: (nextHtml?: string) => void;
+  port: number;
 }
 
 interface SseClient {
@@ -16,6 +17,13 @@ interface SseClient {
 }
 
 const textEncoder = new TextEncoder();
+const MAX_PORT_ATTEMPTS = 100;
+
+function isPortInUseError(err: unknown): boolean {
+  const msg = err instanceof Error ? err.message : String(err);
+  const code = (err as { code?: string })?.code;
+  return code === 'EADDRINUSE' || /address already in use|port.*in use/i.test(msg);
+}
 
 export function createServer({ port, html }: ServerOptions): PreviewServerHandle {
   let currentHtml = html;
@@ -60,28 +68,48 @@ export function createServer({ port, html }: ServerOptions): PreviewServerHandle
     });
   };
 
-  const server: Server = Bun.serve({
-    port,
-    fetch(request) {
-      const url = new URL(request.url);
+  let server: Server | null = null;
+  let actualPort = port;
 
-      if (url.pathname === '/sse') {
-        return handleSse();
-      }
+  for (let attempt = 0; attempt < MAX_PORT_ATTEMPTS; attempt++) {
+    const tryPort = port + attempt;
+    try {
+      server = Bun.serve({
+        port: tryPort,
+        fetch(request) {
+          const url = new URL(request.url);
 
-      return new Response(currentHtml, {
-        headers: { 'Content-Type': 'text/html' },
+          if (url.pathname === '/sse') {
+            return handleSse();
+          }
+
+          return new Response(currentHtml, {
+            headers: { 'Content-Type': 'text/html' },
+          });
+        },
       });
-    },
-  });
+      actualPort = tryPort;
+      break;
+    } catch (err) {
+      if (isPortInUseError(err)) {
+        continue;
+      }
+      throw err;
+    }
+  }
+
+  if (!server) {
+    throw new Error(`Could not find an available port between ${port} and ${port + MAX_PORT_ATTEMPTS - 1}`);
+  }
 
   return {
+    port: actualPort,
     close: () => {
       for (const client of clients) {
         client.close();
       }
       clients.clear();
-      server.stop();
+      server!.stop();
     },
     reload: (nextHtml?: string) => {
       if (typeof nextHtml === 'string') {

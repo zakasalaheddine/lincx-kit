@@ -44,7 +44,7 @@ program
   .requiredOption('-t, --template <id>', 'Template ID')
   .requiredOption('-n, --network <name>', 'Network folder name')
   .option('-z, --zone <id>', 'Zone ID (optional)')
-  .option('-p, --port <port>', 'Port number', '3000')
+  .option('-p, --port <port>', 'Port number', '5000')
   .action(async (args) => {
     await previewCommand(args);
   });
@@ -55,7 +55,7 @@ program
   .requiredOption('-t, --template <id>', 'Template ID')
   .requiredOption('-n, --network <name>', 'Network folder name')
   .option('-z, --zone <id>', 'Zone ID (optional)')
-  .option('-p, --port <port>', 'Port number', '3000')
+  .option('-p, --port <port>', 'Port number', '5000')
   .action(async (args) => {
     await devCommand(args);
   });

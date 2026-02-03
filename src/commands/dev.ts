@@ -61,12 +61,16 @@ export async function devCommand(args: DevArgs) {
     };
 
     const initialHtml = await loadRenderedTemplate(true);
-    const port = parsePort(args.port);
-    const server = createServer({ port, html: initialHtml });
+    const preferredPort = parsePort(args.port);
+    const server = createServer({ port: preferredPort, html: initialHtml });
 
     s.stop('✓ Dev server running with hot reload');
-    const url = `http://localhost:${port}`;
-    outro(`Dev server running at: ${url}\nWatching template files for changes. Press Ctrl+C to stop.`);
+    const url = `http://localhost:${server.port}`;
+    const portMsg =
+      server.port !== preferredPort
+        ? `Port ${preferredPort} in use, using ${server.port}.\n`
+        : '';
+    outro(`${portMsg}Dev server running at: ${url}\nWatching template files for changes. Press Ctrl+C to stop.`);
 
     await open(url);
 

@@ -102,12 +102,16 @@ export async function previewCommand(args: PreviewArgs) {
   try {
     const templateDir = `templates/${args.network}/${args.template}`;
     const rendered = await loadAndRenderTemplate(templateDir, args);
-    const port = parsePort(args.port);
-    const server = createServer({ port, html: rendered });
+    const preferredPort = parsePort(args.port);
+    const server = createServer({ port: preferredPort, html: rendered });
 
     s.stop('✓ Preview server running');
-    const url = `http://localhost:${port}`;
-    outro(`Preview available at: ${url}\nHot-reload enabled. Press Ctrl+C to stop.`);
+    const url = `http://localhost:${server.port}`;
+    const portMsg =
+      server.port !== preferredPort
+        ? `Port ${preferredPort} in use, using ${server.port}.\n`
+        : '';
+    outro(`${portMsg}Preview available at: ${url}\nHot-reload enabled. Press Ctrl+C to stop.`);
 
     await open(url);
 
