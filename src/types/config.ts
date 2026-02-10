@@ -12,6 +12,8 @@ export const NetworkConfigSchema = z.object({
   templates: z.array(NetworkTemplateEntrySchema).default([]),
 });
 
+export type NetworkConfig = z.infer<typeof NetworkConfigSchema>;
+
 export const ProjectConfigSchema = z.object({
   networks: z.record(z.string(), NetworkConfigSchema).default({}),
 });
@@ -21,8 +23,13 @@ export type ProjectConfig = z.infer<typeof ProjectConfigSchema>;
 export const MockDataConfigSchema = z.object({
   enabled: z.boolean().optional(),
   adsCount: z.number().int().optional().default(3),
-  values: z.record(z.string(), z.any()).optional(),
-  fieldsOptions: z.record(z.string(), z.array(z.any())).optional(),
+  values: z.record(z.string(), z.unknown()).optional(),
+  fieldsOptions: z.record(z.string(), z.array(z.unknown())).optional(),
+});
+
+export const SchemaCacheMetaSchema = z.object({
+  cachedAt: z.string(),
+  ttl: z.number(),
 });
 
 export const TemplateConfigSchema = z.object({
@@ -31,18 +38,19 @@ export const TemplateConfigSchema = z.object({
   publisherId: z.string().min(1),
   creativeAssetGroupId: z.string().min(1),
   name: z.string().min(1),
-  notes: z.record(z.string(), z.any()).optional().default({}),
+  notes: z.record(z.string(), z.unknown()).optional().default({}),
   creativeAssetGroup: z
     .object({
       id: z.string().min(1),
       name: z.string().min(1),
       fields: z.object({
-        properties: z.record(z.string(), z.any()),
+        properties: z.record(z.string(), z.unknown()),
         required: z.array(z.string()).optional().default([]),
       }),
     })
     .optional(),
   mockData: MockDataConfigSchema.optional(),
+  schemaCacheMeta: SchemaCacheMetaSchema.optional(),
 });
 export type TemplateConfig = z.infer<typeof TemplateConfigSchema>;
 
