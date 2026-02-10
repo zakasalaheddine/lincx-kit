@@ -16,6 +16,7 @@ import { exportCommand } from './commands/export.ts';
 import { importCommand } from './commands/import-cmd.ts';
 import { configSetCommand, configGetCommand, configListCommand, configResetCommand } from './commands/config-cmd.ts';
 import { syncCommand } from './commands/sync.ts';
+import { refreshSchemaCommand } from './commands/refresh-schema.ts';
 
 const program = new Command();
 
@@ -198,6 +199,15 @@ program
   .option('--dry-run', 'Preview actions without executing')
   .action(async (args) => {
     await syncCommand(args);
+  });
+
+program
+  .command('refresh-schema')
+  .description('Force-refresh creative asset group schema from API')
+  .requiredOption('-t, --template <id>', 'Template ID')
+  .requiredOption('-n, --network <name>', 'Network folder name')
+  .action(async (args) => {
+    await refreshSchemaCommand(args);
   });
 
 program.parse(process.argv);
