@@ -1,0 +1,163 @@
+* {
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+  background: #f8f8f8;
+  padding: 24px;
+}
+
+.page-title {
+  margin-bottom: 16px;
+}
+
+.ad-container {
+  counter-reset: ad-position;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+.ad-card {
+  counter-increment: ad-position;
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 20px 24px;
+  min-height: 120px;
+  position: relative;
+  background: #ffffff;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-rows: auto auto;
+  gap: 12px 24px;
+  align-items: center;
+}
+
+/* Group background colors */
+.ad-card.is-premium {
+  background: #e8ffe8;
+}
+
+.ad-card.is-standard {
+  background: #e8f2ff;
+}
+
+.ad-card[data-forced="true"] {
+  background: #ffffff;
+}
+
+/* Position label – top-left, "POSITION: N" via CSS counter */
+.ad-number {
+  grid-column: 1;
+  grid-row: 1;
+  font-size: 13px;
+  font-weight: normal;
+  color: #666;
+}
+
+.ad-number::before {
+  content: "POSITION: " counter(ad-position);
+}
+
+/* Status badges – top-right, pill style */
+.forced-label {
+  grid-column: 2;
+  grid-row: 1;
+  justify-self: end;
+  font-size: 12px;
+  font-weight: bold;
+  color: #fff;
+  background: #f44336;
+  padding: 4px 10px;
+  border-radius: 999px;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+.ad-card:not([data-forced="true"]) .forced-label {
+  display: none;
+}
+
+.ad-card.is-premium::after,
+.ad-card.is-standard::after {
+  grid-column: 2;
+  grid-row: 1;
+  justify-self: end;
+  align-self: start;
+  font-size: 12px;
+  font-weight: bold;
+  color: #fff;
+  padding: 4px 10px;
+  border-radius: 999px;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+.ad-card.is-premium::after {
+  content: "PREMIUM";
+  background: #4caf50;
+}
+
+.ad-card.is-standard::after {
+  content: "STANDARD";
+  background: #2196f3;
+}
+
+.ad-card[data-forced="true"]::after {
+  content: none;
+}
+
+/* Main title / branding */
+.branding {
+  grid-column: 1;
+  grid-row: 2;
+  font-size: 20px;
+  font-weight: bold;
+  color: #333;
+  line-height: 1.3;
+  margin: 0;
+}
+
+/* Forced slot notice – dashed line + label */
+.ad-card[data-forced="true"] .branding::after {
+  content: "VERIFIED FORCED POSITION SLOT";
+  display: block;
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px dashed #ccc;
+  color: #f44336;
+  font-size: 12px;
+  font-weight: normal;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+/* CTA button – right side, blue */
+.cta {
+  grid-column: 2;
+  grid-row: 2;
+  margin: 0;
+}
+
+.cta button {
+  padding: 10px 20px;
+  font-size: 15px;
+  font-weight: bold;
+  cursor: pointer;
+  border: none;
+  border-radius: 6px;
+  background: #3f51b5;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+.cta button:hover {
+  background: #303f9f;
+}

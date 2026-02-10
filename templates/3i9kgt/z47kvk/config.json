@@ -1,0 +1,60 @@
+{
+  "templateId": "z47kvk",
+  "networkId": "3i9kgt",
+  "publisherId": "535bsp",
+  "creativeAssetGroupId": "vy7r8v",
+  "name": "TPL-Group-DD",
+  "notes": {},
+  "creativeAssetGroup": {
+    "id": "vy7r8v",
+    "name": "Listings - Basic v2",
+    "fields": {
+      "properties": {
+        "src": {
+          "type": "image"
+        },
+        "branding": {
+          "type": "string"
+        },
+        "tagline": {
+          "type": "string"
+        },
+        "phone": {
+          "type": "string"
+        },
+        "bullets": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "groupOffer": {
+          "type": "string"
+        },
+        "groupOverrides": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": []
+    }
+  },
+  "mockData": {
+    "adsCount": 20,
+    "fieldsOptions": {
+      "branding": [
+        "MEDVi",
+        "SkinnyRx"
+      ],
+      "groupOffer": ["premium", "standard", ""],
+      "groupOverrides": [
+        "mw4ktu:premium",
+        "31eifr:standard",
+        "uv8h8s:standard",
+        "5yw27c:standard"
+      ]
+    }
+  }
+}

@@ -1,0 +1,38 @@
+<div class="ad-container">
+  {{#ads}}
+  <div
+    id="{{adId}}"
+    class="ad-card"
+    data-group="{{groupOffer}}"
+    data-forced="{{lincxMeta.forced}}"
+    data-disallowed-positions="{{lincxMeta.disallowedPositions}}"
+    data-group-overrides="{{#groupOverrides}}{{.}}|{{/groupOverrides}}"
+    data-zone-id="{{zoneId}}"
+  >
+    <div class="ad-number" aria-label="Position"></div>
+    <div class="forced-label" data-forced="{{lincxMeta.forced}}">FORCED</div>
+    <div class="branding">{{branding}}</div>
+
+    <div class="cta">
+      <button>Click Here</button>
+    </div>
+  </div>
+  {{/ads}}
+  <script>
+    ;(() => {
+      document.querySelectorAll('.ad-card').forEach((card) => {
+        const group = card.dataset.group
+        const forced = card.dataset.forced === 'true'
+        if (forced) return
+
+        if (group === 'premium') {
+          card.classList.add('is-premium')
+        }
+
+        if (group === 'standard') {
+          card.classList.add('is-standard')
+        }
+      })
+    })()
+  </script>
+</div>
