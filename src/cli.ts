@@ -12,6 +12,8 @@ import { initCommand } from './commands/init.ts';
 import { validateCommand } from './commands/validate.ts';
 import { statusCommand } from './commands/status.ts';
 import { historyCommand } from './commands/history.ts';
+import { exportCommand } from './commands/export.ts';
+import { importCommand } from './commands/import-cmd.ts';
 
 const program = new Command();
 
