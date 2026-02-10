@@ -14,6 +14,7 @@ import { statusCommand } from './commands/status.ts';
 import { historyCommand } from './commands/history.ts';
 import { exportCommand } from './commands/export.ts';
 import { importCommand } from './commands/import-cmd.ts';
+import { configSetCommand, configGetCommand, configListCommand, configResetCommand } from './commands/config-cmd.ts';
 
 const program = new Command();
 
@@ -41,6 +42,7 @@ program
   .description('Download template from API')
   .requiredOption('-t, --template <id>', 'Template ID')
   .requiredOption('-n, --network <name>', 'Network folder name')
+  .option('-f, --force', 'Skip conflict detection and overwrite local changes')
   .action(async (args) => {
     await pullCommand(args);
   });
@@ -148,6 +150,38 @@ program
   .description('Import templates from a tar.gz archive')
   .action(async (file) => {
     await importCommand({ file });
+  });
+
+const configCmd = program
+  .command('config')
+  .description('Manage CLI configuration (URLs, defaults)');
+
+configCmd
+  .command('set <key> <value>')
+  .description('Set a config value')
+  .action(async (key: string, value: string) => {
+    await configSetCommand(key, value);
+  });
+
+configCmd
+  .command('get <key>')
+  .description('Get a config value')
+  .action(async (key: string) => {
+    await configGetCommand(key);
+  });
+
+configCmd
+  .command('list')
+  .description('Show all config values with their sources')
+  .action(async () => {
+    await configListCommand();
+  });
+
+configCmd
+  .command('reset')
+  .description('Reset config to defaults')
+  .action(async () => {
+    await configResetCommand();
   });
 
 program.parse(process.argv);
