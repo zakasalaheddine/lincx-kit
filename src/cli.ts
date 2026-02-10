@@ -52,6 +52,7 @@ program
   .description('Upload template to API')
   .requiredOption('-t, --template <id>', 'Template ID')
   .requiredOption('-n, --network <name>', 'Network folder name')
+  .option('-y, --yes', 'Skip diff display and confirmation')
   .action(async (args) => {
     await pushCommand(args);
   });
@@ -63,6 +64,7 @@ program
   .requiredOption('-n, --network <name>', 'Network folder name')
   .option('-z, --zone <id>', 'Zone ID (optional)')
   .option('-p, --port <port>', 'Port number', '5000')
+  .option('--no-fallback', 'Disable fallback to mock data on zone API failure')
   .action(async (args) => {
     await previewCommand(args);
   });
@@ -74,6 +76,9 @@ program
   .requiredOption('-n, --network <name>', 'Network folder name')
   .option('-z, --zone <id>', 'Zone ID (optional)')
   .option('-p, --port <port>', 'Port number', '5000')
+  .option('-w, --watch <pattern>', 'Glob pattern for watched files (e.g. "**/*.{html,css,json}")')
+  .option('--ads-count <n>', 'Override mock data ads count')
+  .option('--mock-file <path>', 'Load mock data from external JSON file')
   .action(async (args) => {
     await devCommand(args);
   });
