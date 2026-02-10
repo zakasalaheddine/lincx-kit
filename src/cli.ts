@@ -132,6 +132,24 @@ program
     await historyCommand(args);
   });
 
+program
+  .command('export')
+  .description('Export templates to a tar.gz archive')
+  .option('-t, --template <id>', 'Template ID (requires --network)')
+  .option('-n, --network <name>', 'Network folder name')
+  .option('-a, --all', 'Export all templates')
+  .requiredOption('-o, --output <path>', 'Output file path')
+  .action(async (args) => {
+    await exportCommand(args);
+  });
+
+program
+  .command('import <file>')
+  .description('Import templates from a tar.gz archive')
+  .action(async (file) => {
+    await importCommand({ file });
+  });
+
 program.parse(process.argv);
 
 
