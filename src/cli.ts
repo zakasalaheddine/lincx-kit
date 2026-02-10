@@ -15,6 +15,7 @@ import { historyCommand } from './commands/history.ts';
 import { exportCommand } from './commands/export.ts';
 import { importCommand } from './commands/import-cmd.ts';
 import { configSetCommand, configGetCommand, configListCommand, configResetCommand } from './commands/config-cmd.ts';
+import { syncCommand } from './commands/sync.ts';
 
 const program = new Command();
 
@@ -187,6 +188,15 @@ configCmd
   .description('Reset config to defaults')
   .action(async () => {
     await configResetCommand();
+  });
+
+program
+  .command('sync')
+  .description('Sync all templates for a network (pull new, skip unchanged, warn on modified)')
+  .requiredOption('-n, --network <name>', 'Network folder name')
+  .option('--dry-run', 'Preview actions without executing')
+  .action(async (args) => {
+    await syncCommand(args);
   });
 
 program.parse(process.argv);
