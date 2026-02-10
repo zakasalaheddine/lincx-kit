@@ -11,6 +11,7 @@ import { searchCommand } from './commands/search.ts';
 import { initCommand } from './commands/init.ts';
 import { validateCommand } from './commands/validate.ts';
 import { statusCommand } from './commands/status.ts';
+import { historyCommand } from './commands/history.ts';
 
 const program = new Command();
 
@@ -117,6 +118,16 @@ program
   .requiredOption('-n, --network <name>', 'Network folder name')
   .action(async (args) => {
     await statusCommand(args);
+  });
+
+program
+  .command('history')
+  .description('View template version history and rollback')
+  .requiredOption('-t, --template <id>', 'Template ID')
+  .requiredOption('-n, --network <name>', 'Network folder name')
+  .option('--rollback <version>', 'Rollback to a specific version')
+  .action(async (args) => {
+    await historyCommand(args);
   });
 
 program.parse(process.argv);
