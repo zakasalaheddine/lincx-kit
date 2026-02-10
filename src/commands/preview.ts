@@ -1,4 +1,4 @@
-import { intro, outro, spinner } from '@clack/prompts';
+import { intro, outro, spinner, log } from '@clack/prompts';
 import open from 'open';
 import { watch } from 'node:fs/promises';
 import path from 'node:path';
@@ -14,9 +14,13 @@ interface PreviewArgs {
   network: string;
   zone?: string;
   port?: string | number;
+  noFallback?: boolean;
 }
 
 const WATCHED_FILES = new Set(['template.html', 'styles.css', 'config.json']);
+
+const RETRY_ATTEMPTS = 2;
+const RETRY_DELAY_MS = 3000;
 
 function localISOString(date: Date): string {
   const year = date.getFullYear();
@@ -33,10 +37,69 @@ function generateZoneLoadEventId(): string {
   return `evt_${Date.now()}_${Math.random().toString(36).slice(2, 10)}`;
 }
 
+function sleep(ms: number): Promise<void> {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+async function fetchZoneAds(
+  args: PreviewArgs
+): Promise<{ ads: unknown[]; zone: unknown }> {
+  const zone = await getZone(args.zone!);
+
+  // Step 1: Call lookup API to get user location
+  const geo = await getLookupGeo();
+
+  // Step 2: Call ads API with zone and geo parameters
+  const previewUrl = `https://poweredbylincx.com/clients/preview/${args.network}/${args.template}`;
+  const zoneLoadEventId = generateZoneLoadEventId();
+  const timestamp = localISOString(new Date());
+
+  const adsResponse = await getAdsForZone(zone.id, {
+    href: previewUrl,
+    geoCity: geo.city || '',
+    geoRegion: geo.region || '',
+    geoState: geo.region || '',
+    geoIP: geo.ip || '',
+    geoPostal: geo.postal || '',
+    geoCountry: geo.country || '',
+    geoCountryName: geo.countryName || '',
+    timestamp,
+    zoneLoadEventId,
+    testMode: true,
+  });
+
+  return {
+    ads: adsResponse.ads,
+    zone,
+  };
+}
+
+async function fetchZoneAdsWithRetry(
+  args: PreviewArgs
+): Promise<{ ads: unknown[]; zone: unknown }> {
+  let lastError: Error | undefined;
+
+  for (let attempt = 1; attempt <= RETRY_ATTEMPTS; attempt++) {
+    try {
+      return await fetchZoneAds(args);
+    } catch (error) {
+      lastError = error instanceof Error ? error : new Error(String(error));
+      if (attempt < RETRY_ATTEMPTS) {
+        log.warn(
+          `Zone API attempt ${attempt}/${RETRY_ATTEMPTS} failed: ${lastError.message}\n  Retrying in ${RETRY_DELAY_MS / 1000}s...`
+        );
+        await sleep(RETRY_DELAY_MS);
+      }
+    }
+  }
+
+  throw lastError!;
+}
+
 async function loadAndRenderTemplate(
   templateDir: string,
   args: PreviewArgs
-): Promise<string> {
+): Promise<{ html: string; usingMockData: boolean }> {
   const [html, css, config] = await Promise.all([
     readTemplateHtml(`${templateDir}/template.html`),
     readStylesCss(`${templateDir}/styles.css`),
@@ -45,42 +108,44 @@ async function loadAndRenderTemplate(
 
   let data: Record<string, unknown> = {};
   let zoneScript: string | undefined;
+  let usingMockData = false;
 
   if (args.zone) {
-    // Mimic zone script behavior: get geo location, then get ads
-    const zone = await getZone(args.zone);
-    
-    // Step 1: Call lookup API to get user location
-    const geo = await getLookupGeo();
-    
-    // Step 2: Call ads API with zone and geo parameters
-    const previewUrl = `https://poweredbylincx.com/clients/preview/${args.network}/${args.template}`;
-    const zoneLoadEventId = generateZoneLoadEventId();
-    const timestamp = localISOString(new Date());
-    
-    const adsResponse = await getAdsForZone(zone.id, {
-      href: previewUrl,
-      geoCity: geo.city || '',
-      geoRegion: geo.region || '',
-      geoState: geo.region || '',
-      geoIP: geo.ip || '',
-      geoPostal: geo.postal || '',
-      geoCountry: geo.country || '',
-      geoCountryName: geo.countryName || '',
-      timestamp,
-      zoneLoadEventId,
-      testMode: true,
-    });
-    
-    // Step 3: Use the ads from API response instead of mock ads
-    // Use local template files (html, css) instead of API template
-    data = {
-      ads: adsResponse.ads,
-      zone,
-    };
-    
-    // Don't include zone script since we're mimicking its behavior with direct API calls
-    zoneScript = undefined;
+    try {
+      const zoneData = await fetchZoneAdsWithRetry(args);
+
+      // Step 3: Use the ads from API response instead of mock ads
+      // Use local template files (html, css) instead of API template
+      data = {
+        ads: zoneData.ads,
+        zone: zoneData.zone,
+      };
+
+      // Don't include zone script since we're mimicking its behavior with direct API calls
+      zoneScript = undefined;
+    } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
+
+      if (args.noFallback) {
+        throw new Error(
+          `Failed to fetch ads from zone '${args.zone}'\n  Error: ${errorMessage}`
+        );
+      }
+
+      // Show warning and fall back to mock data
+      log.warn(
+        `Failed to fetch ads from zone '${args.zone}'\n  Error: ${errorMessage}\n\n  Falling back to mock data...`
+      );
+
+      usingMockData = true;
+
+      const creativeAssetGroupId = config.creativeAssetGroup?.id ?? config.creativeAssetGroupId;
+      if (!creativeAssetGroupId) {
+        throw new Error('Template config missing creativeAssetGroupId');
+      }
+      const creativeAssetGroup = await getCreativeAssetGroup(creativeAssetGroupId);
+      data = generateMockData(creativeAssetGroup, config.mockData ?? {}, config.templateId);
+    }
   } else {
     const creativeAssetGroupId = config.creativeAssetGroup?.id ?? config.creativeAssetGroupId;
     if (!creativeAssetGroupId) {
@@ -90,7 +155,13 @@ async function loadAndRenderTemplate(
     data = generateMockData(creativeAssetGroup, config.mockData ?? {}, config.templateId);
   }
 
-  return renderTemplate(html, css, data, { zoneScript, hotReload: true });
+  const rendered = renderTemplate(html, css, data, {
+    zoneScript,
+    hotReload: true,
+    mockDataBanner: usingMockData,
+  });
+
+  return { html: rendered, usingMockData };
 }
 
 export async function previewCommand(args: PreviewArgs) {
@@ -101,7 +172,7 @@ export async function previewCommand(args: PreviewArgs) {
 
   try {
     const templateDir = `templates/${args.network}/${args.template}`;
-    const rendered = await loadAndRenderTemplate(templateDir, args);
+    const { html: rendered, usingMockData } = await loadAndRenderTemplate(templateDir, args);
     const preferredPort = parsePort(args.port);
     const server = createServer({ port: preferredPort, html: rendered });
 
@@ -111,7 +182,10 @@ export async function previewCommand(args: PreviewArgs) {
       server.port !== preferredPort
         ? `Port ${preferredPort} in use, using ${server.port}.\n`
         : '';
-    outro(`${portMsg}Preview available at: ${url}\nHot-reload enabled. Press Ctrl+C to stop.`);
+    const mockMsg = usingMockData
+      ? '\n(Using mock data — zone API was unreachable)'
+      : '';
+    outro(`${portMsg}Preview available at: ${url}${mockMsg}\nHot-reload enabled. Press Ctrl+C to stop.`);
 
     await open(url);
 
@@ -127,7 +201,7 @@ export async function previewCommand(args: PreviewArgs) {
       while (pendingReload && !stopped) {
         pendingReload = false;
         try {
-          const newRendered = await loadAndRenderTemplate(templateDir, args);
+          const { html: newRendered } = await loadAndRenderTemplate(templateDir, args);
           server.reload(newRendered);
           const relativePath = lastChangedPath
             ? path.relative(templateDir, lastChangedPath) || lastChangedPath
@@ -192,5 +266,3 @@ export async function previewCommand(args: PreviewArgs) {
     }
   }
 }
-
-
