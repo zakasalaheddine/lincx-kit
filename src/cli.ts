@@ -110,6 +110,15 @@ program
     await validateCommand(args);
   });
 
+program
+  .command('status')
+  .description('Show template local and server sync status')
+  .requiredOption('-t, --template <id>', 'Template ID')
+  .requiredOption('-n, --network <name>', 'Network folder name')
+  .action(async (args) => {
+    await statusCommand(args);
+  });
+
 program.parse(process.argv);
 
 
