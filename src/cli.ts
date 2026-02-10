@@ -67,7 +67,8 @@ program
   .option('-p, --port <port>', 'Port number', '5000')
   .option('--no-fallback', 'Disable fallback to mock data on zone API failure')
   .action(async (args) => {
-    await previewCommand(args);
+    // Commander maps --no-fallback to args.fallback=false; convert to noFallback
+    await previewCommand({ ...args, noFallback: args.fallback === false });
   });
 
 program
