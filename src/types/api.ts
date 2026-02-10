@@ -31,7 +31,7 @@ export const TemplateSchema = z.object({
   name: z.string().min(1),
   html: z.string().min(1),
   css: z.string().optional(),
-  notes: z.record(z.string(), z.any()).optional(),
+  notes: z.record(z.string(), z.unknown()).optional(),
   version: z.number().int().optional(),
   archived: z.boolean().optional(),
   dateCreated: z.string().optional(),
@@ -60,7 +60,7 @@ export const CreativeAssetGroupSchema = z.object({
   networkId: z.string().regex(idPattern),
   name: z.string().min(1),
   fields: z.object({
-    properties: z.record(z.string(), z.any()),
+    properties: z.record(z.string(), z.unknown()),
     required: z.array(z.string()).optional(),
   }),
 });
@@ -105,7 +105,7 @@ export const LookupResponseSchema = z.object({
 export type LookupResponse = z.infer<typeof LookupResponseSchema>;
 
 // Ad type (simplified, based on what templates expect)
-export const AdSchema = z.record(z.string(), z.any());
+export const AdSchema = z.record(z.string(), z.unknown());
 export type Ad = z.infer<typeof AdSchema>;
 
 // Ads API response
@@ -116,7 +116,7 @@ export const AdsResponseSchema = z.object({
   remoteFeedSetName: z.string().optional(),
   segmentId: z.string().optional(),
   segmentName: z.string().optional(),
-  dataAttributesDefault: z.record(z.string(), z.any()).optional(),
+  dataAttributesDefault: z.record(z.string(), z.unknown()).optional(),
 });
 export type AdsResponse = z.infer<typeof AdsResponseSchema>;
 

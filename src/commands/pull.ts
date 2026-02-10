@@ -185,7 +185,7 @@ export async function pullCommand(args: PullArgs) {
       publisherId: template.publisherId,
       creativeAssetGroupId: template.creativeAssetGroupId,
       name: template.name,
-      notes: (template as any).notes ?? {},
+      notes: template.notes ?? {},
       creativeAssetGroup: {
         id: creativeAssetGroup.id,
         name: creativeAssetGroup.name,
@@ -204,13 +204,13 @@ export async function pullCommand(args: PullArgs) {
     // 8. Update project config
     const projectConfig = await loadProjectConfig();
     if (!projectConfig.networks[args.network]) {
-      projectConfig.networks[args.network] = { name: args.network, templates: [] } as any;
+      projectConfig.networks[args.network] = { name: args.network, templates: [] };
     }
 
-    const network = projectConfig.networks[args.network] as any;
+    const network = projectConfig.networks[args.network];
     if (!Array.isArray(network.templates)) network.templates = [];
 
-    const existingIndex = network.templates.findIndex((t: any) => t.id === args.template);
+    const existingIndex = network.templates.findIndex((t) => t.id === args.template);
     const entry = { id: template.id, name: template.name };
     if (existingIndex >= 0) network.templates[existingIndex] = entry; else network.templates.push(entry);
 
