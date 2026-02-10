@@ -7,6 +7,10 @@ import { pushCommand } from './commands/push.ts';
 import { previewCommand } from './commands/preview.ts';
 import { devCommand } from './commands/dev.ts';
 import { listCommand } from './commands/list.ts';
+import { searchCommand } from './commands/search.ts';
+import { initCommand } from './commands/init.ts';
+import { validateCommand } from './commands/validate.ts';
+import { statusCommand } from './commands/status.ts';
 
 const program = new Command();
 
@@ -76,6 +80,34 @@ program
   .option('-f, --format <format>', 'Output format (json)')
   .action(async (args) => {
     await listCommand(args);
+  });
+
+program
+  .command('search [query]')
+  .description('Search templates by name, field, or modification status')
+  .option('--field <name>', 'Search by schema field name')
+  .option('--modified', 'Show only locally modified templates')
+  .action(async (query, options) => {
+    await searchCommand({ query, ...options });
+  });
+
+program
+  .command('init [name]')
+  .description('Initialize a new template locally')
+  .option('-n, --network <name>', 'Network folder name')
+  .option('--from <template-id>', 'Clone from existing local template')
+  .action(async (name, options) => {
+    await initCommand({ name, ...options });
+  });
+
+program
+  .command('validate')
+  .description('Validate template files (HTML, CSS, schema, mock data)')
+  .option('-t, --template <id>', 'Template ID')
+  .option('-n, --network <name>', 'Network folder name')
+  .option('-a, --all', 'Validate all templates')
+  .action(async (args) => {
+    await validateCommand(args);
   });
 
 program.parse(process.argv);
