@@ -25,7 +25,7 @@ const WATCHED_FILES = new Set(['template.html', 'styles.css', 'config.json']);
 const IGNORED_DIRS = new Set(['node_modules', '.git', 'dist', '.cache', '.turbo']);
 
 /**
- * Parse a glob pattern like "**/*.{html,css,json}" into a set of file extensions.
+ * Parse a glob pattern like "**\/*.{html,css,json}" into a set of file extensions.
  * Supports comma-separated extensions in braces and simple *.ext patterns.
  */
 function parseGlobExtensions(pattern: string): Set<string> {
