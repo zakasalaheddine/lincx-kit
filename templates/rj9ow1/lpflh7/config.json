@@ -1,0 +1,56 @@
+{
+  "templateId": "lpflh7",
+  "networkId": "rj9ow1",
+  "publisherId": "g60o88",
+  "creativeAssetGroupId": "puff2u",
+  "name": "Listing",
+  "notes": {},
+  "creativeAssetGroup": {
+    "id": "puff2u",
+    "name": "Listing",
+    "fields": {
+      "properties": {
+        "src": {
+          "type": "image",
+          "notes": "Upload logo here"
+        },
+        "logoURL": {
+          "type": "string",
+          "notes": "Externally pull images from URL"
+        },
+        "headline": {
+          "type": "string"
+        },
+        "bullet_points": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "notes": "add additional bullet points if needed"
+        },
+        "cta_text": {
+          "type": "string"
+        },
+        "cta_phone": {
+          "type": "string"
+        }
+      },
+      "required": []
+    }
+  },
+  "mockData": {
+    "adsCount": 3,
+    "fieldsOptions": {
+      "src": [
+        "https://10bestmortgage.com/_next/image/?url=%2Fmedia%2Fwp-content%2Fuploads%2F2024%2F04%2FAmerisave-logo-with-grey-nmls.svg&w=256&q=75",
+        "https://10bestmortgage.com/_next/image/?url=%2Fmedia%2Fwp-content%2Fuploads%2F2024%2F04%2FQuicken-loans-logo-with-grey-nmls.svg&w=256&q=75",
+        "https://10bestmortgage.com/_next/image/?url=%2Fmedia%2Fwp-content%2Fuploads%2F2025%2F11%2FBetter_logo_with_nmls.svg&w=256&q=75"
+      ],
+      "cta_phone": [
+        "1-800-555-5555",
+        "1-800-555-5556",
+        "1-800-555-5557"
+      ]
+    }
+  }
+}
