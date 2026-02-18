@@ -40,8 +40,15 @@
         </ul>
       </div>
       <div class="listing-cta" data-is-banner="{{ banner }}">
-        <a href="{{ href }}" class="listing-cta-link">
-          View Rates
+        <a
+          href="{{ href }}"
+          class="listing-cta-link"
+          data-lincx-cta
+          data-lincx-cta-name="main"
+          data-lincx-cta-position="main"
+          data-text="{{ cta_text }}"
+        >
+          {{{ cta_text }}}
           <svg
             stroke="currentColor"
             fill="currentColor"
@@ -58,7 +65,14 @@
             ></path>
           </svg>
         </a>
-        <a href="{{ href }}" class="listing-cta-phone" data-content="{{ cta_phone }}">
+        <a
+          href="{{ href }}"
+          class="listing-cta-phone"
+          data-content="{{ cta_phone }}"
+          data-lincx-cta
+          data-lincx-cta-name="phone"
+          data-lincx-cta-position="phone"
+        >
           <svg
             stroke="currentColor"
             fill="currentColor"

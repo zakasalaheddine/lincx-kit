@@ -169,6 +169,9 @@
   flex-shrink: 0;
   transition: background-color 0.2s linear;
 }
+.listing-cta .listing-cta-link[data-text='']::before {
+  content: 'View Rates' !important;
+}
 
 .listing-cta .listing-cta-link svg {
   position: absolute !important;
