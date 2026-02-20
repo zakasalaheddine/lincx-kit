@@ -1,0 +1,41 @@
+{
+  "templateId": "w6d73o",
+  "networkId": "c09k5z",
+  "publisherId": "6chb2q",
+  "creativeAssetGroupId": "9w8vym",
+  "name": "Senior Listicle - Text Links",
+  "notes": {},
+  "creativeAssetGroup": {
+    "id": "9w8vym",
+    "name": "Listicle",
+    "fields": {
+      "properties": {
+        "listicle_headline": {
+          "type": "string"
+        },
+        "src": {
+          "type": "image"
+        },
+        "offer_headline": {
+          "type": "string"
+        },
+        "videoSrc": {
+          "type": "string"
+        },
+        "offer_text": {
+          "type": "string"
+        },
+        "cta_text": {
+          "type": "string"
+        },
+        "text_link": {
+          "type": "string"
+        }
+      },
+      "required": []
+    }
+  },
+  "mockData": {
+    "adsCount": 3
+  }
+}

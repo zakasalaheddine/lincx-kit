@@ -1,0 +1,158 @@
+<div class="lincx-wrapper">
+  <header class="lincx-header">
+    <div class="container">
+      <div class="logo">
+        <img
+          src="https://home-bresearch.com/landers/us/en/p_prel/listicle/device/PL36v1/gt/listicle_dfo/images/icons/open-book.svg"
+          alt="open book"
+          class="open-book"
+        />
+        <p>LifehackGuide</p>
+      </div>
+    </div>
+  </header>
+  <div class="lincx-container">
+    {{#ads}}
+    <div id="{{ adId }}" class="lincx-listicle" data-heading="{{ listicle_headline }}">
+      <h1 class="lincx-listicle-headline">{{{ listicle_headline }}}</h1>
+      <h2 class="lincx-listicle-subheadline">{{{ offer_headline }}}</h2>
+      <div class="lincx-listicle-image">
+        <div data-src="{{ src }}" data-image-src="{{ imageURL }}" data-video-src="{{ videoSrc }}"></div>
+      </div>
+      <div class="lincx-listicle-content">{{{ offer_text }}}</div>
+      <div class="lincx-listicle-cta" data-content="{{ cta_text }}">
+        <a
+          href="{{ href }}"
+          target="_blank"
+          class="lincx-listicle-cta-button"
+          data-lincx-cta
+          data-lincx-cta-name="cta"
+          data-lincx-cta-position="cta"
+        >
+          {{ cta_text }}
+        </a>
+      </div>
+    </div>
+    {{/ads}}
+  </div>
+
+  <script>
+    ;(() => {
+      function initializeThumbnails() {
+        // Find all placeholder divs
+        const placeholderDivs = document.querySelectorAll('div[data-src], div[data-video-src]')
+
+        placeholderDivs.forEach((div) => {
+          const videoSrc = div.getAttribute('data-video-src')
+          const imgSrc = div.getAttribute('data-src')
+          const imageSrc = div.getAttribute('data-image-src')
+          // Get all data attributes
+          const dataAttributes = Array.from(div.attributes).filter((attr) => attr.name.startsWith('data-'))
+          console.log(videoSrc, imgSrc, imageSrc)
+          if (videoSrc) {
+            const isGif = videoSrc.toLowerCase().endsWith('.gif')
+
+            if (isGif) {
+              // Create image for GIF
+              const img = document.createElement('img')
+              img.src = videoSrc
+              img.alt = 'listicle image'
+              img.onload = function () {
+                sendHeightMessage()
+              }
+              img.onerror = function () {
+                this.onerror = null
+                this.remove()
+              }
+              // Copy data attributes
+              dataAttributes.forEach((attr) => {
+                img.setAttribute(attr.name, attr.value)
+              })
+              div.replaceWith(img)
+            } else {
+              // Create video element
+              const video = document.createElement('video')
+              video.className = 'video-thumbnail'
+              video.autoplay = true
+              video.muted = true
+              video.loop = true
+              video.playsInline = true
+              video.preload = 'auto'
+              video.onloadeddata = function () {
+                sendHeightMessage()
+              }
+
+              const source = document.createElement('source')
+              source.src = videoSrc
+              video.appendChild(source)
+
+              const fallbackText = document.createTextNode('Your browser does not support the video tag.')
+              video.appendChild(fallbackText)
+
+              // Copy data attributes
+              dataAttributes.forEach((attr) => {
+                video.setAttribute(attr.name, attr.value)
+              })
+              div.replaceWith(video)
+            }
+          } else if (imgSrc) {
+            // Create image element
+            const img = document.createElement('img')
+            img.src = imgSrc
+            img.alt = 'listicle image'
+            img.onload = function () {
+              sendHeightMessage()
+            }
+            img.onerror = function () {
+              this.onerror = null
+              this.remove()
+            }
+            dataAttributes.forEach((attr) => {
+              img.setAttribute(attr.name, attr.value)
+            })
+            div.replaceWith(img)
+          } else if (imageSrc) {
+            const img = document.createElement('img')
+            img.src = imageSrc
+            img.alt = 'listicle image'
+            img.onload = function () {
+              sendHeightMessage()
+            }
+            img.onerror = function () {
+              this.onerror = null
+              this.remove()
+            }
+            dataAttributes.forEach((attr) => {
+              img.setAttribute(attr.name, attr.value)
+            })
+            div.replaceWith(img)
+          }
+        })
+      }
+      function initVideoPlayback() {
+        const videos = document.querySelectorAll('.video-thumbnail')
+
+        videos.forEach((video) => {
+          function ensurePlaying() {
+            if (video.paused) {
+              video.play().catch((error) => {
+                console.log('Autoplay prevented. Retrying...')
+                setTimeout(ensurePlaying, 1000) // Retry after 1 second
+              })
+            }
+          }
+          ensurePlaying()
+          video.addEventListener('pause', ensurePlaying)
+          video.addEventListener('ended', () => {
+            video.currentTime = 0
+            ensurePlaying()
+          })
+          setInterval(ensurePlaying, 5000)
+        })
+      }
+
+      initializeThumbnails()
+      initVideoPlayback()
+    })()
+  </script>
+</div>

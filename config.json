@@ -227,6 +227,19 @@
           "name": "Listing"
         }
       ]
+    },
+    "c09k5z": {
+      "name": "c09k5z",
+      "templates": [
+        {
+          "id": "wffwbk",
+          "name": "Senior Listicle - Main"
+        },
+        {
+          "id": "w6d73o",
+          "name": "Senior Listicle - Text Links"
+        }
+      ]
     }
   }
 }
