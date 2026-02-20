@@ -34,10 +34,35 @@
       </div>
     </div>
     {{/ads}}
+    <div class="lincx-links" data-zone-id="{{zoneId}}" data-sub-zone-id="i7chlf"></div>
   </div>
 
+  <footer>
+    <div class="lincx-container">
+      <p>© <span id="year">2026</span> LifehackGuide</p>
+    </div>
+  </footer>
   <script>
     ;(() => {
+      function initSubZone() {
+        const zoneId = document.querySelector('.lincx-links').dataset.zoneId
+        const subZoneId = document.querySelector('.lincx-links').dataset.subZoneId
+        const mainZone = document.querySelector(`script[data-zone-id="${zoneId}"]`)
+        if (!mainZone) return
+        const newScript = document.createElement('script')
+        newScript.src = 'https://api.lincx.com/load'
+        Array.from(mainZone.attributes).forEach((attr) => {
+          if (attr.name.startsWith('data-') && !['data-zone-id', 'data-template-id'].includes(attr.name)) {
+            newScript.setAttribute(attr.name, attr.value)
+          }
+        })
+        newScript.setAttribute('data-zone-id', subZoneId)
+        document.querySelector('.lincx-links').appendChild(newScript)
+      }
+      function initYear() {
+        const year = document.getElementById('year')
+        year.innerHTML = new Date().getFullYear()
+      }
       function initializeThumbnails() {
         // Find all placeholder divs
         const placeholderDivs = document.querySelectorAll('div[data-src], div[data-video-src]')
@@ -57,9 +82,6 @@
               const img = document.createElement('img')
               img.src = videoSrc
               img.alt = 'listicle image'
-              img.onload = function () {
-                sendHeightMessage()
-              }
               img.onerror = function () {
                 this.onerror = null
                 this.remove()
@@ -78,9 +100,6 @@
               video.loop = true
               video.playsInline = true
               video.preload = 'auto'
-              video.onloadeddata = function () {
-                sendHeightMessage()
-              }
 
               const source = document.createElement('source')
               source.src = videoSrc
@@ -100,9 +119,6 @@
             const img = document.createElement('img')
             img.src = imgSrc
             img.alt = 'listicle image'
-            img.onload = function () {
-              sendHeightMessage()
-            }
             img.onerror = function () {
               this.onerror = null
               this.remove()
@@ -115,9 +131,6 @@
             const img = document.createElement('img')
             img.src = imageSrc
             img.alt = 'listicle image'
-            img.onload = function () {
-              sendHeightMessage()
-            }
             img.onerror = function () {
               this.onerror = null
               this.remove()
@@ -151,8 +164,10 @@
         })
       }
 
+      initSubZone()
       initializeThumbnails()
       initVideoPlayback()
+      initYear()
     })()
   </script>
 </div>

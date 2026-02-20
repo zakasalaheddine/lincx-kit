@@ -33,8 +33,17 @@
   text-decoration: underline;
   font-weight: 500;
 }
+footer {
+  background: #f9f9f9;
+}
 
-
+footer p {
+  font-size: 16px;
+  line-height: 1.4;
+  color: #666;
+  text-align: center;
+  margin: 0;
+}
 @media screen and (max-width: 600px) {
   .lincx-quick-links {
     padding: 15px;
@@ -50,5 +59,8 @@
     line-height: 1.55;
     padding-inline-start: 5px;
     margin: 0 0 10px;
+  }
+  footer p {
+    font-size: 14px;
   }
 }
