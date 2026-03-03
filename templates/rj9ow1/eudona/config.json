@@ -1,0 +1,60 @@
+{
+  "templateId": "eudona",
+  "networkId": "rj9ow1",
+  "publisherId": "g60o88",
+  "creativeAssetGroupId": "b74cha",
+  "name": "Senior Listicle",
+  "notes": {},
+  "creativeAssetGroup": {
+    "id": "b74cha",
+    "name": "Listicle",
+    "fields": {
+      "properties": {
+        "listicle_headline": {
+          "type": "string",
+          "notes": "Headline for the full listicle"
+        },
+        "listicle_subheadline": {
+          "type": "string",
+          "notes": "Subheadline for the main listicle headline"
+        },
+        "src_author": {
+          "type": "image",
+          "notes": "Image for  listicle author or author tied to a specific ad unit"
+        },
+        "author_name": {
+          "type": "string",
+          "notes": "Author Name"
+        },
+        "src": {
+          "type": "image"
+        },
+        "offer_headline": {
+          "type": "string"
+        },
+        "offer_text": {
+          "type": "string"
+        },
+        "cta_text": {
+          "type": "string"
+        },
+        "imageURL": {
+          "type": "string"
+        },
+        "videoSrc": {
+          "type": "string"
+        },
+        "cta_list": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": []
+    }
+  },
+  "mockData": {
+    "adsCount": 3
+  }
+}
