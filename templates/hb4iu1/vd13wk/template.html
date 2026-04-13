@@ -66,10 +66,10 @@
   <main class="main__content">
     <div class="content__container">
       <div class="headings">
-        <h1 class="page__heading">
+        <h1 class="page__heading" id="page-heading">
           Trusted Home Equity Options for April 2026
         </h1>
-        <p class="page__subheading">
+        <p class="page__subheading" id="page-subheading">
           Need cash for a large purchase? A home equity loan gets the funds you
           need. Pay for college, fix your roof; afford it with the best
           providers around.
@@ -147,9 +147,7 @@
             ></a>
           </div>
           <div class="footer__column">
-            <h2 class="footer__nav-heading">
-              About
-            </h2>
+            <h2 class="footer__nav-heading">About</h2>
             <ul class="footer__nav-list">
               <li class="footer__nav-item">
                 <a href="/about" class="footer__nav-link">About us</a>
@@ -160,9 +158,7 @@
             </ul>
           </div>
           <div class="footer__column">
-            <h2 class="footer__nav-heading">
-              Legal
-            </h2>
+            <h2 class="footer__nav-heading">Legal</h2>
             <ul class="footer__nav-list">
               <li class="footer__nav-item">
                 <a href="/privacy-policy" class="footer__nav-link"
@@ -175,7 +171,9 @@
                 >
               </li>
               <li class="footer__nav-item">
-                <a href="/terms-of-use" class="footer__nav-link">Terms of use</a>
+                <a href="/terms-of-use" class="footer__nav-link"
+                  >Terms of use</a
+                >
               </li>
               <li class="footer__nav-item">
                 <a href="/licenses" class="footer__nav-link">Licenses</a>
@@ -252,4 +250,36 @@
       </div>
     </div>
   </footer>
+
+  <script>
+    (() => {
+      const now = new Date();
+      const dateSuffix = `${now.toLocaleString("en-US", { month: "long" })} ${now.getFullYear()}`;
+
+      const copy = {
+        "home-equity": {
+          heading: `Trusted Home Equity Options for ${dateSuffix}`,
+          subheading:
+            "Need cash for a large purchase? A home equity loan gets the funds you need. Pay for college, fix your roof; afford it with the best providers around.",
+        },
+        "mortgage": {
+          heading: `Trusted Mortgage Options for ${dateSuffix}`,
+          subheading:
+            "Ready to buy or refinance? Compare today's top mortgage lenders and find the best rate for your home loan.",
+        },
+        "default": {
+          heading: `Trusted Home Equity Options for ${dateSuffix}`,
+          subheading:
+            "Need cash for a large purchase? A home equity loan gets the funds you need. Pay for college, fix your roof; afford it with the best providers around.",
+        },
+      };
+
+      const params = new URLSearchParams(window.location.search);
+      const type = params.get("type");
+      const content = copy[type] || copy["default"];
+      console.log("Content: ", content);
+      document.getElementById("page-heading").innerHTML = content.heading;
+      document.getElementById("page-subheading").innerHTML = content.subheading;
+    })();
+  </script>
 </div>
