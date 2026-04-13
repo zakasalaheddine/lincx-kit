@@ -1,0 +1,55 @@
+{
+  "templateId": "bh5q5o",
+  "networkId": "u5dr9f",
+  "publisherId": "gy3dts",
+  "creativeAssetGroupId": "hn67bo",
+  "name": "SeniorsForSavings - Listicle - Tier (Segment 2 - Ad Slot >18)",
+  "notes": {
+    "objectives": "This adds Tiering Functionality to the Template. Using the original Template as the base"
+  },
+  "creativeAssetGroup": {
+    "id": "hn67bo",
+    "name": "Listicle",
+    "fields": {
+      "properties": {
+        "listicle_headline": {
+          "type": "string"
+        },
+        "author_name": {
+          "type": "string"
+        },
+        "author_image": {
+          "type": "image"
+        },
+        "src": {
+          "type": "image"
+        },
+        "offer_headline": {
+          "type": "string"
+        },
+        "offer_text": {
+          "type": "string"
+        },
+        "cta_list": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "cta_text": {
+          "type": "string"
+        },
+        "offer_disclaimer": {
+          "type": "string"
+        },
+        "groupKey": {
+          "type": "string"
+        }
+      },
+      "required": []
+    }
+  },
+  "mockData": {
+    "adsCount": 3
+  }
+}

@@ -45,7 +45,10 @@
           <img
             data-src="{{src}}"
             alt="listicle image"
-            onerror="this.onerror=null; this.remove();"
+            onerror="
+              this.onerror = null;
+              this.remove();
+            "
           />
         </a>
         <img
@@ -141,60 +144,60 @@
 
   <script>
     if (
-      document.readyState === 'complete' ||
-      document.readyState === 'interactive'
+      document.readyState === "complete" ||
+      document.readyState === "interactive"
     ) {
       // DOM is ready
-      console.log('DOM is ready!')
-      setupLazyLoad()
+      console.log("DOM is ready!");
+      setupLazyLoad();
     } else {
-      document.addEventListener('DOMContentLoaded', function () {
-        setupLazyLoad()
-      })
+      document.addEventListener("DOMContentLoaded", function () {
+        setupLazyLoad();
+      });
     }
 
     function setupLazyLoad() {
       const lazyElements = document.querySelectorAll(
-        '.listicle__thumbnail.lazy-load'
-      )
+        ".listicle__thumbnail.lazy-load",
+      );
       lazyElements.forEach((element) => {
         const lazyLoad = (entries, observer) => {
           entries.forEach((entry) => {
             if (entry.isIntersecting) {
-              const parentElement = entry.target
+              const parentElement = entry.target;
 
-              const isVideo = parentElement.querySelector('video')
+              const isVideo = parentElement.querySelector("video");
               const mediaElement = isVideo
-                ? parentElement.querySelector('video')
-                : parentElement.querySelectorAll('img')
+                ? parentElement.querySelector("video")
+                : parentElement.querySelectorAll("img");
 
               if (isVideo) {
                 if (!mediaElement.src) {
-                  mediaElement.src = mediaElement.dataset.src
-                  mediaElement.autoplay = true
-                  mediaElement.loop = true
-                  mediaElement.muted = true
-                  mediaElement.play()
+                  mediaElement.src = mediaElement.dataset.src;
+                  mediaElement.autoplay = true;
+                  mediaElement.loop = true;
+                  mediaElement.muted = true;
+                  mediaElement.play();
                 }
               } else {
                 mediaElement.forEach((img) => {
                   if (!img.src) {
-                    img.src = img.dataset.src
+                    img.src = img.dataset.src;
                   }
-                })
+                });
               }
 
-              observer.unobserve(parentElement)
+              observer.unobserve(parentElement);
             }
-          })
-        }
-        const observer = new IntersectionObserver(lazyLoad, { threshold: 0.3 })
-        observer.observe(element)
-      })
+          });
+        };
+        const observer = new IntersectionObserver(lazyLoad, { threshold: 0.3 });
+        observer.observe(element);
+      });
     }
 
     function initVideoPlayback() {
-      const videos = document.querySelectorAll('.video-thumbnail')
+      const videos = document.querySelectorAll(".video-thumbnail");
 
       videos.forEach((video) => {
         // Function to ensure video keeps playing
@@ -203,77 +206,79 @@
             video.play().catch((error) => {
               // console.log("Autoplay prevented. Retrying...");
               // setTimeout(ensurePlaying, 1000); // Retry after 1 second
-            })
+            });
           }
         }
 
         // Attempt to start playing immediately
-        ensurePlaying()
+        ensurePlaying();
 
         // Ensure video restarts if it ever stops
-        video.addEventListener('pause', ensurePlaying)
+        video.addEventListener("pause", ensurePlaying);
 
         // If video ends (shouldn't happen with loop, but just in case), restart it
-        video.addEventListener('ended', () => {
-          video.currentTime = 0
-          ensurePlaying()
-        })
+        video.addEventListener("ended", () => {
+          video.currentTime = 0;
+          ensurePlaying();
+        });
 
         // Attempt to restart video periodically (helpful for some mobile browsers)
         // setInterval(ensurePlaying, 5000);
-      })
+      });
     }
 
     function handleCtaListSplits() {
-      const ctaList = document.querySelectorAll('.listicle__list__cta a')
+      const ctaList = document.querySelectorAll(".listicle__list__cta a");
       ctaList.forEach((cta, index) => {
-        const content = cta.dataset.element
-        const ctaSplit = content.split('|')
-        cta.href = ctaSplit[1]
-        cta.textContent = ctaSplit[0]
-      })
+        const content = cta.dataset.element;
+        if (content) {
+          const ctaSplit = content.split("|");
+          cta.href = ctaSplit[1];
+          cta.textContent = ctaSplit[0];
+        }
+      });
 
-      const listicle = document.querySelectorAll('.listicle')
+      const listicle = document.querySelectorAll(".listicle");
       listicle.forEach((card) => {
-        const ctaList = card.querySelectorAll('.listicle__list__cta a')
+        const ctaList = card.querySelectorAll(".listicle__list__cta a");
         ctaList.forEach((cta, index) => {
-          cta.dataset.lincxCtaName = `cta position ${index + 1}`
-        })
-      })
+          cta.dataset.lincxCtaName = `cta position ${index + 1}`;
+        });
+      });
     }
 
-    ;(() => {
+    (() => {
       function renderCurrentDate(selector) {
-        const date = new Date()
-        const options = { year: 'numeric', month: 'long', day: '2-digit' }
-        const formattedDate = date.toLocaleDateString('en-US', options)
+        const date = new Date();
+        const options = { year: "numeric", month: "long", day: "2-digit" };
+        const formattedDate = date.toLocaleDateString("en-US", options);
 
-        const element = document.querySelector(selector)
+        const element = document.querySelector(selector);
         if (element) {
-          element.textContent = formattedDate
+          element.textContent = formattedDate;
         } else {
-          console.error(`Selector "${selector}" not found.`)
+          console.error(`Selector "${selector}" not found.`);
         }
       }
-      renderCurrentDate('.listicle__published--date')
-      handleCtaListSplits()
-      initVideoPlayback()
-    })()
+      renderCurrentDate(".listicle__published--date");
+      handleCtaListSplits();
+      initVideoPlayback();
+    })();
   </script>
 
   <script>
     function addShareThisScript() {
-      const script = document.createElement('script')
-      script.type = 'text/javascript'
+      const script = document.createElement("script");
+      script.type = "text/javascript";
       script.src =
-        'https://platform-api.sharethis.com/js/sharethis.js#property=675528a93e41a900135ff134&product=inline-share-buttons'
-      script.async = true
-      document.head.appendChild(script)
+        "https://platform-api.sharethis.com/js/sharethis.js#property=675528a93e41a900135ff134&product=inline-share-buttons";
+      script.async = true;
+      document.head.appendChild(script);
     }
 
     // Usage
-    addShareThisScript()
-    document.getElementById('year').textContent = new Date().getFullYear()
-    document.getElementById('location').textContent = window.location.hostname
+    addShareThisScript();
+    document.getElementById("year").textContent = new Date().getFullYear();
+    document.getElementById("location").textContent = window.location.hostname;
   </script>
 </div>
