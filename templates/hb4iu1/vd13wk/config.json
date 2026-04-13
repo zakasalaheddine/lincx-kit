@@ -1,0 +1,50 @@
+{
+  "templateId": "vd13wk",
+  "networkId": "hb4iu1",
+  "publisherId": "of94yn",
+  "creativeAssetGroupId": "eseq7a",
+  "name": "Refinance.com Page ",
+  "notes": {},
+  "creativeAssetGroup": {
+    "id": "eseq7a",
+    "name": "Listings",
+    "fields": {
+      "properties": {
+        "src": {
+          "type": "image"
+        },
+        "nmls_number": {
+          "type": "string"
+        },
+        "headline": {
+          "type": "string"
+        },
+        "bullet_points": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "thirty_yr_rate": {
+          "type": "string"
+        },
+        "apr_rate": {
+          "type": "string"
+        },
+        "monthly_payment": {
+          "type": "string"
+        },
+        "more_info_text": {
+          "type": "string"
+        },
+        "cta_text": {
+          "type": "string"
+        }
+      },
+      "required": []
+    }
+  },
+  "mockData": {
+    "adsCount": 3
+  }
+}
