@@ -27,12 +27,16 @@ body {
   width: 100%;
   margin-right: auto;
   margin-left: auto;
-  padding-right: 2rem;
-  padding-left: 2rem;
+  padding: 2rem 1rem;
 }
-@media screen and (min-width: 1400px) {
+@media screen and (min-width: 640px) {
   .header__content {
-    max-width: 1400px;
+    padding: 2rem 1.5rem;
+  }
+}
+@media screen and (min-width: 1024px) {
+  .header__content {
+    padding: 2rem 2rem;
   }
 }
 
@@ -43,7 +47,11 @@ body {
 .logo__svg {
   display: block;
   height: 45px;
-  width: 250px;
+}
+@media screen and (min-width: 1024px) {
+  .logo__svg {
+    width: 250px;
+  }
 }
 
 .main__content {
