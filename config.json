@@ -261,6 +261,15 @@
           "name": "Refinance.com Page "
         }
       ]
+    },
+    "4c63we": {
+      "name": "4c63we",
+      "templates": [
+        {
+          "id": "uc6dpl",
+          "name": "Ehome Rent To Own Carousel - TESTING end-of-path GHOST feature"
+        }
+      ]
     }
   }
 }

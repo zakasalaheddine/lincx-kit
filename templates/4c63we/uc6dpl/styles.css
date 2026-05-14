@@ -1,0 +1,302 @@
+*,
+::before,
+::after {
+  box-sizing: border-box;
+}
+:root {
+  --lincxPrimary: #337AB7;
+}
+
+.offers {
+  font-family: "Open Sans", sans-serif;
+  background-color: #f1f1f1;
+}
+
+.experian {
+  color: #2358a4;
+}
+
+.boost {
+  color: #7c2641;
+}
+
+.offers input[type="checkbox"] {
+  display: none;
+}
+
+.offers__list {
+  margin: 0 auto;
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-top: 20px;
+}
+
+.offer {
+  display: none;
+}
+
+.offers__list .offer:nth-of-type(1) {
+  display: block;
+}
+
+.offers__list input:nth-of-type(1):checked ~ .offer:nth-of-type(1) {
+  display: none;
+}
+
+.offers__list input:nth-of-type(1):checked ~ .offer:nth-of-type(2) {
+  display: block;
+}
+
+.offers__list input:nth-of-type(2):checked ~ .offer:nth-of-type(2) {
+  display: none;
+}
+
+.offers__list input:nth-of-type(2):checked ~ .offer:nth-of-type(3) {
+  display: block;
+}
+
+.offers__list input:nth-of-type(3):checked ~ .offer:nth-of-type(3) {
+  display: none;
+}
+
+.offers__list input:nth-of-type(3):checked ~ .offer:nth-of-type(4) {
+  display: block;
+}
+
+.offers__list input:nth-of-type(4):checked ~ .offer:nth-of-type(4) {
+  display: none;
+}
+
+.offers__list input:nth-of-type(4):checked ~ .offer:nth-of-type(5) {
+  display: block;
+}
+
+.offers__list input:nth-of-type(5):checked ~ .offer:nth-of-type(5) {
+  display: none;
+}
+
+.offers__list input:nth-of-type(5):checked ~ .offer:nth-of-type(6) {
+  display: block;
+}
+
+.offers__list input:nth-of-type(6):checked ~ .offer:nth-of-type(6) {
+  display: none;
+}
+
+.offers__list input:nth-of-type(6):checked ~ .offer:nth-of-type(7) {
+  display: block;
+}
+.offers__list input:nth-of-type(7):checked ~ .offer:nth-of-type(7) {
+  display: none;
+}
+.offers__list input:nth-of-type(7):checked ~ .offer:nth-of-type(8) {
+  display: block;
+}
+.offers__list input:nth-of-type(8):checked ~ .offer:nth-of-type(8) {
+  display: none;
+}
+.offers__list input:nth-of-type(8):checked ~ .offer:nth-of-type(9) {
+  display: block;
+}
+.offers__list input:nth-of-type(9):checked ~ .offer:nth-of-type(9) {
+  display: none;
+}
+.offers__list input:nth-of-type(9):checked ~ .offer:nth-of-type(10) {
+  display: block;
+}
+.offers__list input:nth-of-type(10):checked ~ .offer:nth-of-type(10) {
+  display: none;
+}
+.offers__list input:nth-of-type(10):checked ~ .offer:nth-of-type(11) {
+  display: block;
+}
+.offers__list input:nth-of-type(11):checked ~ .offer:nth-of-type(11) {
+  display: none;
+}
+.offers__list input:nth-of-type(11):checked ~ .offer:nth-of-type(12) {
+  display: block;
+}
+.offers__list input:nth-of-type(12):checked ~ .offer:nth-of-type(12) {
+  display: none;
+}
+.offers__list input:nth-of-type(12):checked ~ .offer:nth-of-type(13) {
+  display: block;
+}
+.offers__list input:nth-of-type(13):checked ~ .offer:nth-of-type(13) {
+  display: none;
+}
+.offers__list input:nth-of-type(13):checked ~ .offer:nth-of-type(14) {
+  display: block;
+}
+.offers__list input:nth-of-type(14):checked ~ .offer:nth-of-type(14) {
+  display: none;
+}
+.offers__list input:nth-of-type(14):checked ~ .offer:nth-of-type(15) {
+  display: block;
+}
+.offers__list input:nth-of-type(15):checked ~ .offer:nth-of-type(15) {
+  display: none;
+}
+
+.offer__headline {
+  font-size: 26px;
+  font-weight: 300;
+  line-height: 35px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.offer__sub {
+  font-size: 14px;
+  line-height: 30px;
+  text-align: center;
+  margin: 0 auto;
+  margin-bottom: 3.5%;
+  color: #707070;
+  line-height: 1.5;
+}
+
+.offer__buttons {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+}
+
+.offer__buttons a,
+.offer__buttons label,
+.offer__buttons p {
+  min-height: 46px;
+  font-size: 18px;
+  color: white;
+  text-decoration: none;
+  transition: 0.2s;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+  text-align: center;
+  transition: all 150ms ease;
+  padding: 0 10px;
+}
+
+.offer__buttons a,
+.offer__buttons p {
+  background: var(--lincxPrimary);
+  width: 100%;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+  margin-bottom: 2px;
+  border: 1px solid var(--lincxPrimary);
+}
+
+.offer__buttons a,
+.offer__buttons p {
+  display: none;
+}
+
+.offers__list .offer:last-of-type .offer__buttons--last-cta {
+  display: flex;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+  margin-bottom: 2px;
+}
+
+.offer__buttons .offer__buttons--cta {
+  background: var(--lincxPrimary);
+  width: 100%;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+  margin-bottom: 2px;
+  border: 1px solid var(--lincxPrimary);
+}
+
+.offer__buttons label:last-of-type {
+  background: #fff;
+  width: 100%;
+  color: #000;
+  border: 1px solid #ccc;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 4px;
+  border-bottom-left-radius: 4px;
+}
+
+.offers__list .offer:last-of-type .offer__buttons p {
+  display: flex;
+  background: #fff;
+  color: #000;
+  border: 1px solid #ccc;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 4px;
+  border-bottom-left-radius: 4px;
+  margin: 0;
+}
+
+.offers__list .offer:last-of-type .offer__buttons--decline {
+  display: none;
+}
+
+.offers__list .offer:last-of-type .offer__buttons--cta {
+  display: none;
+}
+
+.offer__buttons a:hover,
+.offer__buttons label:hover,
+.offer__buttons p:hover {
+  opacity: 1.2;
+}
+
+.offer__buttons--outer {
+  margin-bottom: 80px;
+}
+
+.offer__disclaimer {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  .offers__list {
+    width: 715px;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .offer__headline {
+    font-size: 30px;
+  }
+}
+
+@media (min-width: 992px) {
+  .offers__list {
+    width: 545px;
+  }
+
+  .offer__buttons--outer {
+    width: 283px;
+    margin: 0 auto;
+    margin-bottom: 80px;
+  }
+  .offer__sub {
+    width: 341px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .offer__buttons--outer {
+    width: 400px;
+  }
+}

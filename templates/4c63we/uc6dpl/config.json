@@ -1,0 +1,74 @@
+{
+  "templateId": "uc6dpl",
+  "networkId": "4c63we",
+  "publisherId": "9jc0k9",
+  "creativeAssetGroupId": "01ctiy",
+  "name": "Ehome Rent To Own Carousel - TESTING end-of-path GHOST feature",
+  "notes": {},
+  "creativeAssetGroup": {
+    "id": "01ctiy",
+    "name": "Carousel",
+    "fields": {
+      "properties": {
+        "headline": {
+          "type": "string"
+        },
+        "cta_text": {
+          "type": "string"
+        },
+        "decline_text": {
+          "type": "string"
+        },
+        "last_ad_link": {
+          "type": "string"
+        },
+        "subheader": {
+          "type": "string"
+        },
+        "disclaimer": {
+          "type": "string"
+        },
+        "second_cta_text": {
+          "type": "string"
+        },
+        "showSecondCTA": {
+          "type": "boolean"
+        },
+        "phoneNumber": {
+          "type": "string"
+        },
+        "cpc": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "step_one_header": {
+          "type": "string"
+        },
+        "step_two_header": {
+          "type": "string"
+        },
+        "step_two_header_2": {
+          "type": "string"
+        },
+        "step_one_subheader": {
+          "type": "string"
+        },
+        "step_two_subheader": {
+          "type": "string"
+        },
+        "step_one_note": {
+          "type": "string"
+        },
+        "choose_view": {
+          "type": "string"
+        }
+      },
+      "required": []
+    }
+  },
+  "mockData": {
+    "adsCount": 3
+  }
+}
