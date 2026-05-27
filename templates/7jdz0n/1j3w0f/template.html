@@ -2,6 +2,9 @@
   <div class="lincx-container">
     {{#ads}}
     <div class="listicle" data-heading="{{ listicle_headline }}" id="{{ adId }}">
+      <div class="disclosure__container">
+        <span class="disclosure__text">Advertiser Disclosure</span>
+      </div>
       <h2 class="heading" data-content="{{ listicle_headline }}">{{{ listicle_headline }}}</h2>
       <h3 class="subheading" data-content="{{ offer_headline }}">{{{ offer_headline }}}</h3>
       <div class="listicle__info" data-content="{{ author_name }}">
@@ -66,9 +69,6 @@
           Your browser does not support the video tag.
         </video>
       </div>
-      <div class="disclosure__container">
-        <span class="disclosure__text">Advertiser Disclosure</span>
-      </div>
       <div class="listicle__content">{{{ offer_text }}}</div>
       <div class="listicle__cta" data-content="{{ cta_text }}">
         <a
@@ -126,22 +126,22 @@
           <footer class='listicle__footer'>
             <div class='listicle__footer-top'>
               <a href='/' class='listicle__footer-logo'>
-                <img src='/QuickenLoans_Logo.png' alt='QuickenLoans logo' />
+                <img src='https://www.quickenloans.com/cdn/QuickenLoans.com/logo-quickenloans.svg' alt='QuickenLoans logo' />
               </a>
               <nav class='listicle__footer-nav'>
                 <ul class='listicle__footer-menu'>
                   <li>
-                    <a href='/contact'>
+                    <a href='/contact' target="_blank">
                       Contact
                     </a>
                   </li>
                   <li>
-                    <a href='/privacy'>
+                    <a href='/privacy' target="_blank">
                       Privacy
                     </a>
                   </li>
                   <li>
-                    <a href='/terms'>
+                    <a href='/terms' target="_blank">
                       Terms of Use
                     </a>
                   </li>
