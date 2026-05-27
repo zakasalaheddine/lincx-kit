@@ -1,0 +1,229 @@
+<!-- SHOULD BE TEMPLATE ID = uc6dpl -->
+<script>
+  function setCreditScore(value) {
+    document.querySelectorAll("[data-lincx-cta]").forEach(function (el) {
+      el.setAttribute("data-lincx-click-credit-score", value);
+    });
+
+    document.querySelectorAll(".path-offer").forEach(function (el) {
+      el.setAttribute("data-lincx-impression-credit-score", value);
+    });
+  }
+</script>
+<div>
+  <div class="offers">
+    <link
+      href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400&display=swap"
+      rel="stylesheet"
+    />
+    <div class="offers__list">
+      <input
+        type="checkbox"
+        name="offers-toggle"
+        id="offer-leading-question-1"
+        class="toggle__checkbox"
+      />
+      <div class="offer" id="leading-question-1">
+        <div class="offer__body">
+          <div class="offer__headline">
+            Welcome Back! Finish creating your profile...
+          </div>
+          <div class="offer__sub">What is your Credit Rating?</div>
+          <div class="offer__buttons--outer">
+            <div class="offer__buttons leading-question__buttons">
+              <label
+                class="offer__buttons--cta"
+                onclick="setCreditScore('excellent')"
+                for="offer-leading-question-1"
+              >
+                Excellent
+              </label>
+              <label
+                class="offer__buttons--cta"
+                onclick="setCreditScore('good')"
+                for="offer-leading-question-1"
+              >
+                Good
+              </label>
+              <label
+                class="offer__buttons--cta"
+                onclick="setCreditScore('fair')"
+                for="offer-leading-question-1"
+              >
+                Fair
+              </label>
+              <label
+                class="offer__buttons--cta"
+                onclick="setCreditScore('poor')"
+                for="offer-leading-question-1"
+              >
+                Poor
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+      {{#ads}}
+      <input
+        type="checkbox"
+        name="offers-toggle"
+        id="offer-{{adId}}"
+        class="toggle__checkbox"
+        data-last-ad-link="{{last_ad_link}}"
+      />
+      <div class="offer path-offer" id="{{adId}}">
+        <div class="offer__body">
+          <div class="offer__headline">{{{headline}}}</div>
+          <div class="offer__sub">{{{subheader}}}</div>
+          <div class="offer__buttons--outer">
+            <div class="offer__buttons">
+              <label
+                class="offer__buttons--cta"
+                onclick="window.open('{{href}}', '_blank')"
+                data-lincx-cta
+                for="offer-{{adId}}"
+              >
+                {{cta_text}}
+              </label>
+              <label class="offer__buttons--decline" for="offer-{{adId}}">
+                {{decline_text}}
+              </label>
+
+              <!-- WHEN GHOST IS NEEDED BACK START THE COMMENT FROM HERE -->
+              <a
+                class="offer__buttons--last-cta"
+                data-lincx-cta
+                href="{{last_ad_link}}"
+                onclick="window.open('{{href}}', '_blank');"
+                >{{cta_text}}</a
+              >
+              <p
+                data-lincx-cta
+                onclick="window.open('{{last_ad_link}}', '_blank')"
+              >
+                {{decline_text}}
+              </p>
+
+              <!-- WHEN GHOST IS NEEDED BACK END THE COMMENT HERE -->
+
+              <!--
+              <a
+                class="offer__buttons--last-cta"
+                data-lincx-cta
+                href=""
+                onclick="fireClickEvent({ zoneId: '{{zoneId}}', rank: '{{_index}}', templateId: '{{templateId}}', adverseClickId: '{{clickId}}'});window.open('{{href}}', '_blank');"
+                >{{cta_text}}</a
+              >
+              <p
+                data-lincx-cta
+                onclick="fireClickEvent({ zoneId: '{{zoneId}}', rank: '{{_index}}', templateId: '{{templateId}}', adverseClickId: '{{clickId}}'});window.open(getCurrentLastAdLink(), '_blank')"
+              >
+                {{decline_text}}
+              </p>
+              -->
+            </div>
+          </div>
+          <div class="offer__disclaimer">{{{disclaimer}}}</div>
+        </div>
+      </div>
+      {{/ads}}
+    </div>
+  </div>
+  <!--
+  <div id="__LAST__AD__LINK__"></div>
+  -->
+</div>
+<!--
+<script>
+  function waitFor(element, callback) {
+    const checkExist = setInterval(function () {
+      if (document.querySelector(element)) {
+        callback();
+        clearInterval(checkExist);
+      }
+    }, 100);
+  }
+  function getCurrentLastAdLink() {
+    const { href } = getDataAttributes();
+    if (href) return href;
+    return document.querySelector(".toggle__checkbox").dataset.lastAdLink;
+  }
+  function createZoneWithinTemplate({ zoneId, mainZoneId }) {
+    const containerId = `__LAST__AD__LINK__`;
+    const zoneContainer = document.querySelector(
+      `#${containerId} > div > div:first-of-type`,
+    );
+    if (zoneContainer) return;
+    const zone = document.createElement("script");
+    zone.src = "https://api.lincx.com/load";
+    zone.dataset["fname"] = getCookie("fn", "") || "";
+    zone.dataset["lname"] = getCookie("ln", "") || "";
+    zone.dataset["email"] = getCookie("em", "") || "";
+    zone.dataset["phone"] = getCookie("ph", "") || "";
+    zone.dataset["zip"] = getCookie("zip", "") || "";
+    zone.dataset["campaignid"] = urlParams.cid || "";
+    zone.dataset["leadid"] = urlParams.l || "";
+    zone.dataset.zoneId = zoneId;
+    document.getElementById(containerId)?.appendChild(zone);
+    waitFor("#__LAST__AD__LINK__ > div > div:first-of-type", () => {
+      document
+        .querySelectorAll(".offer__buttons--last-cta")
+        .forEach((entry) => entry.setAttribute("href", getCurrentLastAdLink()));
+    });
+  }
+  function getDataAttributes() {
+    const container = document.querySelector(
+      "#__LAST__AD__LINK__ > div > div:first-of-type",
+    );
+    if (!container) return { href: "" };
+    return Object.assign({}, container.dataset);
+  }
+  async function getLookupGeo() {
+    const result = await fetch("https://geometer.lincx.la/api/lookup");
+    const data = await result.json();
+    return {
+      geoIP: data.ip,
+      geoCity: data.city,
+      geoCountry: data.country,
+      geoLoc: `${data.latitude}, ${data.longitude}`,
+      geoRegion: data.region,
+      geoPostal: data.postal,
+      geoRegionName: data.regionName,
+      geoCountryName: data.countryName,
+    };
+  }
+  async function fireClickEvent({ rank, templateId, adverseClickId, zoneId }) {
+    if (sessionStorage.getItem("last_ad_clicked")) {
+      return;
+    }
+    const ghostZone = getDataAttributes();
+    if (!ghostZone) return;
+    const geoData = await getLookupGeo();
+    const {
+      creativeId,
+      adId,
+      zoneId: ghostZoneId,
+      templateId: ghostTemplateId,
+      clickId: ghostClickId,
+    } = ghostZone;
+    const zoneDataAttributes = Object.assign(
+      {},
+      document.querySelector(`script[data-zone-id="${ghostZoneId}"]`).dataset,
+    );
+    const query = new URLSearchParams({
+      ...zoneDataAttributes,
+      ...geoData,
+      creativeId,
+      adId,
+      rank,
+      templateId: ghostTemplateId,
+      adverseClickId: ghostClickId,
+      zoneId: ghostZoneId,
+    }).toString();
+    sessionStorage.setItem("last_ad_clicked", "true");
+    fetch(`https://api.lincx.com/api/track?type=click&${query}`);
+    fetch(`https://api.lincx.com/api/track?type=impression&${query}`);
+  }
+  createZoneWithinTemplate({ zoneId: "2p9ug7", mainZoneId: "qc3743" });
+</script>
+-->
