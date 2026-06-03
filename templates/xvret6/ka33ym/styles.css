@@ -201,6 +201,14 @@
     margin-bottom: var(--lx_space-hero-lg);
   }
 }
+/* First listicle's hero image goes edge-to-edge on mobile only */
+@media (max-width: 1023px) {
+  .lincx-container .listicle:first-child .listicle__thumbnail {
+    width: calc(100% + (2 * var(--lx_gutter)));
+    margin-left: calc(-1 * var(--lx_gutter));
+    margin-right: calc(-1 * var(--lx_gutter));
+  }
+}
 .listicle__thumbnail img,
 .listicle__thumbnail .video-thumbnail {
   width: 100%;
