@@ -1,0 +1,422 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Open+Sans:ital,wght@0,400;0,600;0,700;1,400&display=swap");
+
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+/* Design tokens — scoped to the widget so they never leak into the host page.
+   Values mirror FinanceBuzz's article styling. */
+.lincx__provider {
+  /* colors */
+  --lx_color-text: #0a0832;
+  --lx_color-text-muted: #5c5a7a;
+  --lx_color-link: #0049b8;
+  --lx_color-link-hover: #003a94;
+
+  /* fonts */
+  --lx_font-heading: "Inter", sans-serif;
+  --lx_font-body: "Open Sans", sans-serif;
+
+  /* font sizes */
+  --lx_fs-base: 16px;
+  --lx_fs-body: 1rem; /* 16px (mobile) */
+  --lx_fs-small: 12px;
+  --lx_fs-footer: 10px;
+  --lx_fs-h1: 1.75rem; /* 28px (mobile) */
+  --lx_fs-h1-lg: 3rem; /* 48px */
+  --lx_fs-h2: 1.5rem; /* 24px (mobile) */
+  --lx_fs-h2-lg: 2.125rem; /* 34px */
+
+  /* line heights */
+  --lx_lh-base: 1.5;
+  --lx_lh-body: 1.5; /* 16px -> 24px (mobile) */
+  --lx_lh-h1: 1.2;
+  --lx_lh-h2: 1.3;
+
+  /* font weights */
+  --lx_fw-regular: 400;
+  --lx_fw-semibold: 600;
+  --lx_fw-bold: 700;
+
+  /* layout */
+  --lx_content-max: 882px; /* 852px content column + 2x15px gutter */
+  --lx_gutter: 15px;
+
+  /* hero image -> byline gap (FinanceBuzz reserves a tall hero on desktop) */
+  --lx_space-hero: 1rem; /* 16px (mobile) */
+  --lx_space-hero-lg: 6.25rem; /* 100px (desktop) */
+
+  /* disclosure */
+  --lx_fs-disclosure: 14px; /* FinanceBuzz text-sm */
+  --lx_color-backdrop: rgba(10, 8, 50, 0.55);
+}
+
+/* Desktop typography bump — FinanceBuzz scales up at the lg breakpoint */
+@media (min-width: 1024px) {
+  .lincx__provider {
+    --lx_fs-body: 1.25rem; /* 20px */
+    --lx_lh-body: 1.7; /* 20px -> 34px */
+  }
+}
+
+/* FinanceBuzz: body Open Sans 16px, text #0a0832 on white */
+.lincx-wrapper,
+.footer-wrapper {
+  font-family: var(--lx_font-body);
+  padding: 0 var(--lx_gutter);
+  margin: 0 auto;
+  counter-set: index;
+  counter-reset: index;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  width: 100%;
+  max-width: var(--lx_content-max);
+  -webkit-font-smoothing: antialiased;
+  font-size: var(--lx_fs-base);
+  line-height: var(--lx_lh-base);
+  color: var(--lx_color-text);
+}
+
+.lincx-container {
+  width: 100%;
+}
+
+/* Disclosure trigger — FinanceBuzz: small blue link above the title */
+.lincx-disclosure-trigger {
+  align-self: flex-start;
+  appearance: none;
+  background: none;
+  border: 0;
+  padding: 0;
+  margin: 0.25rem 0 0.75rem;
+  font-family: var(--lx_font-body);
+  font-size: var(--lx_fs-disclosure);
+  font-weight: var(--lx_fw-regular);
+  line-height: 1.4;
+  color: var(--lx_color-link);
+  text-align: left;
+  cursor: pointer;
+}
+.lincx-disclosure-trigger:hover {
+  color: var(--lx_color-link-hover);
+  text-decoration: none;
+}
+
+.listicle[data-heading=""] {
+  counter-increment: index;
+}
+.listicle {
+  margin-bottom: 2rem;
+}
+
+.category-container {
+  display: flex;
+  align-items: center;
+  align-self: flex-start;
+  gap: 5px;
+  text-transform: uppercase;
+  font-size: var(--lx_fs-small);
+  margin-bottom: 15px;
+}
+
+/* Article title — FinanceBuzz H1: Inter 700, 48px/57.6px, #0a0832 */
+.heading {
+  font-family: var(--lx_font-heading);
+  font-size: var(--lx_fs-h1);
+  line-height: var(--lx_lh-h1);
+  font-weight: var(--lx_fw-bold);
+  letter-spacing: normal;
+  color: var(--lx_color-text);
+  margin-bottom: 0.75rem;
+}
+@media (min-width: 1024px) {
+  .heading {
+    font-size: var(--lx_fs-h1-lg);
+  }
+}
+
+/* Numbered offer headings — FinanceBuzz H2: Inter 700, 34px/44.2px, #0a0832 */
+.subheading {
+  font-family: var(--lx_font-heading);
+  font-size: var(--lx_fs-h2);
+  line-height: var(--lx_lh-h2);
+  font-weight: var(--lx_fw-bold);
+  color: var(--lx_color-text);
+  margin-bottom: 1.25rem;
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+.subheading::before {
+  content: counter(index) ".";
+}
+.subheading a {
+  color: var(--lx_color-text);
+}
+@media (min-width: 1024px) {
+  .subheading {
+    font-size: var(--lx_fs-h2-lg);
+  }
+}
+
+/* Byline — FinanceBuzz: Open Sans 12px/16px */
+.listicle__info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 1.25rem;
+  color: var(--lx_color-text);
+  font-weight: var(--lx_fw-regular);
+  font-size: var(--lx_fs-small);
+  line-height: 16px;
+}
+@media (min-width: 1024px) {
+  .listicle__info {
+    margin-bottom: 3rem;
+  }
+}
+.listicle__published--date {
+  color: var(--lx_color-text-muted);
+}
+.listicle__author--name b {
+  font-weight: var(--lx_fw-bold);
+}
+.listicle__author--image {
+  width: 25px;
+  height: 25px;
+  border-radius: 9999px;
+}
+
+/* Media — FinanceBuzz: full-width, no border radius */
+.listicle__thumbnail {
+  margin-bottom: var(--lx_space-hero);
+}
+@media (min-width: 1024px) {
+  .listicle:not([data-heading=""]) .listicle__thumbnail {
+    margin-bottom: var(--lx_space-hero-lg);
+  }
+}
+/* First listicle's hero image goes edge-to-edge on mobile only */
+@media (max-width: 1023px) {
+  .lincx-container .listicle:first-child .listicle__thumbnail {
+    width: calc(100% + (2 * var(--lx_gutter)));
+    margin-left: calc(-1 * var(--lx_gutter));
+    margin-right: calc(-1 * var(--lx_gutter));
+  }
+}
+.listicle__thumbnail img,
+.listicle__thumbnail .video-thumbnail {
+  width: 100%;
+  display: block;
+}
+.listicle__thumbnail .video-thumbnail {
+  height: auto;
+  object-fit: cover;
+}
+
+/* Body copy — FinanceBuzz: Open Sans 20px/34px, #0a0832 */
+.listicle__content {
+  font-size: var(--lx_fs-body);
+  line-height: var(--lx_lh-body);
+  color: var(--lx_color-text);
+}
+.listicle__content ul,
+.listicle__content ol {
+  font-size: var(--lx_fs-body);
+  line-height: var(--lx_lh-body);
+  margin: 1.5rem 0;
+  padding-left: 1.5rem;
+}
+.listicle__content ul {
+  list-style: disc;
+}
+.listicle__content li {
+  margin-bottom: 0.625rem;
+}
+.listicle__content p {
+  font-size: var(--lx_fs-body);
+  line-height: var(--lx_lh-body);
+  margin: 0 0 1.5625rem; /* 25px */
+}
+/* Inline links — FinanceBuzz: #0049b8, weight 400, underlined */
+.listicle__content a {
+  color: var(--lx_color-link);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  font-weight: var(--lx_fw-regular);
+}
+.listicle__content a:hover {
+  color: var(--lx_color-link-hover);
+}
+
+/* CTAs rendered as native FinanceBuzz inline text links */
+.cta__link {
+  display: inline-block;
+  font-family: var(--lx_font-body);
+  font-size: var(--lx_fs-body);
+  line-height: var(--lx_lh-body);
+  font-weight: var(--lx_fw-semibold);
+  color: var(--lx_color-link);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.cta__link:hover {
+  color: var(--lx_color-link-hover);
+}
+
+.listicle__list__cta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.listicle__cta {
+  margin-bottom: 1.75rem;
+}
+
+.logo {
+  max-width: 300px;
+  height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 30px;
+}
+.listicle[data-heading=""] .logo,
+.listicle[data-heading=""] .share__this--container {
+  display: none;
+}
+[data-content=""] {
+  display: none;
+}
+[data-show]:not([data-show=""]) {
+  display: none;
+}
+
+/* Disclosure modal — mirrors FinanceBuzz's popup behavior */
+.lincx-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 2147483000;
+  display: none;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 40px 16px;
+  overflow-y: auto;
+}
+.lincx-modal.is-open {
+  display: flex;
+}
+.lincx-modal__backdrop {
+  position: fixed;
+  inset: 0;
+  background: var(--lx_color-backdrop);
+}
+.lincx-modal__card {
+  position: relative;
+  z-index: 1;
+  margin: auto;
+  width: 100%;
+  max-width: 800px;
+  background: #fff;
+  border-radius: 8px;
+  padding: 32px;
+  box-shadow: 0 12px 48px rgba(10, 8, 50, 0.25);
+}
+.lincx-modal__x {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #d6d6e0;
+  border-radius: 9999px;
+  background: #fff;
+  color: var(--lx_color-text);
+  font-size: 20px;
+  line-height: 1;
+  cursor: pointer;
+}
+.lincx-modal__x:hover {
+  background: #f2f3f7;
+}
+.lincx-modal__title {
+  margin: 0 0 24px;
+  padding: 0 32px 16px;
+  font-family: var(--lx_font-heading);
+  font-size: 1.75rem; /* 28px */
+  line-height: 1.2;
+  font-weight: var(--lx_fw-bold);
+  color: var(--lx_color-text);
+  text-align: center;
+  border-bottom: 2px solid var(--lx_color-link);
+}
+.lincx-modal__content {
+  font-family: var(--lx_font-body);
+  color: var(--lx_color-text);
+}
+.lincx-modal__content h3 {
+  margin: 24px 0 12px;
+  font-family: var(--lx_font-heading);
+  font-size: var(--lx_fs-h2); /* 24px */
+  line-height: var(--lx_lh-h2);
+  font-weight: var(--lx_fw-bold);
+  color: var(--lx_color-text);
+}
+.lincx-modal__content h3:first-child {
+  margin-top: 0;
+}
+.lincx-modal__content p {
+  margin: 0 0 16px;
+  font-size: var(--lx_fs-base); /* 16px */
+  line-height: 26px;
+}
+.lincx-modal__content a {
+  color: var(--lx_color-link);
+  text-decoration: none;
+}
+.lincx-modal__content a:hover {
+  text-decoration: underline;
+}
+.lincx-modal__close-btn {
+  display: block;
+  margin: 24px auto 0;
+  padding: 12px 36px;
+  border: 0;
+  border-radius: 6px;
+  background: var(--lx_color-link);
+  color: #fff;
+  font-family: var(--lx_font-body);
+  font-size: var(--lx_fs-base);
+  font-weight: var(--lx_fw-bold);
+  cursor: pointer;
+}
+.lincx-modal__close-btn:hover {
+  background: var(--lx_color-link-hover);
+}
+
+.footer {
+  text-align: left;
+  font-family: var(--lx_font-body);
+  font-size: var(--lx_fs-footer);
+  color: var(--lx_color-text-muted);
+  font-weight: var(--lx_fw-semibold);
+  margin: 1.5rem auto 0px;
+  padding: 30px 0;
+  background-color: rgb(228 236 245);
+}
+.footer p {
+  font-size: var(--lx_fs-footer);
+  color: var(--lx_color-text-muted);
+  line-height: var(--lx_lh-base);
+}
