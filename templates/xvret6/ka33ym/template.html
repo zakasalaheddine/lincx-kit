@@ -1,5 +1,13 @@
 <div class="lincx__provider">
   <div class="lincx-wrapper">
+    <button
+      type="button"
+      class="lincx-disclosure-trigger"
+      aria-haspopup="dialog"
+      aria-controls="lincx-disclosure-modal"
+    >
+      Advertiser and Editorial Disclosures
+    </button>
     <div class="lincx-container">
       {{#ads}}
       <div
@@ -32,7 +40,7 @@
             data-content="{{ cta_text }}"
           >
             <img
-              data-src="{{src}}"
+              data-src="{{src}}{{imageURL}}"
               alt="listicle image"
               onerror="
                 this.onerror = null;
@@ -41,7 +49,7 @@
             />
           </a>
           <img
-            data-src="{{src}}"
+            data-src="{{src}}{{imageURL}}"
             alt="listicle image"
             data-show="{{ cta_text }}"
           />
@@ -312,6 +320,110 @@
       alt=""
       src="https://i.smartnews-ads.com/p?id=9e5771ae7f40d2397e21af0b&e=PageView"
     />
+
+    <div
+      class="lincx-modal"
+      id="lincx-disclosure-modal"
+      aria-hidden="true"
+    >
+      <div class="lincx-modal__backdrop" data-lincx-modal-close></div>
+      <div
+        class="lincx-modal__card"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="lincx-disclosure-title"
+      >
+        <button
+          type="button"
+          class="lincx-modal__x"
+          data-lincx-modal-close
+          aria-label="Close"
+        >
+          &times;
+        </button>
+        <h2 class="lincx-modal__title" id="lincx-disclosure-title">
+          Advertiser and Editorial Disclosures
+        </h2>
+        <div class="lincx-modal__content">
+          <h3>Advertiser Disclosure</h3>
+          <p>
+            This website is an independent, advertising-supported marketplace.
+            Some or all of the offers that appear on this page are from
+            third-party advertisers from which this website receives
+            compensation. For example, we may receive compensation when you
+            click on a link, when an application is approved, or when an account
+            is opened. This compensation may impact how and where products
+            appear on this site, including, for example, the order in which they
+            appear.
+          </p>
+          <p>
+            This site does not include all financial or credit offers that might
+            be available to consumers, nor do we include all companies or all
+            available products. Information, including rates and fees, is
+            accurate as of the publishing date and has not been provided or
+            endorsed by the advertiser.
+          </p>
+          <h3>Editorial Policy</h3>
+          <p>
+            Our editorial team strives to provide accurate, in-depth information
+            to help you make decisions with confidence. Here is what you can
+            expect from us.
+          </p>
+          <p>
+            We may earn money when you click the links on our site to some of
+            the products and offers that we mention. These partnerships do not
+            influence our opinions or recommendations. We are independently
+            owned, and the opinions expressed here are our own.
+          </p>
+          <p>
+            We aim to keep everything on our site up to date and accurate as of
+            the publishing date, but we cannot guarantee we have not missed
+            something. It is your responsibility to double-check all information
+            before making any financial decision.
+          </p>
+        </div>
+        <button
+          type="button"
+          class="lincx-modal__close-btn"
+          data-lincx-modal-close
+        >
+          Close
+        </button>
+      </div>
+    </div>
+
+    <script>
+      (function () {
+        var modal = document.getElementById("lincx-disclosure-modal");
+        var trigger = document.querySelector(".lincx-disclosure-trigger");
+        if (!modal || !trigger) return;
+
+        function openModal(e) {
+          if (e) e.preventDefault();
+          modal.classList.add("is-open");
+          modal.setAttribute("aria-hidden", "false");
+          document.body.style.overflow = "hidden";
+        }
+
+        function closeModal() {
+          modal.classList.remove("is-open");
+          modal.setAttribute("aria-hidden", "true");
+          document.body.style.overflow = "";
+        }
+
+        trigger.addEventListener("click", openModal);
+        modal
+          .querySelectorAll("[data-lincx-modal-close]")
+          .forEach(function (el) {
+            el.addEventListener("click", closeModal);
+          });
+        document.addEventListener("keydown", function (e) {
+          if (e.key === "Escape" && modal.classList.contains("is-open")) {
+            closeModal();
+          }
+        });
+      })();
+    </script>
   </div>
   <footer class="footer">
     <div class="footer-wrapper">

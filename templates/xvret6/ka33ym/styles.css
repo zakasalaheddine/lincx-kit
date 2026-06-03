@@ -49,6 +49,10 @@
   /* hero image -> byline gap (FinanceBuzz reserves a tall hero on desktop) */
   --lx_space-hero: 1rem; /* 16px (mobile) */
   --lx_space-hero-lg: 6.25rem; /* 100px (desktop) */
+
+  /* disclosure */
+  --lx_fs-disclosure: 14px; /* FinanceBuzz text-sm */
+  --lx_color-backdrop: rgba(10, 8, 50, 0.55);
 }
 
 /* FinanceBuzz: body Open Sans 16px, text #0a0832 on white */
@@ -72,6 +76,27 @@
 
 .lincx-container {
   width: 100%;
+}
+
+/* Disclosure trigger — FinanceBuzz: small blue link above the title */
+.lincx-disclosure-trigger {
+  align-self: flex-start;
+  appearance: none;
+  background: none;
+  border: 0;
+  padding: 0;
+  margin: 0.25rem 0 0.75rem;
+  font-family: var(--lx_font-body);
+  font-size: var(--lx_fs-disclosure);
+  font-weight: var(--lx_fw-regular);
+  line-height: 1.4;
+  color: var(--lx_color-link);
+  text-align: left;
+  cursor: pointer;
+}
+.lincx-disclosure-trigger:hover {
+  color: var(--lx_color-link-hover);
+  text-decoration: none;
 }
 
 .listicle[data-heading=""] {
@@ -257,6 +282,111 @@
 }
 [data-show]:not([data-show=""]) {
   display: none;
+}
+
+/* Disclosure modal — mirrors FinanceBuzz's popup behavior */
+.lincx-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 2147483000;
+  display: none;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 40px 16px;
+  overflow-y: auto;
+}
+.lincx-modal.is-open {
+  display: flex;
+}
+.lincx-modal__backdrop {
+  position: fixed;
+  inset: 0;
+  background: var(--lx_color-backdrop);
+}
+.lincx-modal__card {
+  position: relative;
+  z-index: 1;
+  margin: auto;
+  width: 100%;
+  max-width: 800px;
+  background: #fff;
+  border-radius: 8px;
+  padding: 32px;
+  box-shadow: 0 12px 48px rgba(10, 8, 50, 0.25);
+}
+.lincx-modal__x {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #d6d6e0;
+  border-radius: 9999px;
+  background: #fff;
+  color: var(--lx_color-text);
+  font-size: 20px;
+  line-height: 1;
+  cursor: pointer;
+}
+.lincx-modal__x:hover {
+  background: #f2f3f7;
+}
+.lincx-modal__title {
+  margin: 0 0 24px;
+  padding: 0 32px 16px;
+  font-family: var(--lx_font-heading);
+  font-size: 1.75rem; /* 28px */
+  line-height: 1.2;
+  font-weight: var(--lx_fw-bold);
+  color: var(--lx_color-text);
+  text-align: center;
+  border-bottom: 2px solid var(--lx_color-link);
+}
+.lincx-modal__content {
+  font-family: var(--lx_font-body);
+  color: var(--lx_color-text);
+}
+.lincx-modal__content h3 {
+  margin: 24px 0 12px;
+  font-family: var(--lx_font-heading);
+  font-size: var(--lx_fs-h2); /* 24px */
+  line-height: var(--lx_lh-h2);
+  font-weight: var(--lx_fw-bold);
+  color: var(--lx_color-text);
+}
+.lincx-modal__content h3:first-child {
+  margin-top: 0;
+}
+.lincx-modal__content p {
+  margin: 0 0 16px;
+  font-size: var(--lx_fs-base); /* 16px */
+  line-height: 26px;
+}
+.lincx-modal__content a {
+  color: var(--lx_color-link);
+  text-decoration: none;
+}
+.lincx-modal__content a:hover {
+  text-decoration: underline;
+}
+.lincx-modal__close-btn {
+  display: block;
+  margin: 24px auto 0;
+  padding: 12px 36px;
+  border: 0;
+  border-radius: 6px;
+  background: var(--lx_color-link);
+  color: #fff;
+  font-family: var(--lx_font-body);
+  font-size: var(--lx_fs-base);
+  font-weight: var(--lx_fw-bold);
+  cursor: pointer;
+}
+.lincx-modal__close-btn:hover {
+  background: var(--lx_color-link-hover);
 }
 
 .footer {
