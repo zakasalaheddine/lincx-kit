@@ -23,17 +23,17 @@
 
   /* font sizes */
   --lx_fs-base: 16px;
-  --lx_fs-body: 1.25rem; /* 20px */
+  --lx_fs-body: 1rem; /* 16px (mobile) */
   --lx_fs-small: 12px;
   --lx_fs-footer: 10px;
-  --lx_fs-h1: 2rem; /* 32px (mobile) */
+  --lx_fs-h1: 1.75rem; /* 28px (mobile) */
   --lx_fs-h1-lg: 3rem; /* 48px */
   --lx_fs-h2: 1.5rem; /* 24px (mobile) */
   --lx_fs-h2-lg: 2.125rem; /* 34px */
 
   /* line heights */
   --lx_lh-base: 1.5;
-  --lx_lh-body: 1.7; /* 20px -> 34px */
+  --lx_lh-body: 1.5; /* 16px -> 24px (mobile) */
   --lx_lh-h1: 1.2;
   --lx_lh-h2: 1.3;
 
@@ -53,6 +53,14 @@
   /* disclosure */
   --lx_fs-disclosure: 14px; /* FinanceBuzz text-sm */
   --lx_color-backdrop: rgba(10, 8, 50, 0.55);
+}
+
+/* Desktop typography bump — FinanceBuzz scales up at the lg breakpoint */
+@media (min-width: 1024px) {
+  .lincx__provider {
+    --lx_fs-body: 1.25rem; /* 20px */
+    --lx_lh-body: 1.7; /* 20px -> 34px */
+  }
 }
 
 /* FinanceBuzz: body Open Sans 16px, text #0a0832 on white */
