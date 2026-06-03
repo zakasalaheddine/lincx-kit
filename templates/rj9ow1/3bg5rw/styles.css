@@ -137,6 +137,12 @@
   }
 }
 
+.listicle__subheading {
+  line-height: 156%;
+  font-size: 1rem;
+  margin-bottom: 1.5rem;
+}
+
 /* Numbered offer headings — FinanceBuzz H2: Inter 700, 34px/44.2px, #0a0832 */
 .subheading {
   font-family: var(--lx_font-heading);

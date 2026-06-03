@@ -86,6 +86,35 @@
   width: 100%;
 }
 
+/* Site header — rebuilt from FinanceBuzz: full-width white bar, centered logo,
+   soft glow shadow. Mobile 51px bar; desktop 78px. */
+.lincx-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 51px;
+  padding: 0 24px;
+  background: #fff;
+  box-shadow: 0 0 20px rgba(206, 206, 214, 0.6);
+  position: relative;
+  z-index: 1;
+}
+.lincx-header__logo {
+  display: block;
+  width: auto;
+  height: 46px;
+}
+@media (min-width: 1024px) {
+  .lincx-header {
+    min-height: 78px;
+    padding: 0 20px;
+  }
+  .lincx-header__logo {
+    height: 62px;
+  }
+}
+
 /* Disclosure trigger — FinanceBuzz: small blue link above the title */
 .lincx-disclosure-trigger {
   align-self: flex-start;
@@ -135,6 +164,12 @@
   .heading {
     font-size: var(--lx_fs-h1-lg);
   }
+}
+
+.listicle__subheading {
+  line-height: 156%;
+  font-size: 1rem;
+  margin-bottom: 1.5rem;
 }
 
 /* Numbered offer headings — FinanceBuzz H2: Inter 700, 34px/44.2px, #0a0832 */

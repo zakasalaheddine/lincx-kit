@@ -30,6 +30,13 @@
           >
         </h3>
 
+        <div
+          class="listicle__subheading"
+          data-content="{{ listicle_subheadline }}"
+        >
+          {{{ listicle_subheadline }}}
+        </div>
+
         <div class="listicle__thumbnail lazy-load" data-content="{{ src }}">
           <a
             href="{{href}}"
@@ -321,11 +328,7 @@
       src="https://i.smartnews-ads.com/p?id=9e5771ae7f40d2397e21af0b&e=PageView"
     />
 
-    <div
-      class="lincx-modal"
-      id="lincx-disclosure-modal"
-      aria-hidden="true"
-    >
+    <div class="lincx-modal" id="lincx-disclosure-modal" aria-hidden="true">
       <div class="lincx-modal__backdrop" data-lincx-modal-close></div>
       <div
         class="lincx-modal__card"

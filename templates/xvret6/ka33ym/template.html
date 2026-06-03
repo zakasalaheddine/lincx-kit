@@ -1,4 +1,11 @@
 <div class="lincx__provider">
+  <header class="lincx-header">
+    <img
+      class="lincx-header__logo"
+      src="https://dpe0m9czqa0it.cloudfront.net/dd8dvc/cmpya7uph2l6p07k3dkxsc0ay.png"
+      alt="logo"
+    />
+  </header>
   <div class="lincx-wrapper">
     <button
       type="button"
@@ -29,6 +36,13 @@
             {{{offer_headline}}}</a
           >
         </h3>
+
+        <div
+          class="listicle__subheading"
+          data-content="{{ listicle_subheadline }}"
+        >
+          {{{ listicle_subheadline }}}
+        </div>
 
         <div class="listicle__thumbnail lazy-load" data-content="{{ src }}">
           <a
@@ -321,11 +335,7 @@
       src="https://i.smartnews-ads.com/p?id=9e5771ae7f40d2397e21af0b&e=PageView"
     />
 
-    <div
-      class="lincx-modal"
-      id="lincx-disclosure-modal"
-      aria-hidden="true"
-    >
+    <div class="lincx-modal" id="lincx-disclosure-modal" aria-hidden="true">
       <div class="lincx-modal__backdrop" data-lincx-modal-close></div>
       <div
         class="lincx-modal__card"
