@@ -191,11 +191,11 @@
 .listicle__thumbnail {
   margin-bottom: var(--lx_space-hero);
 }
-@media (min-width: 1024px) {
+/* @media (min-width: 1024px) {
   .listicle:not([data-heading=""]) .listicle__thumbnail {
     margin-bottom: var(--lx_space-hero-lg);
   }
-}
+} */
 /* First listicle's hero image goes edge-to-edge on mobile only */
 @media (max-width: 1023px) {
   .lincx-container .listicle:first-child .listicle__thumbnail {
