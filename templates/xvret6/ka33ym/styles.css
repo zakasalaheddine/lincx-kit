@@ -110,9 +110,6 @@
 .listicle[data-heading=""] {
   counter-increment: index;
 }
-.listicle {
-  margin-bottom: 2rem;
-}
 
 .category-container {
   display: flex;
@@ -148,9 +145,7 @@
   font-weight: var(--lx_fw-bold);
   color: var(--lx_color-text);
   margin-bottom: 1.25rem;
-  display: flex;
   align-items: baseline;
-  gap: 8px;
 }
 .subheading::before {
   content: counter(index) ".";
@@ -243,6 +238,9 @@
   line-height: var(--lx_lh-body);
   margin: 0 0 1.5625rem; /* 25px */
 }
+.listicle__content p:last-child {
+  margin-bottom: 0;
+}
 /* Inline links — FinanceBuzz: #0049b8, weight 400, underlined */
 .listicle__content a {
   color: var(--lx_color-link);
@@ -260,7 +258,6 @@
   font-family: var(--lx_font-body);
   font-size: var(--lx_fs-body);
   line-height: var(--lx_lh-body);
-  font-weight: var(--lx_fw-semibold);
   color: var(--lx_color-link);
   text-decoration: underline;
   text-underline-offset: 2px;
@@ -274,7 +271,6 @@
   flex-direction: column;
   align-items: flex-start;
   gap: 0.5rem;
-  margin-bottom: 1.25rem;
 }
 
 .listicle__cta {
