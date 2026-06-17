@@ -1,0 +1,61 @@
+<div class="offers">
+  <h1 class="heading">Please answer the following questions:</h1>
+  <div class="offers__list">
+    {{#ads}}
+    <div
+      class="offer hide"
+      id="{{adId}}"
+      data-last-link="{{ endpoint_destination }}"
+    >
+      <div class="offer__head">
+        Survey (Question <span class="offer__head--number">{{adId}}</span>)
+      </div>
+      <div class="offer__body">
+        <div class="offer__text">{{{offer_text}}}</div>
+        <div class="offer__buttons">
+          <a
+            class="cta__button lincx__button"
+            target="_blank"
+            data-lincx-cta
+            href="{{ href }}"
+            >{{cta_text}}</a
+          >
+          <div class="decline__button lincx__button" for="offer-{{adId}}">
+            No
+          </div>
+        </div>
+      </div>
+    </div>
+    {{/ads}}
+  </div>
+  <script>
+    function initiatCarousel() {
+      const carousel = document.querySelector('.offers__list')
+      const headItems = carousel.querySelectorAll('.offer__head--number')
+      headItems.forEach((item, index) => {
+        item.innerHTML = `${index + 1} of ${headItems.length}`
+      })
+
+      const offers = carousel.querySelectorAll('.offer')
+      offers[0].classList.remove('hide')
+
+      const buttons = document.querySelectorAll('.lincx__button')
+      buttons.forEach((button) => {
+        button.addEventListener('click', () => {
+          const currentOffer = document.querySelector('.offer:not(.hide)')
+          const currentIndex = Array.from(offers).indexOf(currentOffer)
+          if (currentIndex < offers.length - 1) {
+            currentOffer.classList.add('hide')
+            offers[currentIndex + 1].classList.remove('hide')
+          } else {
+            const lastLink = currentOffer.getAttribute('data-last-link')
+            if (lastLink) {
+              window.location.href = lastLink
+            }
+          }
+        })
+      })
+    }
+    initiatCarousel()
+  </script>
+</div>
