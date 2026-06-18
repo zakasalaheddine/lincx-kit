@@ -8,9 +8,7 @@
       data-last-link="{{ endpoint_destination }}"
       data-leading-questions="{{#card_options}}{{.}}{{/card_options}}"
     >
-      <div class="offer__head">
-        Survey (Question <span class="offer__head--number">{{adId}}</span>)
-      </div>
+      <div class="offer__head">Survey</div>
       <div class="offer__body">
         <div class="offer__text">{{{offer_text}}}</div>
         <div class="offer__buttons">
@@ -115,10 +113,7 @@
           let offset = 0;
           for (const z of zones) {
             zoneOffers(z).forEach((offer, i) => {
-              const globalIndex = offset + i;
-              offer.classList.toggle("hide", globalIndex !== pos);
-              const num = offer.querySelector(".offer__head--number");
-              if (num) num.innerHTML = `${globalIndex + 1} of ${total}`;
+              offer.classList.toggle("hide", offset + i !== pos);
             });
             offset += zoneOffers(z).length;
           }
