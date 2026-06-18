@@ -30,7 +30,10 @@ h1.heading {
   margin: 0px 0px 20px 0px;
   text-align: center;
   font-size: 24px;;
-  @media screen and (min-width: 768px) {
+}
+
+@media screen and (min-width: 768px) {
+  h1.heading {
     font-size: 50px;
   }
 }
@@ -38,83 +41,163 @@ h1.heading {
 .offers__list {
   max-width: 100rem;
   padding: 0px;
-  .offer {
-    margin: 40px auto 20px auto;
-    border-radius: 5px;
-    background: #ffffff;
-    border: 1px solid #053067;
-    width: calc(100% - 1.25rem);
+}
 
-    @media screen and (min-width: 768px) {
-      width: calc(58.33333% - 1.875rem);
-    }
+.offers__list .offer {
+  margin: 40px auto 20px auto;
+  border-radius: 5px;
+  background: #ffffff;
+  border: 1px solid #053067;
+  width: calc(100% - 1.25rem);
+}
 
-    .offer__head {
-      padding: 5px 0px 5px 0px;
-      margin: -2px 0px 0px 0px !important;
-      border-top-left-radius: 5px;
-      border-top-right-radius: 5px;
-      background: #053067;
-      text-align: center;
-      color: #ffffff;
-      font-size: 15px;
-      font-weight: 600;
-    }
-    .offer__body {
-      margin: 0;
-      padding: 20px 20px;
-      text-align: center;
-    }
+@media screen and (min-width: 768px) {
+  .offers__list .offer {
+    width: calc(58.33333% - 1.875rem);
+  }
+}
 
-    .offer__text {
-      font-size: 18px;;
-      color: #222222;
-      font-weight: 400;
-      margin: 20px 0px 30px 0px;
-      padding: 0px 20px 0px 0px;
-      line-height: 28px;
-      text-align: left;
-      p {
-        display: inline-block;
-        margin-bottom: 10px;
-      }
-      @media screen and (min-width: 768px) {
-        font-size: 20px;
-      }
-    }
-    .offer__buttons {
-      display: flex;
-      justify-content: center;
-      gap: 10px;
-      flex-direction: column;
-      @media screen and (min-width: 768px) {
-        flex-direction: row;
-      }
-      .cta__button {
-        background-color: #008bec;
-      }
-      .decline__button {
-        background-color: #f04124;
-        border-color: #cf2a0e;
-      }
-      .lincx__button {
-        cursor: pointer;
-        color: #fff;
-        border-radius: 25px !important;
-        -webkit-transition: color 0.15sease-in, border-color 0.15sease-in;
-        transition: color 0.15sease-in, border-color 0.15sease-in;
-        font-weight: 600;
-        padding: 15px 20px 15px 20px;
-        margin: 30px 0px 0px 0px;
-        font-size: 15px;
-        width: 100%;
-        text-decoration: none;
-      }
-    }
+.offers__list .offer .offer__head {
+  padding: 5px 0px 5px 0px;
+  margin: -2px 0px 0px 0px !important;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  background: #053067;
+  text-align: center;
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.offers__list .offer .offer__body {
+  margin: 0;
+  padding: 20px 20px;
+  text-align: center;
+}
+
+.offers__list .offer .offer__text {
+  font-size: 18px;;
+  color: #222222;
+  font-weight: 400;
+  margin: 20px 0px 30px 0px;
+  padding: 0px 20px 0px 0px;
+  line-height: 28px;
+  text-align: left;
+}
+
+.offers__list .offer .offer__text p {
+  display: inline-block;
+  margin-bottom: 10px;
+}
+
+@media screen and (min-width: 768px) {
+  .offers__list .offer .offer__text {
+    font-size: 20px;
+  }
+}
+
+.offers__list .offer .offer__buttons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-direction: column;
+}
+
+@media screen and (min-width: 768px) {
+  .offers__list .offer .offer__buttons {
+    flex-direction: row;
+  }
+}
+
+.offers__list .offer .offer__buttons .cta__button {
+  background-color: #008bec;
+}
+
+.offers__list .offer .offer__buttons .decline__button {
+  background-color: #f04124;
+  border-color: #cf2a0e;
+}
+
+.offers__list .offer .offer__buttons .lincx__button {
+  cursor: pointer;
+  color: #fff;
+  border-radius: 25px !important;
+  -webkit-transition: color 0.15sease-in, border-color 0.15sease-in;
+  transition: color 0.15sease-in, border-color 0.15sease-in;
+  font-weight: 600;
+  padding: 15px 20px 15px 20px;
+  margin: 30px 0px 0px 0px;
+  font-size: 15px;
+  width: 100%;
+  text-decoration: none;
+}
+
+/* Leading questions are hidden by default; buttons show */
+.offers__list .offer .leading__questions {
+  display: none;
+}
+
+/* When the offer has leading questions, hide the buttons and show the questions */
+.offers__list .offer[data-leading-questions]:not([data-leading-questions=""]) .offer__buttons {
+  display: none;
+}
+
+.offers__list .offer[data-leading-questions]:not([data-leading-questions=""]) .leading__questions {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-direction: column;
+}
+
+/* Leading question buttons mirror the Yes (cta) button */
+.offers__list .offer .leading__question {
+  cursor: pointer;
+  color: #fff;
+  background-color: #008bec;
+  border: none;
+  border-radius: 25px !important;
+  -webkit-transition: color 0.15sease-in, border-color 0.15sease-in;
+  transition: color 0.15sease-in, border-color 0.15sease-in;
+  font-weight: 600;
+  padding: 15px 20px 15px 20px;
+  margin: 0;
+  font-size: 15px;
+  width: 100%;
+  text-decoration: none;
+}
+
+/* Loading state shown on the chosen leading-question answer during re-render */
+.offers__list .offer .leading__question.is-loading {
+  position: relative;
+  color: transparent;
+  pointer-events: none;
+}
+
+.offers__list .offer .leading__question.is-loading::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 18px;
+  height: 18px;
+  margin: -9px 0 0 -9px;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: lincx-spin 0.6s linear infinite;
+}
+
+.offers__list .offer .leading__question[disabled]:not(.is-loading) {
+  opacity: 0.6;
+  cursor: default;
+}
+
+@keyframes lincx-spin {
+  to {
+    transform: rotate(360deg);
   }
 }
 
 .hide {
   display: none !important;
 }
-

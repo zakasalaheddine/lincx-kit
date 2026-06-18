@@ -1,11 +1,12 @@
-<div class="offers">
+<div class="offers" data-template-id="{{templateId}}" data-zone-id="{{zoneId}}">
   <h1 class="heading">Please answer the following questions:</h1>
-  <div class="offers__list">
+  <div class="offers__list _lincxReRenderSection_">
     {{#ads}}
     <div
       class="offer hide"
       id="{{adId}}"
       data-last-link="{{ endpoint_destination }}"
+      data-leading-questions="{{#card_options}}{{.}}{{/card_options}}"
     >
       <div class="offer__head">
         Survey (Question <span class="offer__head--number">{{adId}}</span>)
@@ -24,38 +25,272 @@
             No
           </div>
         </div>
+        <div class="leading__questions">
+          {{#card_options}}
+          <button class="leading__question" data-content="{{.}}">{{.}}</button>
+          {{/card_options}}
+        </div>
       </div>
     </div>
     {{/ads}}
   </div>
   <script>
-    function initiatCarousel() {
-      const carousel = document.querySelector('.offers__list')
-      const headItems = carousel.querySelectorAll('.offer__head--number')
-      headItems.forEach((item, index) => {
-        item.innerHTML = `${index + 1} of ${headItems.length}`
-      })
+    (function () {
+      // One global carousel spanning every zone on the page. Offers from all
+      // zones form a single list; a shared `position` indexes the combined list
+      // and exactly one offer is visible page-wide. Zones share in-memory state
+      // through a single coordinator instance on `window`.
+      const C = (window.__lincxMidpath =
+        window.__lincxMidpath || createCoordinator());
 
-      const offers = carousel.querySelectorAll('.offer')
-      offers[0].classList.remove('hide')
+      function createCoordinator() {
+        // ── Config ──────────────────────────────────────────────────────────
+        // "each": re-render after every leading-question answer (sends that
+        //         answer's key/value).
+        // "all":  accumulate answers and advance through the leading-question
+        //         offers locally; re-render once (with ALL answers) when the
+        //         last leading-question offer is answered.
+        const RERENDER_MODE = "each";
 
-      const buttons = document.querySelectorAll('.lincx__button')
-      buttons.forEach((button) => {
-        button.addEventListener('click', () => {
-          const currentOffer = document.querySelector('.offer:not(.hide)')
-          const currentIndex = Array.from(offers).indexOf(currentOffer)
-          if (currentIndex < offers.length - 1) {
-            currentOffer.classList.add('hide')
-            offers[currentIndex + 1].classList.remove('hide')
-          } else {
-            const lastLink = currentOffer.getAttribute('data-last-link')
-            if (lastLink) {
-              window.location.href = lastLink
-            }
+        const zones = []; // { id, root } in registration (DOM) order
+        let pendingAdvance = false; // advance once, after a re-render completes
+
+        // In-memory state, shared across all zones via this single coordinator.
+        // Intentionally NOT persisted: it survives client-side re-renders (the
+        // page is not reloaded) but resets on a real page refresh.
+        const state = { position: 0, answers: {} };
+
+        function getState() {
+          return state;
+        }
+        function setAnswer(key, value) {
+          state.answers[key] = value;
+        }
+        function setPosition(i) {
+          state.position = i;
+        }
+
+        // --- Global offer list helpers ---
+        function zoneOffers(zone) {
+          return Array.from(zone.root.querySelectorAll(".offer"));
+        }
+        function totalOffers() {
+          return zones.reduce((n, z) => n + zoneOffers(z).length, 0);
+        }
+        function offerAt(pos) {
+          let offset = 0;
+          for (const z of zones) {
+            const offers = zoneOffers(z);
+            if (pos < offset + offers.length) return offers[pos - offset];
+            offset += offers.length;
           }
-        })
-      })
-    }
-    initiatCarousel()
+          return null;
+        }
+
+        // Offers that actually have leading questions are the ones whose
+        // data-leading-questions attribute holds a (non-empty) value.
+        function leadingOffers() {
+          const out = [];
+          for (const z of zones)
+            for (const offer of zoneOffers(z))
+              if (offer.getAttribute("data-leading-questions")) out.push(offer);
+          return out;
+        }
+        function allLeadingAnswered() {
+          const lo = leadingOffers();
+          return lo.length > 0 && lo.every((o) => o.dataset.midpathAnswered === "1");
+        }
+        // Every recorded answer as data-* attributes, for the "all" re-render.
+        function answersToParams() {
+          const params = {};
+          for (const k in state.answers) params["data-" + k] = state.answers[k];
+          return params;
+        }
+
+        // Show the single global offer at `position`; hide everything else
+        // (including whole zones when the active offer lives elsewhere).
+        function renderPosition() {
+          const total = totalOffers();
+          const pos = Math.min(getState().position, Math.max(total - 1, 0));
+          let offset = 0;
+          for (const z of zones) {
+            zoneOffers(z).forEach((offer, i) => {
+              const globalIndex = offset + i;
+              offer.classList.toggle("hide", globalIndex !== pos);
+              const num = offer.querySelector(".offer__head--number");
+              if (num) num.innerHTML = `${globalIndex + 1} of ${total}`;
+            });
+            offset += zoneOffers(z).length;
+          }
+        }
+
+        // Local advance (Yes / No) — no re-render, just move through the list.
+        function advanceLocal() {
+          const total = totalOffers();
+          const pos = getState().position;
+          if (pos < total - 1) {
+            setPosition(pos + 1);
+            renderPosition();
+          } else {
+            const current = offerAt(pos);
+            const lastLink = current && current.getAttribute("data-last-link");
+            if (lastLink) window.location.href = lastLink;
+          }
+        }
+
+        // Re-render every zone with the chosen answer. The position only
+        // advances once the re-render completes (see onZoneReRendered).
+        function reRenderAll(extra) {
+          if (typeof window.renderAdFeed !== "function") {
+            // Renderer absent (e.g. local `cli preview`): degrade to a local
+            // advance so the flow still works while developing.
+            console.warn("[midpath] renderAdFeed unavailable; advancing locally");
+            pendingAdvance = false;
+            advanceLocal();
+            return;
+          }
+          zones.forEach((z) => {
+            window.renderAdFeed(Object.assign({ "data-zone-id": z.id }, extra));
+          });
+        }
+
+        // Fired when a zone's section is refilled with fresh .offer nodes (i.e.
+        // a re-render completed).
+        function onZoneReRendered(zone) {
+          wireSection(zone);
+          if (pendingAdvance) {
+            pendingAdvance = false;
+            // Logical +1 only. Sibling zones may not have re-rendered yet, so
+            // `totalOffers()` is transiently undercounted — clamping here could
+            // clobber a valid later-zone position. renderPosition() clamps for
+            // display, which is the only place a bound is safe to apply.
+            setPosition(getState().position + 1);
+          }
+          renderPosition();
+        }
+
+        // Wire the buttons inside a zone's current section. Idempotent per
+        // button: the renderer refills the SAME section element on re-render, so
+        // a section-level flag would permanently block wiring the fresh buttons.
+        // Marking each button instead wires new ones and skips already-wired.
+        function wireSection(zone) {
+          const section = zone.root.querySelector("._lincxReRenderSection_");
+          if (!section) return;
+
+          // Leading questions: parse `key|value|label`, show only the label.
+          section.querySelectorAll(".leading__question").forEach((button) => {
+            if (button.dataset.midpathWired === "1") return;
+            button.dataset.midpathWired = "1";
+            const [key, value, label] = (
+              button.getAttribute("data-content") || ""
+            ).split("|");
+            button.setAttribute("data-key", key ?? "");
+            button.setAttribute("data-value", value ?? "");
+            button.textContent = label ?? "";
+            button.removeAttribute("data-content");
+
+            button.addEventListener("click", () => {
+              if (button.disabled) return;
+              // Record the answer and lock this offer's leading buttons.
+              const group = button.closest(".leading__questions");
+              if (group)
+                group
+                  .querySelectorAll(".leading__question")
+                  .forEach((b) => (b.disabled = true));
+              const offer = button.closest(".offer");
+              if (offer) offer.dataset.midpathAnswered = "1";
+              if (key) setAnswer(key, value ?? "");
+
+              // "all" mode: defer the re-render until every leading-question
+              // offer is answered — until then just advance to the next offer.
+              if (RERENDER_MODE === "all" && !allLeadingAnswered()) {
+                advanceLocal();
+                return;
+              }
+
+              // Re-render now: "each" mode every time, or "all" mode's final
+              // answer. Show the loading state on the chosen answer.
+              button.classList.add("is-loading");
+              pendingAdvance = true;
+              const params =
+                RERENDER_MODE === "all"
+                  ? answersToParams()
+                  : key
+                    ? { ["data-" + key]: value ?? "" }
+                    : {};
+              reRenderAll(params);
+            });
+          });
+
+          // CTA / decline (Yes / No): advance locally, no re-render.
+          section.querySelectorAll(".lincx__button").forEach((button) => {
+            if (button.dataset.midpathWired === "1") return;
+            button.dataset.midpathWired = "1";
+            button.addEventListener("click", advanceLocal);
+          });
+        }
+
+        function registerZone(root) {
+          const id = root.getAttribute("data-zone-id") || "";
+          // Dedup by DOM root only — distinct roots are always distinct zones.
+          // Matching on id would silently overwrite a real second zone if the
+          // renderer ever hands two zones the same data-zone-id.
+          let zone = zones.find((z) => z.root === root);
+          if (zone) {
+            zone.root = root;
+          } else {
+            zone = { id, root };
+            zones.push(zone);
+          }
+          wireSection(zone);
+
+          // On re-render the renderer refills the section with fresh .offer
+          // nodes (the section element itself is NOT replaced). Observe the
+          // stable root and react whenever .offer nodes are (re)inserted. This
+          // also covers a future renderer that replaces the section element,
+          // since either way new .offer nodes appear. Reacting only to added
+          // ELEMENT .offer nodes avoids self-triggering on our own text/class
+          // updates (renderPosition / wireSection never add .offer elements).
+          new MutationObserver((mutations) => {
+            for (const m of mutations) {
+              for (const node of m.addedNodes) {
+                if (
+                  node.nodeType === 1 &&
+                  (node.classList?.contains("offer") ||
+                    node.querySelector?.(".offer"))
+                ) {
+                  onZoneReRendered(zone);
+                  return;
+                }
+              }
+            }
+          }).observe(root, { childList: true, subtree: true });
+
+          renderPosition();
+        }
+
+        return { registerZone };
+      }
+
+      // --- Bootstrap ---
+      // The renderer runs this script detached from the DOM, so
+      // `document.currentScript` is null and can't identify "our" zone. Instead
+      // register every not-yet-initialized zone present in the document. This is
+      // idempotent (guarded by data-midpath-init) and still multi-zone safe:
+      // each script run picks up whichever zones are ready, later ones register
+      // themselves when their own copy of this script runs.
+      function bootstrap() {
+        document.querySelectorAll(".offers[data-zone-id]").forEach((root) => {
+          if (root.dataset.midpathInit === "1") return;
+          if (!root.querySelector("._lincxReRenderSection_")) return;
+          root.dataset.midpathInit = "1";
+          C.registerZone(root);
+        });
+      }
+      bootstrap();
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", bootstrap);
+      }
+    })();
   </script>
 </div>
