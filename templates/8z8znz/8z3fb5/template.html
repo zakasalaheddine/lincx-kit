@@ -10,7 +10,15 @@
   <div class="listicle__container">
     <div class="category">TRENDING NOW</div>
     {{#ads}}
-    <div class="listicle__item" id="{{adId}}">
+    <div
+      class="listicle__item"
+      id="{{adId}}"
+      data-is-click-to-call="{{isClickToCall}}"
+      data-lincx-click-id="{{clickId}}"
+      data-lincx-ad-id="{{adId}}"
+      data-lincx-zone-id="{{zoneId}}"
+      data-lincx-creative-id="{{id}}"
+    >
       <div class="listicle__header" data-content="{{ listicle_headline }}">
         <h1 data-content="{{ listicle_headline }}">
           {{{ listicle_headline }}}
@@ -92,6 +100,20 @@
             data-lincx-cta-position="main"
           >
             {{{ cta_text }}}
+          </a>
+          <!-- Click-to-Call CTA. Always rendered; the C2C script below removes
+               it unless this ad's data-is-click-to-call is "true". The tel:
+               number AND the visible number must match Ringba's "Number to
+               Replace"; Ringba DNI swaps both to a pool number at runtime.
+               Placeholder until Rubicon confirms. -->
+          <a
+            href="tel:+18005550100"
+            class="cta__call"
+            data-lincx-cta
+            data-lincx-cta-name="cta_call"
+            data-lincx-cta-position="secondary"
+          >
+            Call Now: <span class="cta__call-number">(800) 555-0100</span>
           </a>
         </div>
         <div class="listicle__disclaimer" data-content="{{ offer_disclaimer }}">
@@ -355,6 +377,51 @@
         }
       }
 
+      // Click-to-Call wiring. Lives inside this IIFE (the renderer only runs
+      // this script; a standalone <script> block in the template body never
+      // executes). For each ad: remove the Call CTA unless the ad's
+      // data-is-click-to-call is "true". For the Click-to-Call ad, push its
+      // Lincx session keys to Ringba from data-attributes (an inline <script>
+      // inside the ad loop breaks the renderer, so we read the IDs off the DOM
+      // here). Then load Ringba so its DNI scan sees the tel: number in the DOM.
+      function wireClickToCall() {
+        const items = document.querySelectorAll(".listicle__item");
+        let hasClickToCall = false;
+
+        items.forEach((item) => {
+          const isClickToCall =
+            item.getAttribute("data-is-click-to-call") === "true";
+          const call = item.querySelector(".cta__call");
+
+          if (!isClickToCall) {
+            if (call) call.remove();
+            return;
+          }
+
+          hasClickToCall = true;
+
+          const tags = {
+            lincxClickId: item.getAttribute("data-lincx-click-id"),
+            lincxAdId: item.getAttribute("data-lincx-ad-id") || item.id,
+            lincxZoneId: item.getAttribute("data-lincx-zone-id"),
+            lincxCreativeId: item.getAttribute("data-lincx-creative-id"),
+          };
+          Object.keys(tags).forEach((k) => {
+            if (!tags[k]) delete tags[k];
+          });
+
+          window._rgba_tags = window._rgba_tags || [];
+          window._rgba_tags.push(tags);
+        });
+
+        // Only load Ringba when a Click-to-Call ad is actually on the page.
+        if (hasClickToCall) {
+          const s = document.createElement("script");
+          s.src = "//b-js.ringba.com/CAa0d800cbd70c4dbb9e0523909431cff9";
+          document.head.appendChild(s);
+        }
+      }
+
       setCurrentDate();
       setDynamicMonth();
       initializeThumbnails();
@@ -363,6 +430,7 @@
       addReferences();
       handleCtaListSplits();
       balanceGrid();
+      wireClickToCall();
     })();
   </script>
   <footer>

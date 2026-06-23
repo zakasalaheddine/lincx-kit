@@ -178,6 +178,14 @@ body {
       font-weight: var(--font-weight-bold);
       border-color: var(--color-cta);
     }
+    .listicle__cta a.cta__call {
+      background-color: #1a8f3c;
+      border-color: #1a8f3c;
+      margin-top: -0.75rem;
+    }
+    .listicle__cta a.cta__call .cta__call-number {
+      white-space: nowrap;
+    }
   }
   .listicle__list__cta {
     display: flex;

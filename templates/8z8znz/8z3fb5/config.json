@@ -88,6 +88,9 @@
         },
         "offer_disclaimer": {
           "type": "string"
+        },
+        "isClickToCall": {
+          "type": "boolean"
         }
       },
       "required": []
