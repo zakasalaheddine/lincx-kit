@@ -1,0 +1,282 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Lato', sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-style: normal;
+  font-weight: normal;
+  text-rendering: optimizeLegibility;
+}
+.offers {
+  max-width: 100rem;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+h1.heading {
+  color: #053067;
+  font-weight: 600;
+  margin: 0px 0px 20px 0px;
+  text-align: center;
+  font-size: 24px;;
+}
+
+@media screen and (min-width: 768px) {
+  h1.heading {
+    font-size: 50px;
+  }
+}
+
+.offers__list {
+  max-width: 100rem;
+  padding: 0px;
+}
+
+.offers__list .offer {
+  margin: 40px auto 20px auto;
+  border-radius: 5px;
+  background: #ffffff;
+  border: 1px solid #053067;
+  width: calc(100% - 1.25rem);
+}
+
+@media screen and (min-width: 768px) {
+  .offers__list .offer {
+    width: calc(58.33333% - 1.875rem);
+  }
+}
+
+.offers__list .offer .offer__head {
+  padding: 5px 0px 5px 0px;
+  margin: -2px 0px 0px 0px !important;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  background: #053067;
+  text-align: center;
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.offers__list .offer .offer__body {
+  margin: 0;
+  padding: 20px 20px;
+  text-align: center;
+}
+
+.offers__list .offer .offer__text {
+  font-size: 18px;;
+  color: #222222;
+  font-weight: 400;
+  margin: 20px 0px 30px 0px;
+  padding: 0px 20px 0px 0px;
+  line-height: 28px;
+  text-align: left;
+}
+
+.offers__list .offer .offer__text p {
+  display: inline-block;
+  margin-bottom: 10px;
+}
+
+@media screen and (min-width: 768px) {
+  .offers__list .offer .offer__text {
+    font-size: 20px;
+  }
+}
+
+.offers__list .offer .offer__buttons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-direction: column;
+}
+
+@media screen and (min-width: 768px) {
+  .offers__list .offer .offer__buttons {
+    flex-direction: row;
+  }
+}
+
+.offers__list .offer .offer__buttons .cta__button {
+  background-color: #008bec;
+}
+
+.offers__list .offer .offer__buttons .decline__button {
+  background-color: #f04124;
+  border-color: #cf2a0e;
+}
+
+.offers__list .offer .offer__buttons .lincx__button {
+  cursor: pointer;
+  color: #fff !important;
+  border-radius: 25px !important;
+  -webkit-transition: color 0.15sease-in, border-color 0.15sease-in;
+  transition: color 0.15sease-in, border-color 0.15sease-in;
+  font-weight: 600;
+  padding: 15px 20px 15px 20px;
+  margin: 30px 0px 0px 0px;
+  font-size: 15px;
+  width: 100%;
+  text-decoration: none;
+}
+
+/* Leading questions are hidden by default; buttons show */
+.offers__list .offer .leading__questions {
+  display: none;
+}
+
+/* When the offer has leading questions, hide the buttons and show the questions */
+.offers__list .offer[data-leading-questions]:not([data-leading-questions=""]) .offer__buttons {
+  display: none;
+}
+
+.offers__list .offer[data-leading-questions]:not([data-leading-questions=""]) .leading__questions {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-direction: column;
+}
+
+/* Leading question buttons mirror the Yes (cta) button */
+.offers__list .offer .leading__question {
+  cursor: pointer;
+  color: #fff;
+  background-color: #008bec;
+  border: none;
+  border-radius: 25px !important;
+  -webkit-transition: color 0.15sease-in, border-color 0.15sease-in;
+  transition: color 0.15sease-in, border-color 0.15sease-in;
+  font-weight: 600;
+  padding: 15px 20px 15px 20px;
+  margin: 0;
+  font-size: 15px;
+  width: 100%;
+  text-decoration: none;
+}
+
+/* Loading state shown on the chosen leading-question answer during re-render */
+.offers__list .offer .leading__question.is-loading {
+  position: relative;
+  color: transparent;
+  pointer-events: none;
+}
+
+.offers__list .offer .leading__question.is-loading::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 18px;
+  height: 18px;
+  margin: -9px 0 0 -9px;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: lincx-spin 0.6s linear infinite;
+}
+
+.offers__list .offer .leading__question[disabled]:not(.is-loading) {
+  opacity: 0.6;
+  cursor: default;
+}
+
+@keyframes lincx-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.offers__list .offer .offer__disclaimer {
+  margin: 25px 0px 0px 0px;
+  padding: 12px 15px;
+  color: #888888;
+  font-size: 11px;
+  line-height: 16px;
+  text-align: center;
+}
+
+.offers__list .offer .offer__disclaimer a {
+  color: #008bec;
+  text-decoration: underline;
+}
+
+/* Disclaimer link modal (iframe) */
+.lincx-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.6);
+  padding: 20px;
+}
+
+.lincx-modal.is-open {
+  display: flex;
+}
+
+.lincx-modal__dialog {
+  position: relative;
+  background: #ffffff;
+  border-radius: 6px;
+  width: 100%;
+  max-width: 900px;
+  height: 85vh;
+  max-height: 85vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+}
+
+.lincx-modal__head {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 8px 12px;
+  border-bottom: 1px solid #e0e0e0;
+  flex: 0 0 auto;
+}
+
+.lincx-modal__close {
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  font-size: 26px;
+  line-height: 1;
+  color: #555555;
+  padding: 0 6px;
+}
+
+.lincx-modal__close:hover {
+  color: #000000;
+}
+
+.lincx-modal__body {
+  position: relative;
+  flex: 1 1 auto;
+  padding: 0 20px 20px 20px;
+}
+
+.lincx-modal__iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.hide {
+  display: none !important;
+}
