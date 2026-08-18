@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="en">
+<head>
+<link rel="icon" href="assets/favicon-solarquiz.svg" type="image/svg+xml">
+<link rel="shortcut icon" href="assets/favicon.ico">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>advertorial</title>
+<meta name="description" content="As Electric Bills Rise, Homeowners Are Finding A New Way To Go Solar">
+<style>
+@font-face{font-family:Poppins;src:url("assets/fonts/poppins-400.ttf") format("truetype");font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:Poppins;src:url("assets/fonts/poppins-500.ttf") format("truetype");font-weight:500;font-style:normal;font-display:swap}
+@font-face{font-family:Poppins;src:url("assets/fonts/poppins-600.ttf") format("truetype");font-weight:600;font-style:normal;font-display:swap}
+@font-face{font-family:Poppins;src:url("assets/fonts/poppins-700.ttf") format("truetype");font-weight:700;font-style:normal;font-display:swap}
+:root{--warm:#fbf8f3;--warm-strong:#f3ebe2;--paper:#fffdfa;--blue:#4b80e0;--blue-hover:#5b8fe8;--ink:#4a4a4a;--muted:#717171;--line:rgba(74,74,74,.13)}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--warm);color:var(--ink);font-family:Poppins,Arial,sans-serif;-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%}
+a{color:var(--blue)}
+.navbar{position:sticky;z-index:20;top:0;height:76px;padding:0 50px;background:rgba(251,248,243,.97);border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;backdrop-filter:blur(12px)}
+.navbar__logo,.navbar .logo,.navbar__logo img,.navbar .logo img{width:122px;height:30px;object-fit:contain}
+.navbar__cta,.navbar .btn,.navbar a[class*="cta"]{min-width:0;height:44px;padding:0 20px;border:0;border-radius:12px;background:var(--blue)!important;color:#fff!important;text-decoration:none!important;font-size:14px;font-weight:600;display:inline-flex;align-items:center;justify-content:center;box-shadow:none;transition:background .18s ease}
+.navbar__cta:hover,.navbar .btn:hover,.navbar a[class*="cta"]:hover{background:var(--blue-hover)!important}
+.listicle__wrapper{width:min(1040px,100%);margin:0 auto;padding:58px 40px 80px}
+.meta{text-align:center;color:#989898;font-size:14px;font-weight:400;margin-bottom:16px}
+.category{color:var(--blue);font-weight:600;text-transform:uppercase}
+.listicle__header{text-align:center}
+.header__title{max-width:940px;margin:0 auto;color:var(--ink);font-size:clamp(38px,5vw,56px);font-weight:600;line-height:1.08;letter-spacing:-.025em}
+.header__subtitle{max-width:900px;margin:22px auto 28px;color:var(--ink);font-size:clamp(18px,2.2vw,24px);font-weight:400;line-height:1.45}
+.listicle__info{display:flex;align-items:center;justify-content:flex-start;gap:14px;margin:0 0 30px;color:var(--muted);font-size:13px}
+.info__author,.info__published{display:flex;align-items:center;gap:10px}
+.info__author:empty{display:none}
+.author__image{display:block;width:82px!important;height:22px!important;object-fit:contain;border:0!important;border-radius:0!important;background:transparent!important;box-shadow:none!important}
+.author__name{display:none!important}
+.info__published{padding-left:14px;border-left:1px solid var(--line)}
+.content__image{display:block;margin:0 0 30px}
+.image__article,.content__image img{width:100%;height:auto;border-radius:12px}
+.listicle__content{font-size:18px;line-height:1.72;color:var(--ink)}
+.content__text p{margin:0 0 24px}
+.content__text h2{margin:50px 0 18px;color:var(--ink);font-size:32px;font-weight:600;line-height:1.24;letter-spacing:-.015em}
+.content__text h3{margin:36px 0 14px;color:var(--ink);font-size:24px;font-weight:600;line-height:1.3}
+.content__text a:not([class*="cta"]){color:var(--blue);text-decoration:underline;text-underline-offset:3px}
+.cta__container{margin:40px 0;text-align:center}
+.cta__container>a{width:min(100%,360px);min-height:58px;margin:0 auto;padding:14px 24px;border:0;border-radius:12px;background:var(--blue);color:#fff!important;text-decoration:none!important;font:600 16px/1.35 Poppins,Arial,sans-serif;display:flex;align-items:center;justify-content:center;text-align:center;transition:background .18s ease}
+.cta__container>a:hover{background:var(--blue-hover)}
+.content__text a.inner__cta{display:inline!important;margin:0!important;padding:0!important;border:0!important;border-radius:0!important;background:transparent!important;color:var(--blue)!important;text-decoration:underline!important;text-underline-offset:3px;box-shadow:none!important}
+.cta__headline,.zip__headline{margin:0 0 22px;color:var(--ink);font-size:26px;font-weight:600;line-height:1.3}
+.cta__list--container{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;width:100%!important;margin:0!important;padding:0!important}
+.cta__list--container li{list-style:none!important;margin:0!important;padding:0!important}
+.cta__list--container a,.cta__list--container button,.cta__button{width:100%!important;min-height:112px!important;padding:22px 24px!important;border:0!important;border-radius:12px!important;background:var(--blue)!important;color:#fff!important;text-decoration:none!important;font:600 20px/1.3 Poppins,Arial,sans-serif!important;display:flex!important;align-items:center!important;justify-content:center!important;text-align:center!important;box-shadow:none!important}
+.cta__list--container a:hover,.cta__list--container button:hover,.cta__button:hover,.inner__cta a:hover,.inner__cta button:hover{background:var(--blue-hover)!important}
+.cta__list--container font,.cta__container font,.inner__cta font{color:#fff!important}
+.site-footer{padding:48px 32px 34px;background:var(--warm);border-top:1px solid var(--line);text-align:center;color:var(--ink)}
+.footer-logo{margin:0 auto 22px}
+.footer-logo img{width:122px;height:30px;margin:0 auto;object-fit:contain;background:transparent}
+.site-footer .links{display:flex;justify-content:center;align-items:center;flex-wrap:wrap;gap:14px 26px;margin:0 auto 22px}
+.site-footer .footer-menu{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:12px 26px;margin:0;padding:0;list-style:none}
+.site-footer .footer-menu li{margin:0;padding:0;list-style:none}
+.site-footer .links a{color:var(--ink);font-size:13px;text-decoration:none}
+.site-footer .links a:hover{text-decoration:underline}
+.site-footer .copyright{font-size:13px}
+.site-footer .disclaimer,.site-footer .legal,.site-footer p{max-width:1040px;margin:20px auto 0;color:#777;font-size:11px;line-height:1.55;text-align:left}
+@media(max-width:700px){
+  .navbar{height:68px;padding:0 20px}
+  .navbar__logo,.navbar .logo,.navbar__logo img,.navbar .logo img{width:112px;height:28px}
+  .navbar__cta,.navbar .btn,.navbar a[class*="cta"]{min-width:auto;height:44px;padding:0 16px;font-size:14px}
+  .listicle__wrapper{padding:36px 20px 56px}
+  .meta{font-size:12px;margin-bottom:12px}
+  .header__title{font-size:34px;line-height:1.12}
+  .header__subtitle{margin:16px auto 22px;font-size:18px;line-height:1.45}
+  .listicle__info{margin-bottom:24px;font-size:12px}
+  .content__image{margin-bottom:24px}
+  .author__image{width:74px!important;height:20px!important}
+  .listicle__content{font-size:16px;line-height:1.68}
+  .content__text p{margin-bottom:20px}
+  .content__text h2{margin-top:38px;font-size:26px}
+  .content__text h3{font-size:21px}
+  .cta__container{margin:32px 0}
+  .cta__headline,.zip__headline{font-size:22px}
+  .cta__list--container{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+  .cta__list--container a,.cta__list--container button,.cta__button{min-height:88px!important;font-size:18px!important}
+  .site-footer{padding:40px 20px 28px}
+}
+</style>
+<link rel="stylesheet" href="assets/footer.css">
+</head>
+<body>
+<div id="1n1hxf">
+    <header class="navbar">
+      <a class="logo" href="home.html"><img src="assets/logo-solarquiz.svg" alt="SolarQuiz"></a>
+      <div class="navbar__right">
+        <a class="header__cta" href="save.html">See If You Qualify</a>
+      </div>
+    </header>
+    <div class="listicle__wrapper">
+      <p class="meta">
+        <span class="disclaimer"> Advertorial </span>
+        •
+        <span class="category">Solar</span>
+      </p>
+      <div class="listicle__container">
+        <div class="listicle">
+          <div class="listicle__header">
+            <h1 class="header__title">
+              <span class="">California Homeowners Are Installing Solar Without Buying The Panels</span>
+
+            </h1>
+            <h2 class="header__subtitle">
+              <span class="">As Electric Bills Rise, Homeowners Are Finding A New Way To Go Solar</span>
+
+            </h2>
+          </div>
+          <div class="listicle__info">
+            <img src="assets/logo-solarquiz.svg" alt="SolarQuiz" class="author__image">
+            <div class="info__author">
+
+              <span class="line"></span>
+              <span class="published__date">July 31, 2026</span>
+            </div>
+          </div>
+          <div class="listicle__body">
+            <div class="listicle__content">
+              <a href="save.html" class="content__image">
+                <img src="assets/advertorial-bill-comparison.png" alt="California Homeowners Are Installing Solar Without Buying The Panels" class="image__article">
+
+              </a>
+              <div class="content__text">
+<div class="desktop"><div>
+<p>For years, going solar meant spending tens of thousands of dollars to buy a system.</p>
+<p>That's no longer how many homeowners are making the switch.</p>
+<p>Instead of purchasing solar panels, qualified homeowners are simply switching to lower-cost solar power through a monthly service plan. There are no large upfront costs, no equipment purchases, and in many cases, homeowners can immediately lower their monthly energy costs.</p>
+</div>
+
+<div class="cta__container">
+  <a href="save.html" class="desktop">Check Your Zip Code</a>
+</div>
+
+<p>These programs have already helped millions of homeowners lower their monthly electricity costs without paying for a solar system upfront. But market conditions are changing, and today's pricing and program availability may not last.</p>
+
+<h2>Why Is Everybody Going Solar Right Now?</h2>
+<p>
+</p><p>Electric bills continue to rise, and many homeowners are looking for a way to gain more control over what they pay each month.</p>
+
+<p>Rather than buying solar panels, many are choosing to buy the electricity those panels produce instead. The solar company installs and maintains the equipment, while homeowners simply pay for the power—often at a lower monthly cost than their utility.</p>
+
+<p>That's why more homeowners are checking their eligibility now before current pricing changes.</p><p>
+
+</p><div class="cta__container">
+  <a href="save.html" class="desktop">Check If Your Address Qualifies</a>
+</div>
+
+<h2>You're Not Buying Solar Panels. You're Buying Solar Power.</h2>
+<p>
+</p><p>
+That's the biggest change in solar today. Instead of buying the panels, many qualified homeowners simply switch to lower-cost solar electricity. It means no large upfront purchase and lower monthly energy costs for qualified homeowners.
+</p>
+
+<h2>Want To See How Much You Could Save? Here’s How:</h2>
+<p></p>
+<p><b>Step 1:</b> Select your average monthly power bill below.</p>
+<p>
+  <b>Step 2:</b> Answer a few questions about your home. It only takes 2
+  minutes.
+</p>
+
+<br><br></div>
+                <div class="mobile"></div>
+</div>
+
+              <h5 class="cta__headline">
+                <span class="">Check Eligibility By Selecting Monthly Energy Bill</span>
+
+              </h5>
+              <div class="cta__list--container">
+                <a href="save.html">$101 - $150</a>
+                <a href="save.html">$151 - $200</a>
+                <a href="save.html">$201 - $300</a>
+                <a href="save.html">$301 - $400</a>
+                <a href="save.html">$401 - $500</a>
+                <a href="save.html">Over $501</a>
+              </div>
+              <div class="cta__container">
+                <a href="save.html" class=""><font color="FFFFFF">Check If You Qualify</font></a>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<footer class="site-footer">
+  <a class="footer-logo" href="home.html" aria-label="SolarQuiz homepage"><img src="assets/logo-solarquiz.svg" alt="SolarQuiz"></a>
+  <div class="footer-links">
+    <span class="copyright">SolarQuiz © 2026</span>
+    <a href="contact-us.html">Contact Us</a>
+    <a href="privacy-policy.html">Privacy Policy</a>
+    <a href="terms-conditions.html">Terms of Use</a>
+    <a href="ccpa.html">Manage Personal Information Preferences</a>
+  </div>
+  <div class="footer-disclaimer">
+*This is an advertisement and not an actual news article, blog, or
+          consumer protection update. We are dedicated to
+          bringing readers valuable information which can help them accomplish
+          their financial and lifestyle goals. Our
+          disclaimer is that this site does receive compensation for product
+          reviews and referrals or purchases made through
+          our links. This page is an advertisement/advertorial. The story
+          depicted here is for demonstration purposes only and
+          everyone’s results may vary. We hope you find our online resource
+          informative and helpful.
+          <br><br>
+          *No net cost means that most homeowners who don’t buy the system
+          outright see immediate savings, i.e. participating
+          installers offer $0 up front cost with low interest financing for
+          system plus lowered energy bill is less than
+          current electricity bill.<br><br>
+          <b>Marketing Disclosure:</b> This website is a market place. As such
+          you should know that the owner has a monetary
+          connection to the product and services advertised on the site. The
+          owner receives payment whenever a qualified lead
+          is referred but that is the extent of it.
+          <br><br>
+          <b>Advertising Disclosure:</b> This website and the products and
+          services referred to on the site are advertising
+          marketplaces. This website is an advertisement and not a news
+          publication. Any photographs of persons used on this
+          site are models. The owner of this site and of the products and
+          services referred to on this site only provides a
+          service where consumers can obtain options.
+          <br><br>
+          <b>Website Disclaimer:</b> All product and company names are
+          trademarks™ or registered® trademarks of their
+          respective holders. Use of them does not imply any affiliation with or
+          endorsement by them. Use of individuals names
+          or likenesses are not an endorsement and are for information or public
+          interest purposes only.
+  </div>
+</footer>
+</body>
+</html>

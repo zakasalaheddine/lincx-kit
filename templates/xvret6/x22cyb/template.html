@@ -1,0 +1,240 @@
+<div data-template-id="{{templateId}}" data-zone="{{zoneId}}">
+  {{#ads}}
+  <div id="{{adId}}">
+    <header class="navbar">
+      <a class="logo" href="javascript:;"
+        ><img src="https://raw.githubusercontent.com/hai-interlincx/Image/refs/heads/main/logo-solarquiz.svg"
+      /></a>
+      <div class="navbar__right">
+        <a
+          class="header__cta"
+          href="{{href}}"
+          data-lincx-cta
+          data-lincx-cta-name="floatingCta"
+          data-lincx-cta-position="header"
+          data-content="{{ cta_text_Floating_Header }}"
+          ><font color="FFFFFF">{{ cta_text_Floating_Header }}</font></a
+        >
+      </div>
+    </header>
+    <div class="listicle__wrapper">
+      <p class="meta">
+        <span class="disclaimer"> Advertorial </span>
+        •
+        <span class="category">Solar</span>
+      </p>
+      <div class="listicle__container">
+        <div class="listicle" data-zip="{{ zip_field }}">
+          <div class="listicle__header">
+            <h1 class="header__title">
+              <span class="desktop">{{{ offer_headline }}}</span>
+              <span class="mobile">{{{ offer_headline_mobile }}}</span>
+            </h1>
+            <h2 class="header__subtitle">
+              <span class="desktop">{{{ offer_subheadline }}}</span>
+              <span class="mobile">{{{ offer_subheadline_mobile }}}</span>
+            </h2>
+          </div>
+          <div class="listicle__info">
+            <img
+              src="{{ src_author }}"
+              alt="{{ offer_headline }}"
+              class="author__image"
+            />
+            <span class="published__date">August 18, 2026</span>
+          </div>
+          <div class="listicle__body">
+            <div class="listicle__content">
+              <a
+                href="{{href}}"
+                data-lincx-cta
+                class="content__image"
+                data-lincx-cta-name="image"
+                data-lincx-cta-position="image"
+                data-content="{{ src }}"
+              >
+                <img
+                  src="{{ src }}"
+                  alt="{{ offer_headline }}"
+                  class="image__article desktop"
+                />
+                <img
+                  src="{{ src_mobile }}"
+                  alt="{{ offer_headline }}"
+                  class="image__article mobile"
+                />
+              </a>
+              <div class="content__text">
+                <div class="desktop">{{{ ad_copy_1 }}}</div>
+                <div class="mobile">{{{ ad_copy_1_mobile }}}</div>
+              </div>
+
+              <h5 class="cta__headline" data-content="{{{ cta_headline }}}">
+                <span class="desktop">{{{ cta_headline }}}</span>
+                <span class="mobile">{{{ cta_headline_mobile }}}</span>
+              </h5>
+              <div
+                class="cta__list--container"
+                data-content="{{#cta_list}}{{.}}{{/cta_list}}"
+              >
+                {{#cta_list}}
+                <a href="{{href}}" data-lincx-cta data-lincx-cta-name="cta_{{.}}" data-lincx-cta-position="ctaList">{{{.}}}</a>
+                {{/cta_list}}
+              </div>
+              <div class="zip__submit--box">
+                <h4 class="zip__headline">
+                  <span class="desktop">{{ cta_headline }}</span>
+                  <span class="mobile">{{ cta_headline_mobile }}</span>
+                </h4>
+                <div class="form">
+                  <div class="form-control">
+                    <label for="zip">Enter Your Zip Code</label>
+                    <input
+                      type="text"
+                      name="zip"
+                      id="zip"
+                      placeholder="5-Digit Zip Code"
+                      class="zip__input"
+                      maxlength="5"
+                    />
+                  </div>
+                  <button
+                    class="zip__submit desktop"
+                    data-href="{{href}}"
+                    data-zone-id="{{zoneId}}"
+                    data-template-id="{{templateId}}"
+                    data-creative-id="{{id}}"
+                    data-ad-id="{{adId}}"
+                    data-adverse-click-id="{{clickId}}"
+                    data-rank="{{_index}}"
+                  >
+                    <span class="desktop">{{ cta_text }}</span>
+                    <span class="mobile">{{ cta_text_mobile }}</span>
+                  </button>
+                </div>
+              </div>
+              <div class="cta__container" data-content="{{ cta_text }}">
+                <a href="{{href}}" class="desktop" data-lincx-cta data-lincx-cta-name="mainCta" data-lincx-cta-position="mainCta"
+                  >{{{ cta_text }}}</a
+                >
+                <a href="{{href}}" class="mobile" data-lincx-cta data-lincx-cta-name="mainCta" data-lincx-cta-position="mainCta"
+                  >{{{ cta_text_mobile }}}</a
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {{/ads}}
+  <script>
+    const submitButton = document.querySelector('button.zip__submit')
+    const zipInput = document.querySelector('input#zip')
+    const zoneScript = document.querySelector(
+      `script[data-zone-id="${submitButton.dataset.zoneId}"]`
+    )
+    function validateZipCode(zipCode) {
+      const zipCodeRegex = /^[0-9]{5}$/
+      return zipCodeRegex.test(zipCode)
+    }
+
+    // Mock function for tracking clicks
+    async function trackClick() {
+      const geo = await getGeo()
+      const zoneData = Object.assign({}, zoneScript.dataset)
+      const { href, mobile, value, ...buttonData } = Object.assign(
+        {},
+        submitButton.dataset
+      )
+      const url = new URL(`https://api.lincx.com/api/track`)
+      url.search = new URLSearchParams({
+        ...geo,
+        ...zoneData,
+        ...buttonData,
+        windowLocation: window.location,
+        type: 'click'
+      })
+      fetch(url.href, { method: 'POST' })
+    }
+    async function getGeo() {
+      const geoAPIUrl = 'https://geometer.lincx.la/api/lookup'
+      const data = await fetch(geoAPIUrl)
+      const response = await data.json()
+      return {
+        geoIP: response.ip,
+        geoCity: response.city || '',
+        geoCountry: response.country || '',
+        geoLoc: response.latitude + ', ' + response.longitude || '',
+        geoRegion: response.region || '',
+        geoPostal: response.postal || '',
+        geoRegionName: response.regionName || '',
+        geoCountryName: response.countryName || ''
+      }
+    }
+
+    zipInput.addEventListener('input', (event) => {
+      const input = event.target
+      const inputValue = input.value
+      const digitsOnly = inputValue.replace(/\D/g, '') // Remove non-digit characters
+
+      if (digitsOnly.length > 5) {
+        input.value = digitsOnly.slice(0, 5) // Limit to 5 digits
+      } else {
+        input.value = digitsOnly // Update the input value with digits only
+      }
+    })
+
+    submitButton.addEventListener('click', (event) => {
+      event.preventDefault()
+
+      const zipCode = zipInput.value.trim()
+
+      if (validateZipCode(zipCode)) {
+        const baseUrl = submitButton.dataset.href
+        const redirectUrl = `${baseUrl}&zip=${zipCode}`
+        trackClick()
+        window.open(redirectUrl, '_self')
+      } else {
+        alert('Please enter a valid 5-digit ZIP code.')
+      }
+    })
+  </script>
+  <script>
+    function waitForElement(selector, callback, checkFrequencyInMs = 100) {
+      const intervalId = setInterval(() => {
+        const element = document.querySelector(selector)
+        if (element) {
+          clearInterval(intervalId)
+          callback()
+        }
+      }, checkFrequencyInMs)
+    }
+    function hideListicleInfos() {
+      const listicleInfos = document.querySelectorAll('.listicle__info')
+      listicleInfos.forEach((info, index) => {
+        if (index > 0) {
+          info.style.display = 'none'
+        }
+      })
+    }
+    // function injectHeaderCta(zoneId, templateId) {
+    //   const qs = new URLSearchParams(window.location.search)
+    //   const navbarRight = document.querySelector('.navbar__right')
+    //   if (navbarRight) {
+    //     const newScript = document.createElement('script')
+    //     for (let [key, value] of qs.entries()) {
+    //       newScript.setAttribute(`data-${key}`, value)
+    //     }
+    //     newScript.setAttribute('src', 'https://api.lincx.com/load')
+    //     newScript.setAttribute('data-zone-id', zoneId)
+    //     newScript.setAttribute('data-template-id', templateId)
+    //     newScript.setAttribute('data-newid', qs.get('id'))
+
+    //     navbarRight.appendChild(newScript)
+    //   }
+    // }
+    hideListicleInfos()
+  </script>
+</div>
+
