@@ -1,0 +1,30 @@
+<div class="listing__wrapper">
+  <div class="listing__panel">
+    <div class="listing__label">Advertisement</div>
+    <!-- ITEM 1 -->
+    {{#ads}}
+    <div class="listing__item" id="{{adId}}">
+      <div class="listing__brand" aria-hidden="true">
+        <img src="{{src}}{{logoURL}}" alt="{{headline}}" />
+      </div>
+      <div class="listing__copy">
+        <h3 class="listing__headline">{{{headline}}}</h3>
+        <ul
+          class="listing__bullet"
+          data-content="{{#bullet}}{{.}}{{/bullet}}"
+        >
+          {{#bullet}}
+          <li>{{{.}}}</li>
+          {{/bullet}}
+        </ul>
+        <a class="listing__cta" href="{{href}}" data-lincx-cta target="_blank"
+          >{{{cta_text}}}</a
+        >
+        <p class="listing__fine" data-content="{{offer_condition}}">
+          {{{offer_condition}}}
+        </p>
+      </div>
+    </div>
+    {{/ads}}
+  </div>
+</div>

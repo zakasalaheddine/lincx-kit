@@ -1,0 +1,45 @@
+{
+  "templateId": "937fzk",
+  "networkId": "7u55hm",
+  "publisherId": "c3a0yb",
+  "creativeAssetGroupId": "044a0n",
+  "name": "AdNet RSOC Unit",
+  "notes": {},
+  "creativeAssetGroup": {
+    "id": "044a0n",
+    "name": "Listing",
+    "fields": {
+      "properties": {
+        "src": {
+          "type": "image",
+          "description": "",
+          "notes": "Upload logo here"
+        },
+        "logoURL": {
+          "type": "string",
+          "notes": "Externally pull images from URL"
+        },
+        "headline": {
+          "type": "string"
+        },
+        "cta_text": {
+          "type": "string"
+        },
+        "bullet": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "notes": "add additional bullet points if needed"
+        },
+        "offer_condition": {
+          "type": "string"
+        }
+      },
+      "required": []
+    }
+  },
+  "mockData": {
+    "adsCount": 3
+  }
+}
