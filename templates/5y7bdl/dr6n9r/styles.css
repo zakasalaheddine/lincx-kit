@@ -41,7 +41,7 @@
   counter-reset: lsd-offer;
   display: flex;
   flex-direction: column;
-  gap: 40px;
+  gap: 0.75rem;
   width: 100%;
   max-width: 932px;
   margin: 0 auto;
@@ -51,7 +51,7 @@
 .lsd__item {
   display: flex;
   flex-direction: column;
-  gap: 40px;
+  gap: 1.1rem;
 }
 
 /* divider between the header block and each offer */
@@ -85,7 +85,7 @@
 
 .lsd__title {
   display: block;
-  padding: 20px 0 40px;
+  padding: 1.5rem 0 0 ;
   color: var(--teal);
   text-decoration: none;
 }
@@ -121,6 +121,7 @@
 .lsd__text {
   font-size: 18.4px;
   color: var(--ink);
+  margin: 1.2rem 0 0;
 }
 
 .lsd__text p {
@@ -135,6 +136,7 @@
   display: block;
   width: 100%;
   padding: 20px 30px;
+  margin-top: 1rem;
   border-radius: 25px;
   background: var(--teal);
   color: var(--bg);

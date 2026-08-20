@@ -50,6 +50,15 @@
       {{/cta_text}}
     </article>
     {{/ads}}
+     <script data-lincx-hook="beforeLoad">
+  window.lincxStandardGrouping(container, ads, tieringEnabled, adFeedCount, {
+	groupField: 'groupOffer',
+	groups: [
+      { groupKey: 'premium' },
+      { groupKey: 'standard' },
+      { groupKey: 'starter' }]
+});
+</script>
   </div>
 
   <footer class="lsd__footer">
