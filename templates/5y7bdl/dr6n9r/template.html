@@ -1,1 +1,124 @@
-<!--This is where you define how an ads feed will look--><div><!--The #ads tag is for looping over every ad in the ads feed-->{{#ads}}<!--This is where you define how each ad will look--><div id="{{ adId }}"><img src="{{ src }}" /><span>{{ name }}</span><a href="{{ href }}">Your ad's CTA</a><ul><li>{{ listicle_headline }}</li><li>{{ listicle_subheadline }}</li><li>{{ src }}</li><li>{{ offer_text }}</li><li>{{ offer_headline }}</li><li>{{ cta_text }}</li></ul></div>{{/ads}}</div>
+<div class="lsd" data-template-id="{{templateId}}" data-zone="{{zoneId}}">
+  <div class="lsd__feed">
+    {{#ads}}
+    <article class="lsd__item" id="{{adId}}">
+      {{#listicle_headline}}
+      <h1 class="lsd__headline">{{{ listicle_headline }}}</h1>
+      {{/listicle_headline}}
+
+      {{#listicle_subheadline}}
+      <p class="lsd__subheadline">{{{ listicle_subheadline }}}</p>
+      {{/listicle_subheadline}}
+
+      {{#offer_headline}}
+      <a
+        class="lsd__title"
+        href="{{href}}"
+        data-lincx-cta
+        data-lincx-cta-name="title"
+        data-lincx-cta-position="title"
+      >
+        <h2>{{{ offer_headline }}}</h2>
+      </a>
+      {{/offer_headline}}
+
+      {{#src}}
+      <a
+        class="lsd__image"
+        href="{{href}}"
+        data-lincx-cta
+        data-lincx-cta-name="image"
+        data-lincx-cta-position="image"
+      >
+        <img src="{{ src }}" alt="{{ offer_headline }}{{ listicle_headline }}" loading="lazy" />
+      </a>
+      {{/src}}
+
+      {{#offer_text}}
+      <div class="lsd__text">{{{ offer_text }}}</div>
+      {{/offer_text}}
+
+      {{#cta_text}}
+      <a
+        class="lsd__cta"
+        href="{{href}}"
+        data-lincx-cta
+        data-lincx-cta-name="mainCta"
+        data-lincx-cta-position="mainCta"
+        >{{{ cta_text }}}</a
+      >
+      {{/cta_text}}
+    </article>
+    {{/ads}}
+  </div>
+
+  <footer class="lsd__footer">
+    <div class="lsd__footer-top">
+      <a class="lsd__footer-logo" href="https://livingseniordaily.com/" target="_blank" rel="noopener">
+        <img
+          src="https://livingseniordaily.com/wp-content/uploads/2025/03/logo.webp"
+          alt="Living Senior Daily"
+          loading="lazy"
+        />
+      </a>
+      <p class="lsd__footer-address">Instar Inc.<br />67 West Street<br />Brooklyn, NY 11222</p>
+      <p class="lsd__footer-note">
+        The offers, discounts, and promotions featured on this website are provided by independent
+        third-party advertisers and partners. <em>Living Senior Daily</em> does not guarantee the
+        accuracy, availability, or terms of any offer listed and is not responsible for changes made
+        by external providers. Offer details, pricing, and eligibility requirements are subject to
+        change or expiration without prior notice.
+      </p>
+      <p class="lsd__footer-note">
+        All product names, logos, brands, and trademarks are the property of their respective owners.
+        Participation in any offer is voluntary and subject to the individual provider's terms and
+        conditions. Any questions, purchases, or concerns should be directed to the specific company
+        referenced in each offer.
+      </p>
+      <p class="lsd__footer-note">
+        <em>Living Senior Daily</em> may receive compensation when users click on or engage with
+        certain links on this page. This compensation supports the operation of our site and does not
+        influence the placement or ranking of offers.
+      </p>
+    </div>
+
+    <div class="lsd__footer-legal">
+      <p>
+        The offers, discounts, and promotions featured on this website are provided by independent
+        third-party advertisers and partners. <em>Living Senior Daily</em> does not guarantee the
+        accuracy, availability, or terms of any offer listed and is not responsible for changes made
+        by external providers. Offer details, pricing, and eligibility requirements are subject to
+        change or expiration without prior notice.
+      </p>
+      <p>
+        All product names, logos, brands, and trademarks are the property of their respective owners.
+        Participation in any offer is voluntary and subject to the individual provider's terms and
+        conditions. Any questions or concerns about your purchase should be directed to the specific
+        company referenced in each offer.
+      </p>
+      <p>
+        <em>Living Senior Daily</em> may receive compensation when users click on or engage with
+        certain links on this page. This compensation supports the operation of our site and does not
+        influence the placement or ranking of offers.
+      </p>
+      <p>
+        Advertising Disclosure: This web page is formatted as an advertorial and is brought to you by
+        <a href="https://livingseniordaily.com" target="_blank" rel="noreferrer noopener"
+          >livingseniordaily.com</a
+        >. Our site is supported by advertising. This page is an advertisement that includes products
+        for sale by other small businesses and brands, not a news article. We receive paid
+        compensation for clicks or sales produced from the content found on this page, at no cost to
+        you. These statements have not been evaluated by the Food and Drug Administration. Products
+        featured are not intended to treat, cure, or prevent any disease.
+      </p>
+    </div>
+
+    <div class="lsd__footer-copyright">
+      <p>
+        <a href="https://livingseniordaily.com/privacy-policy/">Privacy Policy</a> |
+        <a href="https://livingseniordaily.com/terms-and-conditions/">Terms of and Conditions</a><br />
+        Copyright © 2026 Living Senior Daily. All rights reserved
+      </p>
+    </div>
+  </footer>
+</div>

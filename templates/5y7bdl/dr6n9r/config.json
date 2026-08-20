@@ -44,6 +44,36 @@
     }
   },
   "mockData": {
-    "adsCount": 3
+    "adsCount": 5,
+    "_note": "listicle_headline/listicle_subheadline are blank so preview matches the offer feed (positions 1..n). Put real strings in fieldsOptions to preview the forced position-0 header block.",
+    "fieldsOptions": {
+      "listicle_headline": [
+        ""
+      ],
+      "listicle_subheadline": [
+        ""
+      ],
+      "offer_headline": [
+        "Reduce Bathroom Trips and Sleep Better Tonight",
+        "Take Control of Your Blood Sugar Naturally",
+        "A Cleaner, Healthier Mouth Starts from Within",
+        "Keep Your Joints Hydrated & Flexible",
+        "Support Your Liver and Feel More Energized"
+      ],
+      "offer_text": [
+        "Tired of running to the bathroom all night? Beyond Prostate™ uses natural ingredients like Saw Palmetto and Zinc to support prostate health, reduce frequent urges, and help you finally sleep through the night. For a limited time, get up to 30% off with FREE shipping.",
+        "Balanced blood sugar starts with the right support. This doctor-formulated blend helps your body use insulin more efficiently, curb cravings, and keep energy steady all day long.",
+        "Your mouth is the gateway to your whole body. This oral probiotic rebuilds healthy bacteria, freshens breath, and supports stronger gums — no rinsing, no brushing, just one tablet a day."
+      ],
+      "cta_text": [
+        "Claim Your Beyond Prostate Discount – Click Here »",
+        "Click Here to Check Availability »",
+        "Boost Your Brain Power – Click Here »"
+      ],
+      "src": [
+        "https://livingseniordaily.com/wp-content/uploads/2025/11/81z0vRGW00L._AC_UF10001000_QL80_.jpg",
+        "https://livingseniordaily.com/wp-content/uploads/2025/11/p5ls9v1f28c1hh95dt1ow0w2fzfc-1024x1024.webp"
+      ]
+    }
   }
 }
