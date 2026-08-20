@@ -307,6 +307,15 @@
           "name": "Demo Listicle"
         }
       ]
+    },
+    "5y7bdl": {
+      "name": "5y7bdl",
+      "templates": [
+        {
+          "id": "dr6n9r",
+          "name": "Listicle A"
+        }
+      ]
     }
   }
 }
