@@ -14,6 +14,15 @@
   --bg-alt: #f7f7f7;
   --rule: #808080;
 
+  /* spacing rhythm — mobile keeps the same proportions, smaller numbers */
+  --gap-feed: 0.75rem;
+  --gap-block: 1.1rem;
+  --pad-title: 1.5rem;
+  --gap-text: 1.2rem;
+  --gap-cta: 1rem;
+  --rule-space: 16px 0 7px;
+  --pad-edge: 40px;
+
   box-sizing: border-box;
   font-family: 'Poppins', sans-serif;
   font-size: calc(15px * var(--s));
@@ -35,23 +44,35 @@
   }
 }
 
+@media (max-width: 768px) {
+  .lsd {
+    --gap-feed: 0.6rem;
+    --gap-block: 0.85rem;
+    --pad-title: 1.15rem;
+    --gap-text: 0.9rem;
+    --gap-cta: 0.8rem;
+    --rule-space: 12px 0 5px;
+    --pad-edge: 28px;
+  }
+}
+
 /* ---------- feed ---------- */
 
 .lsd__feed {
   counter-reset: lsd-offer;
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: var(--gap-feed);
   width: 100%;
   max-width: 932px;
   margin: 0 auto;
-  padding: 40px 20px 0;
+  padding: var(--pad-edge) 20px 0;
 }
 
 .lsd__item {
   display: flex;
   flex-direction: column;
-  gap: 1.1rem;
+  gap: var(--gap-block);
 }
 
 /* divider between the header block and each offer */
@@ -60,7 +81,7 @@
   display: block;
   height: 0;
   border-top: 1px solid var(--rule);
-  margin: 16px 0 7px;
+  margin: var(--rule-space);
 }
 
 /* ---------- header block (position-0 ad) ---------- */
@@ -85,7 +106,7 @@
 
 .lsd__title {
   display: block;
-  padding: 1.5rem 0 0 ;
+  padding: var(--pad-title) 0 0;
   color: var(--teal);
   text-decoration: none;
 }
@@ -121,7 +142,7 @@
 .lsd__text {
   font-size: 18.4px;
   color: var(--ink);
-  margin: 1.2rem 0 0;
+  margin: var(--gap-text) 0 0;
 }
 
 .lsd__text p {
@@ -136,7 +157,7 @@
   display: block;
   width: 100%;
   padding: 20px 30px;
-  margin-top: 1rem;
+  margin-top: var(--gap-cta);
   border-radius: 25px;
   background: var(--teal);
   color: var(--bg);
@@ -161,14 +182,14 @@
 /* ---------- footer ---------- */
 
 .lsd__footer {
-  margin-top: 40px;
+  margin-top: var(--pad-edge);
   background: var(--bg-alt);
 }
 
 .lsd__footer-top {
   max-width: 380px;
   margin: 0 auto;
-  padding: 40px 20px 0;
+  padding: var(--pad-edge) 20px 0;
   text-align: center;
 }
 
