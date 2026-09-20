@@ -1,0 +1,241 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+[data-content=''] {
+  display: none;
+}
+[data-show]:not([data-show='']) {
+  display: none;
+}
+
+.lincx-midpath {
+  --mp-brand: #1668e8;
+  --mp-brand-deep: #4b2a8e;
+  --mp-ink: #333333;
+  --mp-muted: #b9bdc4;
+  --mp-track: #c4c7cc;
+  --mp-line: #e3e5e9;
+
+  position: relative;
+  isolation: isolate;
+  width: 100%;
+  margin: 0 auto;
+  max-width: 880px;
+  /* the glow lives inside this padding so it can't be clipped by the ad slot */
+  padding: 0 1.25rem 2rem 0;
+  font-family: 'Poppins', Arial, sans-serif;
+  color: var(--mp-ink);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Blue glow: one small, heavily blurred blob pinned bottom-right. Its top edge
+   bleeds into the gap between the progress bar and the card. */
+.lincx-midpath::before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  right: 1.5rem;
+  bottom: 1rem;
+  width: 34%;
+  height: 86%;
+  border-radius: 50%;
+  opacity: 0.85;
+  background: radial-gradient(circle at 50% 55%, #63c8f5 0%, #5aa6ee 50%, #6b86dd 80%, rgba(107, 134, 221, 0) 100%);
+  filter: blur(60px);
+}
+
+/* ---------- progress bar (template-level chrome) ---------- */
+
+.lincx-midpath__progress {
+  background: #ffffff;
+  border-radius: 4px;
+  padding-top: 0.875rem;
+  /* the gap to the card deck below is pure spacing — nothing structural */
+  margin-bottom: 1.25rem;
+  overflow: hidden;
+}
+
+.lincx-midpath__progress-head {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  padding: 0 1rem;
+  margin-bottom: 0.75rem;
+}
+
+.lincx-midpath__progress-pct {
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: var(--mp-brand);
+}
+
+.lincx-midpath__progress-label {
+  font-size: 0.75rem;
+  font-weight: 400;
+  color: var(--mp-ink);
+}
+
+.lincx-midpath__progress-count {
+  margin-left: auto;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--mp-brand);
+}
+
+.lincx-midpath__progress-track {
+  height: 10px;
+  background: var(--mp-track);
+  overflow: hidden;
+}
+
+.lincx-midpath__progress-fill {
+  height: 100%;
+  width: 0;
+  background: linear-gradient(90deg, var(--mp-brand-deep) 0%, var(--mp-brand) 100%);
+  transition: width 0.2s ease;
+}
+
+/* ---------- cards ---------- */
+
+.lincx-midpath__card {
+  display: none;
+  background: #ffffff;
+  border-radius: 4px;
+  padding: 2rem 1.25rem 2.5rem;
+  text-align: center;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+}
+
+/* Card 1 shows with zero JS; the script only changes state, never creates it. */
+.lincx-midpath__card:first-child {
+  display: block;
+}
+
+.lincx-midpath__card.is-active {
+  display: block;
+}
+
+.lincx-midpath__card.is-hidden {
+  display: none;
+}
+
+.lincx-midpath__logo img {
+  max-width: 210px;
+  max-height: 90px;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+}
+
+.lincx-midpath__headline {
+  margin-top: 1.5rem;
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.lincx-midpath__subheadline {
+  margin-top: 0.875rem;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.4;
+}
+
+/* ---------- CTAs ---------- */
+
+.lincx-midpath__actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-top: 2rem;
+}
+
+.lincx-midpath__cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 52px;
+  padding: 0.75rem 1.25rem;
+  border: 1px solid transparent;
+  border-radius: 3px;
+  font-family: inherit;
+  font-size: 1.125rem;
+  font-weight: 600;
+  line-height: 1.2;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+.lincx-midpath__cta:focus-visible {
+  outline: 2px solid var(--mp-brand);
+  outline-offset: 2px;
+}
+
+.lincx-midpath__cta--accept {
+  background: var(--mp-brand);
+  color: #ffffff;
+}
+
+.lincx-midpath__cta--accept:hover {
+  background: #1258c9;
+}
+
+.lincx-midpath__cta--accept:active {
+  background: #0f4bab;
+}
+
+.lincx-midpath__cta--decline {
+  background: #ffffff;
+  border-color: var(--mp-line);
+  color: var(--mp-muted);
+}
+
+.lincx-midpath__cta--decline:hover {
+  background: #f5f6f8;
+  border-color: #cfd3d9;
+  color: #8a9099;
+}
+
+.lincx-midpath__cta--decline:active {
+  background: #eceef1;
+  border-color: #bfc4cc;
+  color: #767c85;
+}
+
+@media (min-width: 576px) {
+  .lincx-midpath {
+    padding: 0 3rem 3.5rem 0;
+  }
+
+  .lincx-midpath__card {
+    padding: 2.5rem 2.5rem 3rem;
+  }
+
+  .lincx-midpath__headline {
+    font-size: 2rem;
+  }
+
+  .lincx-midpath__subheadline {
+    font-size: 1.125rem;
+  }
+
+  .lincx-midpath__actions {
+    flex-direction: row;
+    justify-content: center;
+    gap: 1.25rem;
+    padding: 0 1.5rem;
+  }
+
+  .lincx-midpath__cta {
+    flex: 1 1 0;
+    max-width: 270px;
+  }
+}

@@ -1,1 +1,148 @@
-<!--This is where you define how an ads feed will look--><div><!--The #ads tag is for looping over every ad in the ads feed-->{{#ads}}<!--This is where you define how each ad will look--><div id="{{ adId }}"><img src="{{ src }}" /><span>{{ name }}</span><a href="{{ href }}">Your ad's CTA</a><ul><li>{{ src }}</li><li>{{ headline_text }}</li><li>{{ subheadline_text }}</li><li>{{ cta_text }}</li><li>{{ groupOffer }}</li></ul></div>{{/ads}}</div>
+<!--Midpath: one card per ad, shown one at a time, with a progress bar above the deck-->
+<div class="lincx-midpath">
+  <!--Template-level chrome: not CAG-driven, lives outside the ads loop-->
+  <div class="lincx-midpath__progress">
+    <div class="lincx-midpath__progress-head">
+      <span class="lincx-midpath__progress-pct"></span>
+      <span class="lincx-midpath__progress-label">Update In Progress</span>
+      <span class="lincx-midpath__progress-count"></span>
+    </div>
+    <div class="lincx-midpath__progress-track">
+      <div class="lincx-midpath__progress-fill"></div>
+    </div>
+  </div>
+
+  <div class="lincx-midpath__cards">
+    <!--The #ads tag is for looping over every ad in the ads feed-->
+    {{#ads}}
+    <div class="lincx-midpath__card" id="{{ adId }}" data-group="{{ groupOffer }}">
+      <div class="lincx-midpath__logo" data-content="{{ src }}">
+        <img src="{{ src }}" alt="Advertiser logo" loading="lazy" onerror="this.onerror=null; this.remove();" />
+      </div>
+
+      <h2 class="lincx-midpath__headline" data-content="{{ headline_text }}">{{{ headline_text }}}</h2>
+      <p class="lincx-midpath__subheadline" data-content="{{ subheadline_text }}">{{{ subheadline_text }}}</p>
+
+      <div class="lincx-midpath__actions">
+        <a
+          class="lincx-midpath__cta lincx-midpath__cta--accept"
+          href="{{ href }}"
+          data-url="{{ url }}"
+          target="_blank"
+          rel="noopener"
+          data-lincx-cta
+          data-lincx-cta-name="cta"
+          data-lincx-cta-position="cta"
+        >
+          {{{ cta_text }}}
+        </a>
+        <button type="button" class="lincx-midpath__cta lincx-midpath__cta--decline">No Thank You</button>
+      </div>
+    </div>
+    {{/ads}}
+  </div>
+
+  <script>
+    (function () {
+      function cardsOf(unit) {
+        return Array.prototype.slice.call(unit.querySelectorAll('.lincx-midpath__card'));
+      }
+
+      function updateProgress(unit) {
+        var cards = cardsOf(unit);
+        var total = cards.length;
+        var done = cards.filter(function (c) {
+          return c.classList.contains('is-hidden');
+        }).length;
+        var current = Math.min(done + 1, total);
+        var pct = total ? Math.round((current / total) * 100) : 0;
+
+        var pctEl = unit.querySelector('.lincx-midpath__progress-pct');
+        var countEl = unit.querySelector('.lincx-midpath__progress-count');
+        var fillEl = unit.querySelector('.lincx-midpath__progress-fill');
+        if (pctEl) pctEl.textContent = pct + '%';
+        if (countEl) countEl.textContent = current + ' of ' + total;
+        if (fillEl) fillEl.style.width = pct + '%';
+      }
+
+      function advance(unit, card) {
+        // Only the card on screen can advance the flow: a second click on an
+        // already-dismissed card (double click, stray keyboard event) is a no-op,
+        // so the deck can never step past the last card.
+        if (!card || card.classList.contains('is-hidden')) return;
+        var next = card.nextElementSibling;
+        while (next && !next.classList.contains('lincx-midpath__card')) next = next.nextElementSibling;
+        // Last card stays put: no next offer to show, so clicking does nothing
+        // rather than leaving an empty unit behind.
+        if (!next) return;
+        card.classList.remove('is-active');
+        card.classList.add('is-hidden');
+        next.classList.add('is-active');
+        updateProgress(unit);
+      }
+
+      // A feed can hand back an ad with no copy. Its card would render blank and
+      // still take a step in the progress bar, so drop it before anything counts.
+      function isBlank(card) {
+        var parts = ['.lincx-midpath__headline', '.lincx-midpath__subheadline', '.lincx-midpath__cta--accept'];
+        return parts.every(function (sel) {
+          var el = card.querySelector(sel);
+          return !el || !el.textContent.trim();
+        });
+      }
+
+      function wire(unit) {
+        cardsOf(unit).forEach(function (card) {
+          if (isBlank(card)) card.remove();
+        });
+
+        var cards = cardsOf(unit);
+        if (!cards.length) {
+          unit.style.display = 'none';
+          return;
+        }
+        unit.style.display = '';
+
+        cards.forEach(function (card) {
+          // Zone feeds hand the click-through back as `url`; mock data uses `href`.
+          var accept = card.querySelector('.lincx-midpath__cta--accept');
+          if (accept && !accept.getAttribute('href') && accept.dataset.url) {
+            accept.href = accept.dataset.url;
+          }
+
+          card.querySelectorAll('.lincx-midpath__cta').forEach(function (btn) {
+            // Idempotent per button: re-renders hand us fresh nodes, existing ones stay wired once.
+            if (btn.dataset.lincxWired === 'true') return;
+            btn.dataset.lincxWired = 'true';
+            // No preventDefault: the accept CTA opens its target natively in a new tab,
+            // this tab just moves on to the next card.
+            btn.addEventListener('click', function () {
+              advance(unit, card);
+            });
+          });
+        });
+
+        updateProgress(unit);
+      }
+
+      function init() {
+        document.querySelectorAll('.lincx-midpath').forEach(function (unit) {
+          wire(unit);
+          var deck = unit.querySelector('.lincx-midpath__cards');
+          if (!deck || deck.dataset.lincxObserved === 'true' || typeof MutationObserver !== 'function') return;
+          deck.dataset.lincxObserved = 'true';
+          // The renderer refills the deck's children on re-render; re-wire the new cards.
+          new MutationObserver(function () {
+            wire(unit);
+          }).observe(deck, { childList: true, subtree: true });
+        });
+      }
+
+      if (document.readyState === 'complete' || document.readyState === 'interactive') {
+        init();
+      } else {
+        document.addEventListener('DOMContentLoaded', init);
+      }
+    })();
+  </script>
+</div>
