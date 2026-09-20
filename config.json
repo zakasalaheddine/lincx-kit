@@ -325,6 +325,15 @@
           "name": "AdNet RSOC Unit"
         }
       ]
+    },
+    "whaon5": {
+      "name": "whaon5",
+      "templates": [
+        {
+          "id": "u1gdpk",
+          "name": "Midpath"
+        }
+      ]
     }
   }
 }
