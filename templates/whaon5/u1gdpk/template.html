@@ -32,7 +32,7 @@
         <!-- Template-level default: shows only when the creative sends no src -->
         <img
           class="lincx-midpath__logo--default"
-          src="https://dpe0m9czqa0it.cloudfront.net/dd8dvc/cmub9m6d220zz07oj8wjdfnu9.png"
+          src="https://dpe0m9czqa0it.cloudfront.net/dd8dvc/cmubq0asu3isc07pjfu893x28.svg"
           data-show="{{ src }}"
           alt="Advertiser logo"
           loading="lazy"
@@ -175,6 +175,13 @@
       }
 
       function init() {
+        // Preview-only tint: the client site paints its own background, but the
+        // poweredbylincx preview page is bare white, so the white cards vanish
+        // into it. Scoped to that host so nothing reaches a publisher page.
+        if (/(^|\.)poweredbylincx\.com$/.test(location.hostname) && document.body) {
+          document.body.style.backgroundColor = '#eef0f4';
+        }
+
         document.querySelectorAll('.lincx-midpath').forEach(function (unit) {
           wire(unit);
           var deck = unit.querySelector('.lincx-midpath__cards');

@@ -19,36 +19,19 @@
   --mp-brand: #1668e8;
   --mp-brand-deep: #4b2a8e;
   --mp-ink: #333333;
+  --mp-sub: #5a5a5a;
   --mp-muted: #b9bdc4;
   --mp-track: #c4c7cc;
   --mp-line: #e3e5e9;
 
-  position: relative;
-  isolation: isolate;
   width: 100%;
+  /* 741px card (Figma) + the side gutters */
+  max-width: 781px;
   margin: 0 auto;
-  max-width: 880px;
-  /* the glow lives inside this padding so it can't be clipped by the ad slot */
-  padding: 0 1.25rem 2rem 0;
+  padding: 0 20px;
   font-family: 'Poppins', Arial, sans-serif;
   color: var(--mp-ink);
   -webkit-font-smoothing: antialiased;
-}
-
-/* Blue glow: one small, heavily blurred blob pinned bottom-right. Its top edge
-   bleeds into the gap between the progress bar and the card. */
-.lincx-midpath::before {
-  content: '';
-  position: absolute;
-  z-index: -1;
-  right: 1.5rem;
-  bottom: 1rem;
-  width: 34%;
-  height: 86%;
-  border-radius: 50%;
-  opacity: 0.85;
-  background: radial-gradient(circle at 50% 55%, #63c8f5 0%, #5aa6ee 50%, #6b86dd 80%, rgba(107, 134, 221, 0) 100%);
-  filter: blur(60px);
 }
 
 /* ---------- progress bar (template-level chrome) ---------- */
@@ -58,7 +41,7 @@
   border-radius: 4px;
   padding-top: 0.875rem;
   /* the gap to the card deck below is pure spacing — nothing structural */
-  margin-bottom: 1.25rem;
+  margin-bottom: 20px;
   overflow: hidden;
 }
 
@@ -107,8 +90,8 @@
 .lincx-midpath__card {
   display: none;
   background: #ffffff;
-  border-radius: 4px;
-  padding: 2rem 1.25rem 2.5rem;
+  border-radius: 5px;
+  padding: 25px 32px;
   text-align: center;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
 }
@@ -127,25 +110,26 @@
 }
 
 .lincx-midpath__logo img {
-  max-width: 210px;
-  max-height: 90px;
+  max-width: 213px;
+  max-height: 67px;
   width: auto;
   height: auto;
   object-fit: contain;
 }
 
 .lincx-midpath__headline {
-  margin-top: 1.5rem;
-  font-size: 1.5rem;
+  margin-top: 30px;
+  font-size: 30px;
   font-weight: 700;
-  line-height: 1.25;
+  line-height: 1.05;
 }
 
 .lincx-midpath__subheadline {
-  margin-top: 0.875rem;
-  font-size: 1rem;
+  margin-top: 20px;
+  font-size: 16px;
   font-weight: 400;
   line-height: 1.4;
+  color: var(--mp-sub);
 }
 
 /* ---------- CTAs ---------- */
@@ -153,15 +137,15 @@
 .lincx-midpath__actions {
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
-  margin-top: 2rem;
+  gap: 17px;
+  margin-top: 30px;
 }
 
 .lincx-midpath__cta {
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 52px;
+  min-height: 57px;
   padding: 0.75rem 1.25rem;
   border: 1px solid transparent;
   border-radius: 3px;
@@ -211,31 +195,31 @@
 }
 
 @media (min-width: 576px) {
-  .lincx-midpath {
-    padding: 0 3rem 3.5rem 0;
-  }
-
   .lincx-midpath__card {
-    padding: 2.5rem 2.5rem 3rem;
+    padding: 50px 40px;
   }
 
   .lincx-midpath__headline {
-    font-size: 2rem;
+    margin-top: 66px;
+    font-size: 40px;
+    line-height: 1.125;
   }
 
   .lincx-midpath__subheadline {
-    font-size: 1.125rem;
+    margin-top: 16px;
+    font-size: 25px;
+    font-weight: 500;
   }
 
   .lincx-midpath__actions {
     flex-direction: row;
     justify-content: center;
-    gap: 1.25rem;
-    padding: 0 1.5rem;
+    gap: 17px;
+    margin-top: 66px;
   }
 
   .lincx-midpath__cta {
     flex: 1 1 0;
-    max-width: 270px;
+    max-width: 272px;
   }
 }
