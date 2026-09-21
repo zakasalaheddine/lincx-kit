@@ -35,12 +35,20 @@
         },
         "groupOffer": {
           "type": "string"
+        },
+        "endpoint_destination": {
+          "type": "string"
         }
       },
       "required": []
     }
   },
   "mockData": {
-    "adsCount": 3
+    "adsCount": 3,
+    "fieldsOptions": {
+      "endpoint_destination": [
+        "https://example.com/thank-you"
+      ]
+    }
   }
 }

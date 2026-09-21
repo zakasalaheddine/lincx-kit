@@ -15,9 +15,28 @@
   <div class="lincx-midpath__cards">
     <!--The #ads tag is for looping over every ad in the ads feed-->
     {{#ads}}
-    <div class="lincx-midpath__card" id="{{ adId }}" data-group="{{ groupOffer }}">
-      <div class="lincx-midpath__logo" data-content="{{ src }}">
-        <img src="{{ src }}" alt="Advertiser logo" loading="lazy" onerror="this.onerror=null; this.remove();" />
+    <div
+      class="lincx-midpath__card"
+      id="{{ adId }}"
+      data-group="{{ groupOffer }}"
+      data-endpoint="{{ endpoint_destination }}"
+    >
+      <div class="lincx-midpath__logo">
+        <img
+          src="{{ src }}"
+          data-content="{{ src }}"
+          alt="Advertiser logo"
+          loading="lazy"
+          onerror="this.onerror=null; this.remove();"
+        />
+        <!-- Template-level default: shows only when the creative sends no src -->
+        <img
+          class="lincx-midpath__logo--default"
+          src="https://dpe0m9czqa0it.cloudfront.net/dd8dvc/cmub9m6d220zz07oj8wjdfnu9.png"
+          data-show="{{ src }}"
+          alt="Advertiser logo"
+          loading="lazy"
+        />
       </div>
 
       <h2 class="lincx-midpath__headline" data-content="{{ headline_text }}">{{{ headline_text }}}</h2>
@@ -65,6 +84,26 @@
         if (fillEl) fillEl.style.width = pct + '%';
       }
 
+      // Feed values end up in location/href, so only http(s) and root-relative
+      // paths are allowed through: a javascript: value would otherwise run on the
+      // publisher's page, and data:/blob: would render there.
+      function safeUrl(value) {
+        var url = (value || '').trim();
+        return /^https?:\/\//i.test(url) || /^\/[^/]/.test(url) ? url : '';
+      }
+
+      // Leaving the flow: the endpoint replaces the page the unit sits on, not
+      // just the ad frame. A cross-origin frame can't touch top, so fall back.
+      function leaveTo(url) {
+        setTimeout(function () {
+          try {
+            window.top.location.href = url;
+          } catch (e) {
+            window.location.href = url;
+          }
+        }, 0);
+      }
+
       function advance(unit, card) {
         // Only the card on screen can advance the flow: a second click on an
         // already-dismissed card (double click, stray keyboard event) is a no-op,
@@ -72,9 +111,14 @@
         if (!card || card.classList.contains('is-hidden')) return;
         var next = card.nextElementSibling;
         while (next && !next.classList.contains('lincx-midpath__card')) next = next.nextElementSibling;
-        // Last card stays put: no next offer to show, so clicking does nothing
-        // rather than leaving an empty unit behind.
-        if (!next) return;
+        if (!next) {
+          // End of the flow: hand this tab to endpoint_destination. The accept CTA
+          // has already opened its own offer in a new tab by the time we get here.
+          var endpoint = safeUrl(card.dataset.endpoint);
+          // No endpoint configured: stay on the last offer rather than blanking out.
+          if (endpoint) leaveTo(endpoint);
+          return;
+        }
         card.classList.remove('is-active');
         card.classList.add('is-hidden');
         next.classList.add('is-active');
@@ -106,8 +150,13 @@
         cards.forEach(function (card) {
           // Zone feeds hand the click-through back as `url`; mock data uses `href`.
           var accept = card.querySelector('.lincx-midpath__cta--accept');
-          if (accept && !accept.getAttribute('href') && accept.dataset.url) {
-            accept.href = accept.dataset.url;
+          if (accept) {
+            var dest = safeUrl(accept.getAttribute('href')) || safeUrl(accept.dataset.url);
+            if (dest) {
+              accept.href = dest;
+            } else {
+              accept.removeAttribute('href');
+            }
           }
 
           card.querySelectorAll('.lincx-midpath__cta').forEach(function (btn) {
