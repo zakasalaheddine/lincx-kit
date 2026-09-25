@@ -169,6 +169,15 @@
   text-decoration: none;
 }
 
+/* sits 14px under the CTA; the item's flex gap is cancelled out so the spacing matches the mockup */
+.lsd__disclaimer {
+  margin: calc(14px - var(--gap-block)) 0 0;
+  font-size: 11.5px;
+  line-height: 1.5;
+  color: #7a8291;
+  white-space: pre-line;
+}
+
 @media (max-width: 768px) {
   .lsd__headline {
     font-size: 24px;
