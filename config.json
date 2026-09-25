@@ -313,7 +313,11 @@
       "templates": [
         {
           "id": "dr6n9r",
-          "name": "Listicle A"
+          "name": "Instar - Listicle"
+        },
+        {
+          "id": "sp7ro5",
+          "name": "Instar - Listicle - Tier"
         }
       ]
     },
